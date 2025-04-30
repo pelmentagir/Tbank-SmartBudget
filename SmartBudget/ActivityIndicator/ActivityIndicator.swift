@@ -1,19 +1,18 @@
 import Foundation
 import UIKit
 
-final class ActivityIndicator: UIView, ActivityIndicatorProtocol {
+// MARK: - Constants
+private extension CGFloat {
+    static let lineWidth: CGFloat = 3
+}
 
-    private struct Constraint {
-        static let lineWidth: CGFloat = 3
-    }
+final class ActivityIndicator: UIView {
 
+    // MARK: Properties
     private var isAnimatingFlag: Bool = false
     private var circleLayer = CAShapeLayer()
 
-    var isAnimating: Bool {
-        return isAnimatingFlag
-    }
-
+    // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -23,16 +22,7 @@ final class ActivityIndicator: UIView, ActivityIndicatorProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setup() {
-        backgroundColor = .clear
-
-        circleLayer.fillColor = nil
-        circleLayer.strokeColor = UIColor.black.cgColor
-        circleLayer.lineWidth = 3
-        circleLayer.lineCap = .round
-        layer.addSublayer(circleLayer)
-    }
-
+    // MARK: Layout
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -50,7 +40,28 @@ final class ActivityIndicator: UIView, ActivityIndicatorProtocol {
         circleLayer.path = path.cgPath
         circleLayer.frame = bounds
     }
+    
+    // MARK: Private methods
+    private func setup() {
+        backgroundColor = .clear
 
+        circleLayer.fillColor = nil
+        circleLayer.strokeColor = UIColor.black.cgColor
+        circleLayer.lineWidth = 3
+        circleLayer.lineCap = .round
+        layer.addSublayer(circleLayer)
+    }
+}
+
+// MARK: - IActivityIndicator
+extension ActivityIndicator: IActivityIndicator {
+
+    // MARK: Properties
+    var isAnimating: Bool {
+        return isAnimatingFlag
+    }
+
+    // MARK: Animation
     func startAnimating() {
         guard !isAnimatingFlag else { return }
 

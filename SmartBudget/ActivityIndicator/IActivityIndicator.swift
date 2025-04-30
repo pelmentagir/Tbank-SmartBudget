@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ActivityIndicatorProtocol {
+protocol IActivityIndicator {
     func startAnimating()
     func stopAnimating()
 
