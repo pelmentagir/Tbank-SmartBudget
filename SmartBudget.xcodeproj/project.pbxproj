@@ -34,7 +34,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		535C09B82DB57D6A00970DCF /* Exceptions for "SmartBudget" folder in "SmartBudget" target */ = {
+		53DFD9EC2DC2CABE0030466D /* Exceptions for "SmartBudget" folder in "SmartBudget" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -44,20 +44,20 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		535C098F2DB57D6900970DCF /* SmartBudget */ = {
+		53DFD9E02DC2CABE0030466D /* SmartBudget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				535C09B82DB57D6A00970DCF /* Exceptions for "SmartBudget" folder in "SmartBudget" target */,
+				53DFD9EC2DC2CABE0030466D /* Exceptions for "SmartBudget" folder in "SmartBudget" target */,
 			);
 			path = SmartBudget;
 			sourceTree = "<group>";
 		};
-		535C09A92DB57D6A00970DCF /* SmartBudgetTests */ = {
+		53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SmartBudgetTests;
 			sourceTree = "<group>";
 		};
-		535C09B32DB57D6A00970DCF /* SmartBudgetUITests */ = {
+		53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SmartBudgetUITests;
 			sourceTree = "<group>";
@@ -93,9 +93,9 @@
 		535C09842DB57D6900970DCF = {
 			isa = PBXGroup;
 			children = (
-				535C098F2DB57D6900970DCF /* SmartBudget */,
-				535C09A92DB57D6A00970DCF /* SmartBudgetTests */,
-				535C09B32DB57D6A00970DCF /* SmartBudgetUITests */,
+				53DFD9E02DC2CABE0030466D /* SmartBudget */,
+				53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */,
+				53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */,
 				535C098E2DB57D6900970DCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -127,7 +127,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				535C098F2DB57D6900970DCF /* SmartBudget */,
+				53DFD9E02DC2CABE0030466D /* SmartBudget */,
 			);
 			name = SmartBudget;
 			packageProductDependencies = (
@@ -151,7 +151,7 @@
 				535C09A82DB57D6A00970DCF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				535C09A92DB57D6A00970DCF /* SmartBudgetTests */,
+				53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */,
 			);
 			name = SmartBudgetTests;
 			packageProductDependencies = (
@@ -174,7 +174,7 @@
 				535C09B22DB57D6A00970DCF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				535C09B32DB57D6A00970DCF /* SmartBudgetUITests */,
+				53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */,
 			);
 			name = SmartBudgetUITests;
 			packageProductDependencies = (

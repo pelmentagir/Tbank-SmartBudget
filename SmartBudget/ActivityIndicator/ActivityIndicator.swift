@@ -1,9 +1,10 @@
-import Foundation
 import UIKit
 
-// MARK: - Constants
 private extension CGFloat {
     static let lineWidth: CGFloat = 3
+    static let fromValueAnimation: CGFloat = 0
+    static let toValueAnimation: CGFloat = 2 * CGFloat.pi
+    static let durationAnimation: CGFloat = 1.5
 }
 
 final class ActivityIndicator: UIView {
@@ -22,7 +23,7 @@ final class ActivityIndicator: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Layout
+    // MARK: LifeCycle
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -40,20 +41,21 @@ final class ActivityIndicator: UIView {
         circleLayer.path = path.cgPath
         circleLayer.frame = bounds
     }
-    
+
     // MARK: Private methods
     private func setup() {
         backgroundColor = .clear
 
         circleLayer.fillColor = nil
         circleLayer.strokeColor = UIColor.black.cgColor
-        circleLayer.lineWidth = 3
+        circleLayer.lineWidth = .lineWidth
         circleLayer.lineCap = .round
         layer.addSublayer(circleLayer)
     }
 }
 
 // MARK: - IActivityIndicator
+
 extension ActivityIndicator: IActivityIndicator {
 
     // MARK: Properties
@@ -61,15 +63,14 @@ extension ActivityIndicator: IActivityIndicator {
         return isAnimatingFlag
     }
 
-    // MARK: Animation
     func startAnimating() {
         guard !isAnimatingFlag else { return }
 
         isAnimatingFlag = true
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotationAnimation.fromValue = 0
-        rotationAnimation.toValue = 2 * CGFloat.pi
-        rotationAnimation.duration = 1.5
+        rotationAnimation.fromValue = CGFloat.fromValueAnimation
+        rotationAnimation.toValue = CGFloat.toValueAnimation
+        rotationAnimation.duration = CGFloat.durationAnimation
         rotationAnimation.repeatCount = .infinity
         rotationAnimation.isRemovedOnCompletion = false
 
