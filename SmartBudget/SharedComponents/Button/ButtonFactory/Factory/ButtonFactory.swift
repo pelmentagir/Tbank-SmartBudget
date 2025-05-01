@@ -1,25 +1,29 @@
 import UIKit
 
+// MARK: - IButtonFactory
+
+protocol IButtonFactory {
+    func createButton(type: ButtonType, title: String, state: ButtonState, font: UIFont) -> IButton
+}
+
 class ButtonFactory: IButtonFactory {
     func createButton(
         type: ButtonType,
         title: String,
         state: ButtonState = .normal,
         font: UIFont = .systemFont(ofSize: 16, weight: .regular) // TODO: FontManager с кастомным шрифтом
-    ) -> any IButton {
+    ) -> IButton {
 
         let button: IButton
 
         switch type {
-        case .standart:
+        case .standard:
             button = StandartButton()
         case .outline:
-            button = StandartButton() // пока что так
+            button = StandartButton() // в разработке
         }
 
-        button.title = title
-        button.font = font
-        button.buttonState = state
+        button.buttonViewModel = ButtonViewModel(title: title, buttonState: state, font: font)
 
         return button
     }
