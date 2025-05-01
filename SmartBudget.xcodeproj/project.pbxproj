@@ -7,18 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		53DFD8FD2DC23F1F0030466D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD8F22DC23F1F0030466D /* AppDelegate.swift */; };
-		53DFD8FE2DC23F1F0030466D /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD8F72DC23F1F0030466D /* MainButton.swift */; };
-		53DFD8FF2DC23F1F0030466D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD8F82DC23F1F0030466D /* SceneDelegate.swift */; };
-		53DFD9002DC23F1F0030466D /* SmartBudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD8F92DC23F1F0030466D /* SmartBudget.xcdatamodeld */; };
-		53DFD9012DC23F1F0030466D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD8FA2DC23F1F0030466D /* ViewController.swift */; };
-		53DFD9022DC23F1F0030466D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DFD8F32DC23F1F0030466D /* Assets.xcassets */; };
-		53DFD9042DC23F1F0030466D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53DFD8F62DC23F1F0030466D /* LaunchScreen.storyboard */; };
-		53DFD9072DC23F240030466D /* SmartBudgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD9052DC23F240030466D /* SmartBudgetTests.swift */; };
-		53DFD90B2DC23F2A0030466D /* SmartBudgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD9082DC23F2A0030466D /* SmartBudgetUITests.swift */; };
-		53DFD90C2DC23F2A0030466D /* SmartBudgetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD9092DC23F2A0030466D /* SmartBudgetUITestsLaunchTests.swift */; };
-		53DFD9172DC243EF0030466D /* IButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD9162DC243EF0030466D /* IButton.swift */; };
-		53DFD9192DC246630030466D /* ButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFD9182DC246630030466D /* ButtonState.swift */; };
 		53F1DFDE2DB5859A007243B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 53F1DFDD2DB5859A007243B9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -43,20 +31,38 @@
 		535C098D2DB57D6900970DCF /* SmartBudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartBudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		535C09A62DB57D6A00970DCF /* SmartBudgetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartBudgetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		535C09B02DB57D6A00970DCF /* SmartBudgetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartBudgetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		53DFD8F22DC23F1F0030466D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		53DFD8F32DC23F1F0030466D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		53DFD8F42DC23F1F0030466D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		53DFD8F52DC23F1F0030466D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		53DFD8F72DC23F1F0030466D /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
-		53DFD8F82DC23F1F0030466D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		53DFD8FA2DC23F1F0030466D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		53DFD8FC2DC23F1F0030466D /* SmartBudget.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SmartBudget.xcdatamodel; sourceTree = "<group>"; };
-		53DFD9052DC23F240030466D /* SmartBudgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBudgetTests.swift; sourceTree = "<group>"; };
-		53DFD9082DC23F2A0030466D /* SmartBudgetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBudgetUITests.swift; sourceTree = "<group>"; };
-		53DFD9092DC23F2A0030466D /* SmartBudgetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBudgetUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		53DFD9162DC243EF0030466D /* IButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IButton.swift; sourceTree = "<group>"; };
-		53DFD9182DC246630030466D /* ButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		53DFD9EC2DC2CABE0030466D /* Exceptions for "SmartBudget" folder in "SmartBudget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 535C098C2DB57D6900970DCF /* SmartBudget */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		53DFD9E02DC2CABE0030466D /* SmartBudget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				53DFD9EC2DC2CABE0030466D /* Exceptions for "SmartBudget" folder in "SmartBudget" target */,
+			);
+			path = SmartBudget;
+			sourceTree = "<group>";
+		};
+		53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SmartBudgetTests;
+			sourceTree = "<group>";
+		};
+		53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SmartBudgetUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		535C098A2DB57D6900970DCF /* Frameworks */ = {
@@ -87,9 +93,9 @@
 		535C09842DB57D6900970DCF = {
 			isa = PBXGroup;
 			children = (
-				53DFD8FB2DC23F1F0030466D /* SmartBudget */,
-				53DFD9062DC23F240030466D /* SmartBudgetTests */,
-				53DFD90A2DC23F2A0030466D /* SmartBudgetUITests */,
+				53DFD9E02DC2CABE0030466D /* SmartBudget */,
+				53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */,
+				53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */,
 				535C098E2DB57D6900970DCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,64 +108,6 @@
 				535C09B02DB57D6A00970DCF /* SmartBudgetUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		53DFD8FB2DC23F1F0030466D /* SmartBudget */ = {
-			isa = PBXGroup;
-			children = (
-				53DFD9202DC270FC0030466D /* CustomView */,
-				53DFD90D2DC242580030466D /* Protocols */,
-				53DFD8F22DC23F1F0030466D /* AppDelegate.swift */,
-				53DFD8F32DC23F1F0030466D /* Assets.xcassets */,
-				53DFD8F42DC23F1F0030466D /* Info.plist */,
-				53DFD8F62DC23F1F0030466D /* LaunchScreen.storyboard */,
-				53DFD8F82DC23F1F0030466D /* SceneDelegate.swift */,
-				53DFD8F92DC23F1F0030466D /* SmartBudget.xcdatamodeld */,
-				53DFD8FA2DC23F1F0030466D /* ViewController.swift */,
-				53DFD9182DC246630030466D /* ButtonState.swift */,
-			);
-			path = SmartBudget;
-			sourceTree = "<group>";
-		};
-		53DFD9062DC23F240030466D /* SmartBudgetTests */ = {
-			isa = PBXGroup;
-			children = (
-				53DFD9052DC23F240030466D /* SmartBudgetTests.swift */,
-			);
-			path = SmartBudgetTests;
-			sourceTree = "<group>";
-		};
-		53DFD90A2DC23F2A0030466D /* SmartBudgetUITests */ = {
-			isa = PBXGroup;
-			children = (
-				53DFD9082DC23F2A0030466D /* SmartBudgetUITests.swift */,
-				53DFD9092DC23F2A0030466D /* SmartBudgetUITestsLaunchTests.swift */,
-			);
-			path = SmartBudgetUITests;
-			sourceTree = "<group>";
-		};
-		53DFD90D2DC242580030466D /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				53DFD9152DC243DE0030466D /* View */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		53DFD9152DC243DE0030466D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				53DFD9162DC243EF0030466D /* IButton.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		53DFD9202DC270FC0030466D /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				53DFD8F72DC23F1F0030466D /* MainButton.swift */,
-			);
-			path = CustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +125,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				53DFD9E02DC2CABE0030466D /* SmartBudget */,
 			);
 			name = SmartBudget;
 			packageProductDependencies = (
@@ -199,6 +150,9 @@
 			dependencies = (
 				535C09A82DB57D6A00970DCF /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */,
+			);
 			name = SmartBudgetTests;
 			packageProductDependencies = (
 			);
@@ -218,6 +172,9 @@
 			);
 			dependencies = (
 				535C09B22DB57D6A00970DCF /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */,
 			);
 			name = SmartBudgetUITests;
 			packageProductDependencies = (
@@ -278,8 +235,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53DFD9022DC23F1F0030466D /* Assets.xcassets in Resources */,
-				53DFD9042DC23F1F0030466D /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,13 +279,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53DFD9172DC243EF0030466D /* IButton.swift in Sources */,
-				53DFD9192DC246630030466D /* ButtonState.swift in Sources */,
-				53DFD8FD2DC23F1F0030466D /* AppDelegate.swift in Sources */,
-				53DFD8FE2DC23F1F0030466D /* MainButton.swift in Sources */,
-				53DFD8FF2DC23F1F0030466D /* SceneDelegate.swift in Sources */,
-				53DFD9002DC23F1F0030466D /* SmartBudget.xcdatamodeld in Sources */,
-				53DFD9012DC23F1F0030466D /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +286,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53DFD9072DC23F240030466D /* SmartBudgetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,8 +293,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53DFD90B2DC23F2A0030466D /* SmartBudgetUITests.swift in Sources */,
-				53DFD90C2DC23F2A0030466D /* SmartBudgetUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,17 +310,6 @@
 			targetProxy = 535C09B12DB57D6A00970DCF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		53DFD8F62DC23F1F0030466D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				53DFD8F52DC23F1F0030466D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		535C09BA2DB57D6A00970DCF /* Debug */ = {
@@ -688,19 +622,6 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		53DFD8F92DC23F1F0030466D /* SmartBudget.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				53DFD8FC2DC23F1F0030466D /* SmartBudget.xcdatamodel */,
-			);
-			currentVersion = 53DFD8FC2DC23F1F0030466D /* SmartBudget.xcdatamodel */;
-			path = SmartBudget.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 535C09852DB57D6900970DCF /* Project object */;
 }
