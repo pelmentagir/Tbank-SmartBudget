@@ -11,7 +11,7 @@ class ButtonFactory: IButtonFactory {
         type: ButtonType,
         title: String,
         state: ButtonState = .normal,
-        font: UIFont = .systemFont(ofSize: 16, weight: .regular) // TODO: FontManager с кастомным шрифтом
+        font: UIFont = .systemFont(ofSize: 16, weight: .regular)
     ) -> IButton {
 
         let button: IButton
@@ -20,7 +20,7 @@ class ButtonFactory: IButtonFactory {
         case .standard:
             button = StandartButton()
         case .outline:
-            button = StandartButton() // в разработке
+            button = OutlineButton()
         }
 
         button.buttonViewModel = ButtonViewModel(title: title, buttonState: state, font: font)

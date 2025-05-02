@@ -1,14 +1,11 @@
 import UIKit
 import Combine
 
-extension CGFloat {
+private extension CGFloat {
     static let baseWidth: CGFloat = 390 // средняя ширина iphone 12-16/pro
     static let baseHeight: CGFloat = 56
-    static let screenWidth: CGFloat = UIScreen.main.bounds.width
     static var scaledHeight: CGFloat = baseHeight * (screenWidth / baseWidth)
     static var activityIndicatorSize: CGFloat = 30
-    static let fontSize: CGFloat = 16
-    static let cornerRadius: CGFloat = 16
     static let loadingAlpha: CGFloat = 0.5
     static let defaultAlpha: CGFloat = 1
 }
@@ -40,6 +37,7 @@ final class StandartButton: UIButton {
         layer.cornerRadius = .cornerRadius
         setTitleColor(.black, for: .normal)
         setupLayout()
+        setupBindings()
     }
 
     private func setupLayout() {
@@ -94,8 +92,6 @@ extension StandartButton: IButton {
         get { _buttonViewModel }
         set {
             _buttonViewModel = newValue
-            setupBindings()
-
             setTitle(newValue.title, for: .normal)
             configure()
             titleLabel?.font = newValue.font
