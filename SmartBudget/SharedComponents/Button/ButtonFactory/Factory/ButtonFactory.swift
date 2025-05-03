@@ -6,7 +6,7 @@ protocol IButtonFactory {
     func createButton(type: ButtonType, title: String, state: ButtonState, font: UIFont) -> IButton
 }
 
-class ButtonFactory: IButtonFactory {
+final class ButtonFactory: IButtonFactory {
     func createButton(
         type: ButtonType,
         title: String,

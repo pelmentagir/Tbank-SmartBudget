@@ -9,7 +9,7 @@ private extension CGFloat {
     static let scaleY: CGFloat = 0.95
 }
 
-class OutlineButton: UIButton {
+final class OutlineButton: UIButton {
 
     // MARK: Properties
     private var _buttonViewModel: ButtonViewModel = ButtonViewModel(title: "")
@@ -33,7 +33,7 @@ class OutlineButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Private Methods
     private func setup() {
         backgroundColor = .clear
