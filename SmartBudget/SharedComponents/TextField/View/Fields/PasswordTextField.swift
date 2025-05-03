@@ -4,10 +4,10 @@ private extension Int {
     static let minLength = 6
 }
 
-final class PasswordTextField: DefaultTextField {
+final class PasswordTextField: UITextField, ITextField {
 
     // MARK: Properties
-    override var isValid: Bool {
+    var isValid: Bool {
         return self.text?.count ?? 0 >= .minLength
     }
 

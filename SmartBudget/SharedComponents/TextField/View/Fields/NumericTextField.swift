@@ -1,9 +1,9 @@
 import UIKit
 
-final class NumericTextField: DefaultTextField {
+final class NumericTextField: UITextField, ITextField {
 
     // MARK: Properties
-    override var isValid: Bool {
+    var isValid: Bool {
         return Int(self.text ?? "") != nil
     }
 

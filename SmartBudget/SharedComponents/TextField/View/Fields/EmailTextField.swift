@@ -1,9 +1,9 @@
 import UIKit
 
-final class EmailTextField: DefaultTextField {
+final class EmailTextField: UITextField, ITextField {
 
     // MARK: Properties
-    override var isValid: Bool {
+    var isValid: Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: self.text)

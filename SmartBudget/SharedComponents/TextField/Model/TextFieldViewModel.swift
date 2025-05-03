@@ -2,7 +2,6 @@ import UIKit
 
 protocol ITextField: UITextField {
     var isValid: Bool { get }
-    var fieldPlaceholder: String { get set }
 }
 
 enum TextFieldType {

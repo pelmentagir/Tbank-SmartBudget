@@ -7,7 +7,7 @@ protocol ITextFieldFactory {
 
 final class TextFieldFactory: ITextFieldFactory {
 
-    static func createTextField(type: TextFieldType, placeholder: String) -> any ITextField {
+    static func createTextField(type: TextFieldType, placeholder: String) -> ITextField {
         let textField: ITextField
         switch type {
         case .default:
@@ -20,7 +20,7 @@ final class TextFieldFactory: ITextFieldFactory {
             textField = NumericTextField()
         }
 
-        textField.fieldPlaceholder = placeholder
+        textField.placeholder = placeholder
         return textField
     }
 
