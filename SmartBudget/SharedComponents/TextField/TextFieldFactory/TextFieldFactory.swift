@@ -1,13 +1,12 @@
 import UIKit
 
 protocol ITextFieldFactory {
-    static func createTextField(type: TextFieldType, placeholder: String) -> ITextField
-    static func createTextFieldView(type: TextFieldType, placeholder: String, rightButton: UIButton?) -> UIView
+    func createTextFieldView(type: TextFieldType, placeholder: String, rightButton: UIButton?) -> UIView
 }
 
 final class TextFieldFactory: ITextFieldFactory {
 
-    static func createTextField(type: TextFieldType, placeholder: String) -> ITextField {
+    private func createTextField(type: TextFieldType, placeholder: String) -> ITextField {
         let textField: ITextField
         switch type {
         case .default:
@@ -24,7 +23,7 @@ final class TextFieldFactory: ITextFieldFactory {
         return textField
     }
 
-    static func createTextFieldView(
+    func createTextFieldView(
         type: TextFieldType,
         placeholder: String,
         rightButton: UIButton? = nil
