@@ -19,7 +19,7 @@ final class ButtonViewModel: ObservableObject {
     init(
         title: String,
         buttonState: ButtonState = .normal,
-        font: UIFont = .systemFont(ofSize: .fontSize, weight: .regular)
+        font: UIFont = .systemFont(ofSize: .defaultFontSize, weight: .regular)
     ) {
         self.title = title
         self.buttonState = buttonState

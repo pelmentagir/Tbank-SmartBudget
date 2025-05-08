@@ -25,6 +25,11 @@ final class TextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Public Methods
+    func getField() -> ITextField {
+        return textField
+    }
+
     // MARK: Private Methods
     private func setupView() {
         backgroundColor = .customGray
@@ -37,15 +42,17 @@ final class TextFieldView: UIView {
             addSubview(rightButton)
             addSubview(textField)
 
-            rightButton.snp.makeConstraints { make in
-                make.trailing.equalToSuperview().inset(CGFloat.normalPadding)
-                make.centerY.equalToSuperview()
-                make.size.equalTo(CGFloat.buttonSize)
-            }
+            rightButton.setContentHuggingPriority(.required, for: .horizontal)
+            rightButton.setContentCompressionResistancePriority(.required, for: .horizontal)
 
             textField.snp.makeConstraints { make in
                 make.leading.equalToSuperview().inset(CGFloat.defaultPadding)
+                make.centerY.equalToSuperview()
                 make.trailing.equalTo(rightButton.snp.leading).offset(-CGFloat.defaultPadding)
+            }
+
+            rightButton.snp.makeConstraints { make in
+                make.trailing.equalToSuperview().inset(CGFloat.normalPadding)
                 make.centerY.equalToSuperview()
             }
         } else {

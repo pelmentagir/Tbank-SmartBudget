@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ITextFieldFactory {
-    func createTextFieldView(type: TextFieldType, placeholder: String, rightButton: UIButton?) -> UIView
+    func createTextFieldView(type: TextFieldType, placeholder: String, rightButton: UIButton?) -> TextFieldView
 }
 
 final class TextFieldFactory: ITextFieldFactory {
@@ -17,6 +17,8 @@ final class TextFieldFactory: ITextFieldFactory {
             textField = PasswordTextField()
         case .numeric:
             textField = NumericTextField()
+        case .code:
+            textField = CodeTextField()
         }
 
         textField.placeholder = placeholder
@@ -27,7 +29,7 @@ final class TextFieldFactory: ITextFieldFactory {
         type: TextFieldType,
         placeholder: String,
         rightButton: UIButton? = nil
-    ) -> UIView {
+    ) -> TextFieldView {
         let textField = createTextField(type: type, placeholder: placeholder)
         return TextFieldView(textField: textField, rightButton: rightButton)
     }

@@ -9,4 +9,5 @@ enum TextFieldType {
     case email
     case password
     case numeric
+    case code
 }

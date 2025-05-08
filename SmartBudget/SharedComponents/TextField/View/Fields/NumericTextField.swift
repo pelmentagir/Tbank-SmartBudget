@@ -4,7 +4,7 @@ final class NumericTextField: UITextField, ITextField {
 
     // MARK: Properties
     var isValid: Bool {
-        return Int(self.text ?? "") != nil
+        return Double(self.text ?? "") != nil
     }
 
     // MARK: Initialization
