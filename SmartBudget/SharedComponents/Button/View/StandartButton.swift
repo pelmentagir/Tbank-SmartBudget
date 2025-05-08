@@ -2,12 +2,14 @@ import UIKit
 import Combine
 
 private extension CGFloat {
-    static let baseWidth: CGFloat = 390 // средняя ширина iphone 12-16/pro
     static let baseHeight: CGFloat = 56
     static var scaledHeight: CGFloat = baseHeight * (screenWidth / baseWidth)
     static var activityIndicatorSize: CGFloat = 30
     static let loadingAlpha: CGFloat = 0.5
     static let defaultAlpha: CGFloat = 1
+    static let withDuration: CGFloat = 0.2
+    static let scaleX: CGFloat = 0.95
+    static let scaleY: CGFloat = 0.95
 }
 
 final class StandartButton: UIButton {
@@ -18,6 +20,15 @@ final class StandartButton: UIButton {
         let activity = ActivityIndicator()
         return activity
     }()
+
+    override var isHighlighted: Bool {
+        didSet {
+            UIView.animate(withDuration: CGFloat.withDuration, delay: .zero, options: [.allowUserInteraction, .curveEaseOut]) {
+                self.alpha = self.isHighlighted ? .loadingAlpha : .defaultAlpha
+                self.transform = self.isHighlighted ? CGAffineTransform(scaleX: .scaleX, y: .scaleY) : .identity
+            }
+        }
+    }
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -33,7 +44,7 @@ final class StandartButton: UIButton {
 
     // MARK: Private methods
     private func setup() {
-        backgroundColor = .systemYellow
+        backgroundColor = .customYellow
         layer.cornerRadius = .cornerRadius
         setTitleColor(.black, for: .normal)
         setupLayout()
@@ -48,18 +59,22 @@ final class StandartButton: UIButton {
 
     private func setupBindings() {
         _buttonViewModel.$title
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] title in
                 self?.setTitle(title, for: .normal)
             }
             .store(in: &cancellables)
 
         _buttonViewModel.$buttonState
-            .sink { [weak self] _ in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                print("Button state changed to: \(state)")
                 self?.configure()
             }
             .store(in: &cancellables)
 
         _buttonViewModel.$font
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] font in
                 self?.titleLabel?.font = font
             }
