@@ -2,28 +2,41 @@ import UIKit
 import Combine
 
 private extension CGFloat {
-    static let baseWidth: CGFloat = 390 // средняя ширина iphone 12-16/pro
     static let baseHeight: CGFloat = 56
     static var scaledHeight: CGFloat = baseHeight * (screenWidth / baseWidth)
     static var activityIndicatorSize: CGFloat = 30
     static let loadingAlpha: CGFloat = 0.5
     static let defaultAlpha: CGFloat = 1
+    static let withDuration: CGFloat = 0.2
+    static let scaleX: CGFloat = 0.95
+    static let scaleY: CGFloat = 0.95
 }
 
 final class StandartButton: UIButton {
 
     // MARK: Properties
-    private var _buttonViewModel = ButtonViewModel(title: "")
+    var buttonViewModel: ButtonViewModel
+
     private lazy var activityIndicator: ActivityIndicator = {
         let activity = ActivityIndicator()
         return activity
     }()
 
+    override var isHighlighted: Bool {
+        didSet {
+            UIView.animate(withDuration: CGFloat.withDuration, delay: .zero, options: [.allowUserInteraction, .curveEaseOut]) {
+                self.alpha = self.isHighlighted ? .loadingAlpha : .defaultAlpha
+                self.transform = self.isHighlighted ? CGAffineTransform(scaleX: .scaleX, y: .scaleY) : .identity
+            }
+        }
+    }
+
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: ButtonViewModel) {
+        self.buttonViewModel = viewModel
+        super.init(frame: .zero)
         setup()
     }
 
@@ -33,11 +46,11 @@ final class StandartButton: UIButton {
 
     // MARK: Private methods
     private func setup() {
-        backgroundColor = .systemYellow
+        backgroundColor = .customYellow
         layer.cornerRadius = .cornerRadius
         setTitleColor(.black, for: .normal)
-        setupLayout()
         setupBindings()
+        setupLayout()
     }
 
     private func setupLayout() {
@@ -47,19 +60,20 @@ final class StandartButton: UIButton {
     }
 
     private func setupBindings() {
-        _buttonViewModel.$title
+        buttonViewModel.$title
             .sink { [weak self] title in
                 self?.setTitle(title, for: .normal)
             }
             .store(in: &cancellables)
 
-        _buttonViewModel.$buttonState
-            .sink { [weak self] _ in
-                self?.configure()
+        buttonViewModel.$buttonState
+            .sink { [weak self] state in
+                print("Button state changed to: \(state)")
+                self?.configure(state: state)
             }
             .store(in: &cancellables)
 
-        _buttonViewModel.$font
+        buttonViewModel.$font
             .sink { [weak self] font in
                 self?.titleLabel?.font = font
             }
@@ -87,19 +101,8 @@ final class StandartButton: UIButton {
 
 extension StandartButton: IButton {
 
-    // MARK: Properties
-    var buttonViewModel: ButtonViewModel {
-        get { _buttonViewModel }
-        set {
-            _buttonViewModel = newValue
-            setTitle(newValue.title, for: .normal)
-            configure()
-            titleLabel?.font = newValue.font
-        }
-    }
-
-    func configure() {
-        switch buttonViewModel.buttonState {
+    func configure(state: ButtonState) {
+        switch state {
         case .normal:
             isEnabled = true
             alpha = .defaultAlpha
