@@ -15,7 +15,8 @@ private extension CGFloat {
 final class StandartButton: UIButton {
 
     // MARK: Properties
-    private var _buttonViewModel = ButtonViewModel(title: "")
+    var buttonViewModel: ButtonViewModel
+
     private lazy var activityIndicator: ActivityIndicator = {
         let activity = ActivityIndicator()
         return activity
@@ -33,8 +34,9 @@ final class StandartButton: UIButton {
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: ButtonViewModel) {
+        self.buttonViewModel = viewModel
+        super.init(frame: .zero)
         setup()
     }
 
@@ -47,8 +49,8 @@ final class StandartButton: UIButton {
         backgroundColor = .customYellow
         layer.cornerRadius = .cornerRadius
         setTitleColor(.black, for: .normal)
-        setupLayout()
         setupBindings()
+        setupLayout()
     }
 
     private func setupLayout() {
@@ -58,23 +60,20 @@ final class StandartButton: UIButton {
     }
 
     private func setupBindings() {
-        _buttonViewModel.$title
-            .receive(on: DispatchQueue.main)
+        buttonViewModel.$title
             .sink { [weak self] title in
                 self?.setTitle(title, for: .normal)
             }
             .store(in: &cancellables)
 
-        _buttonViewModel.$buttonState
-            .receive(on: DispatchQueue.main)
+        buttonViewModel.$buttonState
             .sink { [weak self] state in
                 print("Button state changed to: \(state)")
-                self?.configure()
+                self?.configure(state: state)
             }
             .store(in: &cancellables)
 
-        _buttonViewModel.$font
-            .receive(on: DispatchQueue.main)
+        buttonViewModel.$font
             .sink { [weak self] font in
                 self?.titleLabel?.font = font
             }
@@ -102,19 +101,8 @@ final class StandartButton: UIButton {
 
 extension StandartButton: IButton {
 
-    // MARK: Properties
-    var buttonViewModel: ButtonViewModel {
-        get { _buttonViewModel }
-        set {
-            _buttonViewModel = newValue
-            setTitle(newValue.title, for: .normal)
-            configure()
-            titleLabel?.font = newValue.font
-        }
-    }
-
-    func configure() {
-        switch buttonViewModel.buttonState {
+    func configure(state: ButtonState) {
+        switch state {
         case .normal:
             isEnabled = true
             alpha = .defaultAlpha

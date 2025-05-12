@@ -12,7 +12,7 @@ private extension CGFloat {
 final class OutlineButton: UIButton {
 
     // MARK: Properties
-    private var _buttonViewModel: ButtonViewModel = ButtonViewModel(title: "")
+    var buttonViewModel: ButtonViewModel
     private var cancellables = Set<AnyCancellable>()
 
     override var isHighlighted: Bool {
@@ -25,8 +25,9 @@ final class OutlineButton: UIButton {
     }
 
     // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: ButtonViewModel) {
+        self.buttonViewModel = viewModel
+        super.init(frame: .zero)
         setup()
     }
 
@@ -42,16 +43,16 @@ final class OutlineButton: UIButton {
     }
 
     private func setupBindings() {
-        _buttonViewModel.$title.sink { [weak self] title in
+        buttonViewModel.$title.sink { [weak self] title in
             self?.setTitle(title, for: .normal)
         }.store(in: &cancellables)
 
-        _buttonViewModel.$font.sink { [weak self] font in
+        buttonViewModel.$font.sink { [weak self] font in
             self?.titleLabel?.font = font
         }.store(in: &cancellables)
 
-        _buttonViewModel.$buttonState.sink { [weak self] _ in
-            self?.configure()
+        buttonViewModel.$buttonState.sink { [weak self] state in
+            self?.configure(state: state)
         }.store(in: &cancellables)
     }
 }
@@ -59,20 +60,9 @@ final class OutlineButton: UIButton {
 // MARK: - IButton
 
 extension OutlineButton: IButton {
-    var buttonViewModel: ButtonViewModel {
-        get {
-            _buttonViewModel
-        }
-        set {
-            _buttonViewModel = newValue
-            setTitle(newValue.title, for: .normal)
-            configure()
-            titleLabel?.font = newValue.font
-        }
-    }
 
-    func configure() {
-        switch buttonViewModel.buttonState {
+    func configure(state: ButtonState) {
+        switch state {
         case .normal:
             isEnabled = true
             alpha = .defaultAlpha

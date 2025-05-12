@@ -18,7 +18,7 @@ final class AppContainer {
         }
         return controller
     }
-    
+
     // MARK: Private Methods
     private func setupDependency() {
 
@@ -40,5 +40,4 @@ final class AppContainer {
             return CodeVerificationViewController(viewModel: resolver.resolve(CodeVerificationViewModel.self)!)
         }
     }
-
 }

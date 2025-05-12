@@ -6,7 +6,7 @@ import Combine
 protocol IButton: UIButton {
     var buttonViewModel: ButtonViewModel { get set }
 
-    func configure()
+    func configure(state: ButtonState)
 }
 
 // MARK: - Model

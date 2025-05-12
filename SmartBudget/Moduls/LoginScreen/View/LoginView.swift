@@ -41,7 +41,7 @@ final class LoginView: UIView {
         return button
     }()
 
-    private lazy var loginTextField: TextFieldView = {
+    private(set) lazy var loginTextField: TextFieldView = {
         let textField = textFieldFactory.createTextFieldView(type: .email, placeholder: "Логин")
         textField.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.scaledHeight)
@@ -66,7 +66,8 @@ final class LoginView: UIView {
     }()
 
     private(set) lazy var loginButton: IButton = {
-        buttonFactory.createButton(type: .standard, title: "Войти")
+        let button = buttonFactory.createButton(type: .standard, title: "Войти", state: .disabled)
+        return button
     }()
 
     private(set) lazy var registrationButton: IButton = {
@@ -86,7 +87,7 @@ final class LoginView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Public Methods
     func updateLayout(keyboardRect: CGRect = .zero) {
         guard let superview = self.superview else { return }

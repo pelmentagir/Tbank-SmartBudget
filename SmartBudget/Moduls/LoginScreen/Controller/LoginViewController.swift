@@ -5,7 +5,7 @@ final class LoginViewController: UIViewController, FlowController {
 
     // MARK: Properties
     private let viewModel: LoginViewModel
-    private var passwordTextFieldDelegate: PasswordTextFieldDelegate?
+    private var authTextFieldDelegate: AuthTextFieldDelegate?
     private var cancellables = Set<AnyCancellable>()
     private var keyboardObserver: KeyboardObserver?
     private var userInfo: User?
@@ -22,7 +22,7 @@ final class LoginViewController: UIViewController, FlowController {
 
     private lazy var loginButtonTapped = UIAction { [weak self] _ in
         guard let self else { return }
-        completionHandler?(User(login: "fsd", password: "Fds"))
+        handleLogin()
     }
 
     // MARK: Initialization
@@ -42,16 +42,20 @@ final class LoginViewController: UIViewController, FlowController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTextFields()
         setupBindings()
         setupActions()
-        setupTextFields()
         setupKeyboardObserver()
     }
 
     // MARK: Private Methods
     private func setupTextFields() {
-        passwordTextFieldDelegate = PasswordTextFieldDelegate()
-        loginView.passwordTextField.textField.delegate = passwordTextFieldDelegate
+        authTextFieldDelegate = AuthTextFieldDelegate()
+        authTextFieldDelegate?.setEmailTextField(loginView.loginTextField.textField)
+        authTextFieldDelegate?.setPasswordTextField(loginView.passwordTextField.textField)
+        authTextFieldDelegate?.onReturnKeyPressed = {
+            
+        }
     }
 
     private func setupBindings() {
@@ -60,6 +64,27 @@ final class LoginViewController: UIViewController, FlowController {
                 self?.loginView.updatePasswordVisibility(isVisible)
             }
             .store(in: &cancellables)
+
+        viewModel.$isAuthenticating
+            .dropFirst()
+            .sink { [weak self] isAuthenticating in
+                self?.loginView.loginButton.buttonViewModel.buttonState = isAuthenticating ? .loading : .normal
+            }.store(in: &cancellables)
+
+        viewModel.$user
+            .compactMap { $0 }
+            .sink { [weak self] user in
+                self?.completionHandler?(user)
+            }.store(in: &cancellables)
+
+        authTextFieldDelegate?.$active
+            .dropFirst()
+            .removeDuplicates()
+            .sink { [weak self] isActive in
+                self?.loginView.loginButton.buttonViewModel.buttonState = isActive ? .normal : .disabled
+            }
+            .store(in: &cancellables)
+        
     }
 
     private func setupKeyboardObserver() {
@@ -76,5 +101,10 @@ final class LoginViewController: UIViewController, FlowController {
     private func setupActions() {
         loginView.passwordVisibilityToggleButton.addAction(passwordVisibilityButtonTapped, for: .touchUpInside)
         loginView.loginButton.addAction(loginButtonTapped, for: .touchUpInside)
+    }
+
+    private func handleLogin() {
+        guard let login = loginView.loginTextField.textField.text, let password = loginView.passwordTextField.textField.text else { return }
+        viewModel.authenticateUser(login: login, password: password)
     }
 }
