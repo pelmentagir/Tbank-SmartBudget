@@ -6,7 +6,8 @@ final class AuthTextFieldDelegate: NSObject, UITextFieldDelegate {
     // MARK: Properties
     private var emailTextField: ITextField?
     private var passwordTextField: ITextField?
-    var onReturnKeyPressed: (() -> Void)?
+    private var confirmPasswordTextField: ITextField?
+
     @Published var active = false
 
     // MARK: Public Methods
@@ -20,12 +21,22 @@ final class AuthTextFieldDelegate: NSObject, UITextFieldDelegate {
         passwordTextField = textField
     }
 
+    func setConfirmPasswordTextField(_ textField: ITextField) {
+        confirmPasswordTextField = textField
+    }
+
     // MARK: Delegate Methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === emailTextField {
-            passwordTextField?.becomeFirstResponder()
-        } else if textField === passwordTextField && active {
-            onReturnKeyPressed?()
+            passwordTextField!.becomeFirstResponder()
+        } else if textField === passwordTextField {
+            if confirmPasswordTextField != nil {
+                confirmPasswordTextField!.becomeFirstResponder()
+            } else {
+                passwordTextField!.resignFirstResponder()
+            }
+        } else if textField === confirmPasswordTextField {
+            confirmPasswordTextField!.resignFirstResponder()
         }
         return true
     }
@@ -41,7 +52,11 @@ final class AuthTextFieldDelegate: NSObject, UITextFieldDelegate {
         }
         textField.text = updatedText
 
-        active = emailTextField!.isValid && passwordTextField!.isValid
+        if confirmPasswordTextField != nil {
+            active = emailTextField!.isValid && passwordTextField!.isValid && passwordTextField!.text == confirmPasswordTextField!.text
+        } else {
+            active = emailTextField!.isValid && passwordTextField!.isValid
+        }
 
         return false
     }

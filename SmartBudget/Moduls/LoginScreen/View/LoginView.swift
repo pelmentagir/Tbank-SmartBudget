@@ -1,26 +1,6 @@
 import UIKit
 import SnapKit
 
-private extension CGFloat {
-    static let bottomPadding: CGFloat = 12
-    static let spacing: CGFloat = 16
-    static let baseHeight: CGFloat = 50
-    static let baseLogoSize: CGFloat = 110
-    static let baseBottomInset: CGFloat = 30
-    static let baseHorizontalInset: CGFloat = 30
-    static let baseStackBottomOffset: CGFloat = 100
-
-    static var scaledHeight: CGFloat { baseHeight * (screenWidth / baseWidth) }
-
-    static var scaledLogoSize: CGFloat { baseLogoSize * (screenWidth / baseWidth) }
-
-    static var scaledBottomInset: CGFloat { baseBottomInset * (screenWidth / baseWidth) }
-
-    static var scaledHorizontalInset: CGFloat { baseHorizontalInset * (screenWidth / baseWidth) }
-
-    static var scaledStackBottomOffset: CGFloat { baseStackBottomOffset * (screenWidth / baseWidth) }
-}
-
 final class LoginView: UIView {
 
     // MARK: Properties

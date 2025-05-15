@@ -22,7 +22,13 @@ final class LoginViewController: UIViewController, FlowController {
 
     private lazy var loginButtonTapped = UIAction { [weak self] _ in
         guard let self else { return }
-        handleLogin()
+        guard let login = loginView.loginTextField.textField.text, let password = loginView.passwordTextField.textField.text else { return }
+        viewModel.authenticateUser(login: login, password: password)
+    }
+
+    private lazy var registrationButtonTapped = UIAction { [weak self] _ in
+        guard let self else { return }
+        completionHandler?(nil)
     }
 
     // MARK: Initialization
@@ -53,9 +59,6 @@ final class LoginViewController: UIViewController, FlowController {
         authTextFieldDelegate = AuthTextFieldDelegate()
         authTextFieldDelegate?.setEmailTextField(loginView.loginTextField.textField)
         authTextFieldDelegate?.setPasswordTextField(loginView.passwordTextField.textField)
-        authTextFieldDelegate?.onReturnKeyPressed = {
-            
-        }
     }
 
     private func setupBindings() {
@@ -84,7 +87,6 @@ final class LoginViewController: UIViewController, FlowController {
                 self?.loginView.loginButton.buttonViewModel.buttonState = isActive ? .normal : .disabled
             }
             .store(in: &cancellables)
-        
     }
 
     private func setupKeyboardObserver() {
@@ -101,10 +103,6 @@ final class LoginViewController: UIViewController, FlowController {
     private func setupActions() {
         loginView.passwordVisibilityToggleButton.addAction(passwordVisibilityButtonTapped, for: .touchUpInside)
         loginView.loginButton.addAction(loginButtonTapped, for: .touchUpInside)
-    }
-
-    private func handleLogin() {
-        guard let login = loginView.loginTextField.textField.text, let password = loginView.passwordTextField.textField.text else { return }
-        viewModel.authenticateUser(login: login, password: password)
+        loginView.registrationButton.addAction(registrationButtonTapped, for: .touchUpInside)
     }
 }

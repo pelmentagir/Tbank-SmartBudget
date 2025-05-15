@@ -1,5 +1,5 @@
 {
-  "originHash" : "bedf1ee72ca99a37efd9a29248ac61be9ea84e176ed69c2eaa66564f1e01759d",
+  "originHash" : "9574b9c458311ebc6053aa73ba31bd84972af11d18c9087d84447f31d3c31386",
   "pins" : [
     {
       "identity" : "snapkit",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
         "version" : "2.9.1"
+      }
+    },
+    {
+      "identity" : "tocropviewcontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pelmentagir/TOCropViewController.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b7abc0cb7a98b4bcb3767c47a5910d85bdcfe745"
       }
     }
   ],
