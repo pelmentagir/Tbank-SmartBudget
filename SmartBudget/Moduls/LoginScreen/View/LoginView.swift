@@ -24,7 +24,7 @@ final class LoginView: UIView {
     private(set) lazy var loginTextField: TextFieldView = {
         let textField = textFieldFactory.createTextFieldView(type: .email, placeholder: "Логин")
         textField.snp.makeConstraints { make in
-            make.height.equalTo(CGFloat.scaledHeight)
+            make.height.equalTo(CGFloat.authScaledHeight)
         }
         return textField
     }()
@@ -32,14 +32,14 @@ final class LoginView: UIView {
     private(set) lazy var passwordTextField: TextFieldView = {
         let textField = textFieldFactory.createTextFieldView(type: .password, placeholder: "Пароль", rightButton: passwordVisibilityToggleButton)
         textField.snp.makeConstraints { make in
-            make.height.equalTo(CGFloat.scaledHeight)
+            make.height.equalTo(CGFloat.authScaledHeight)
         }
         return textField
     }()
 
     private lazy var authStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [loginTextField, passwordTextField])
-        stackView.spacing = .spacing
+        stackView.spacing = .authSpacing
         stackView.axis = .vertical
         stackView.distribution = .equalCentering
         return stackView
@@ -75,16 +75,16 @@ final class LoginView: UIView {
 
         tbankLogo.snp.remakeConstraints { make in
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGFloat.scaledLogoSize)
-            make.bottom.equalTo(authStackView.snp.top).inset(-CGFloat.scaledStackBottomOffset + (isKeyboardVisible ? .baseHorizontalInset : 0))
+            make.size.equalTo(CGFloat.authScaledLogoSize)
+            make.bottom.equalTo(authStackView.snp.top).inset(-CGFloat.authScaledStackBottomOffset + (isKeyboardVisible ? .authBaseHorizontalInset : 0))
         }
 
         authStackView.snp.remakeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(CGFloat.scaledHorizontalInset)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.authScaledHorizontalInset)
             make.bottom.equalTo(isKeyboardVisible ?
                 superview.snp.bottom : loginButton.snp.top
             ).offset(isKeyboardVisible ?
-                     -keyboardRect.height - .baseHorizontalInset : -CGFloat.scaledStackBottomOffset
+                     -keyboardRect.height - .authBaseHorizontalInset : -CGFloat.authScaledStackBottomOffset
             )
         }
 
@@ -108,23 +108,23 @@ final class LoginView: UIView {
     private func setupLayout() {
         tbankLogo.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGFloat.scaledLogoSize)
-            make.bottom.equalTo(authStackView.snp.top).inset(-CGFloat.scaledStackBottomOffset)
+            make.size.equalTo(CGFloat.authScaledLogoSize)
+            make.bottom.equalTo(authStackView.snp.top).inset(-CGFloat.authScaledStackBottomOffset)
         }
 
         loginButton.snp.makeConstraints { make in
-            make.bottom.equalTo(registrationButton.snp.top).inset(-CGFloat.bottomPadding)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.spacing)
+            make.bottom.equalTo(registrationButton.snp.top).inset(-CGFloat.authBottomPadding)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
         }
 
         registrationButton.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.scaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.spacing)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
         }
 
         authStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(CGFloat.scaledHorizontalInset)
-            make.bottom.equalTo(loginButton.snp.top).offset(-CGFloat.scaledStackBottomOffset)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.authScaledHorizontalInset)
+            make.bottom.equalTo(loginButton.snp.top).offset(-CGFloat.authScaledStackBottomOffset)
         }
     }
 }
