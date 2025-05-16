@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53419F642DD692E900CD45BF /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 53419F632DD692E900CD45BF /* CropViewController */; };
+		53419F662DD692E900CD45BF /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 53419F652DD692E900CD45BF /* TOCropViewController */; };
+		5362EF502DD29FB4000FE29F /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 5362EF4F2DD29FB4000FE29F /* Swinject */; };
 		53F1DFDE2DB5859A007243B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 53F1DFDD2DB5859A007243B9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +73,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				53F1DFDE2DB5859A007243B9 /* SnapKit in Frameworks */,
+				5362EF502DD29FB4000FE29F /* Swinject in Frameworks */,
+				53419F662DD692E900CD45BF /* TOCropViewController in Frameworks */,
+				53419F642DD692E900CD45BF /* CropViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +102,7 @@
 				53DFD9E02DC2CABE0030466D /* SmartBudget */,
 				53DFD9EE2DC2CAC40030466D /* SmartBudgetTests */,
 				53DFD9F22DC2CAC80030466D /* SmartBudgetUITests */,
+				5362EF4E2DD29FB4000FE29F /* Frameworks */,
 				535C098E2DB57D6900970DCF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,6 +115,13 @@
 				535C09B02DB57D6A00970DCF /* SmartBudgetUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5362EF4E2DD29FB4000FE29F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +146,9 @@
 			name = SmartBudget;
 			packageProductDependencies = (
 				53F1DFDD2DB5859A007243B9 /* SnapKit */,
+				5362EF4F2DD29FB4000FE29F /* Swinject */,
+				53419F632DD692E900CD45BF /* CropViewController */,
+				53419F652DD692E900CD45BF /* TOCropViewController */,
 			);
 			productName = SmartBudget;
 			productReference = 535C098D2DB57D6900970DCF /* SmartBudget.app */;
@@ -217,6 +234,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				53F1DFDC2DB5859A007243B9 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				5362EF4D2DD29FAC000FE29F /* XCRemoteSwiftPackageReference "Swinject" */,
+				53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 535C098E2DB57D6900970DCF /* Products */;
@@ -605,6 +624,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pelmentagir/TOCropViewController.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		5362EF4D2DD29FAC000FE29F /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
 		53F1DFDC2DB5859A007243B9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -616,6 +651,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		53419F632DD692E900CD45BF /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		53419F652DD692E900CD45BF /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
+		};
+		5362EF4F2DD29FB4000FE29F /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5362EF4D2DD29FAC000FE29F /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
 		53F1DFDD2DB5859A007243B9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 53F1DFDC2DB5859A007243B9 /* XCRemoteSwiftPackageReference "SnapKit" */;
