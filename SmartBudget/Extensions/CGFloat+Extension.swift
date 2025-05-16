@@ -1,8 +1,36 @@
 import UIKit
 
+// MARK: - Default
+
 extension CGFloat {
     static let screenHeight: CGFloat = UIScreen.main.bounds.height
+    static let baseWidth: CGFloat = 390
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
-    static let fontSize: CGFloat = 16
+    static let lowFontSize: CGFloat = 12
+    static let defaultFontSize: CGFloat = 16
+    static let highFontSize: CGFloat = 28
     static let cornerRadius: CGFloat = 16
 }
+
+// MARK: - Auth
+
+extension CGFloat {
+    static let authBottomPadding: CGFloat = 12
+    static let authSpacing: CGFloat = 16
+    static let authBaseHeight: CGFloat = 50
+    static let authBaseLogoSize: CGFloat = 110
+    static let authBaseBottomInset: CGFloat = 30
+    static let authBaseHorizontalInset: CGFloat = 30
+    static let authBaseStackBottomOffset: CGFloat = 100
+    
+    static var authScaledHeight: CGFloat { authBaseHeight * (screenWidth / baseWidth) }
+    
+    static var authScaledLogoSize: CGFloat { authBaseLogoSize * (screenWidth / baseWidth) }
+    
+    static var authScaledBottomInset: CGFloat { authBaseBottomInset * (screenWidth / baseWidth) }
+    
+    static var authScaledHorizontalInset: CGFloat { authBaseHorizontalInset * (screenWidth / baseWidth) }
+    
+    static var authScaledStackBottomOffset: CGFloat { authBaseStackBottomOffset * (screenWidth / baseWidth) }
+}
+
