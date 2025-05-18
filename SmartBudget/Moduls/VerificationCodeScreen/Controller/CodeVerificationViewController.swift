@@ -10,7 +10,7 @@ final class CodeVerificationViewController: UIViewController, FlowController {
     // MARK: - Properties
     private let viewModel: CodeVerificationViewModel
     private var cancellables = Set<AnyCancellable>()
-    var completionHandler: ((String) -> Void)?
+    var completionHandler: ((Bool) -> Void)?
 
     // MARK: Initialization
     init(viewModel: CodeVerificationViewModel) {
