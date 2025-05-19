@@ -10,6 +10,7 @@ final class NumericTextField: UITextField, ITextField {
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
+        keyboardType = .numberPad
     }
 
     required init?(coder: NSCoder) {

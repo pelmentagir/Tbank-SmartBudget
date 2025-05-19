@@ -22,15 +22,14 @@ extension CGFloat {
     static let authBaseBottomInset: CGFloat = 30
     static let authBaseHorizontalInset: CGFloat = 30
     static let authBaseStackBottomOffset: CGFloat = 100
-    
+
     static var authScaledHeight: CGFloat { authBaseHeight * (screenWidth / baseWidth) }
-    
+
     static var authScaledLogoSize: CGFloat { authBaseLogoSize * (screenWidth / baseWidth) }
-    
+
     static var authScaledBottomInset: CGFloat { authBaseBottomInset * (screenWidth / baseWidth) }
-    
+
     static var authScaledHorizontalInset: CGFloat { authBaseHorizontalInset * (screenWidth / baseWidth) }
-    
+
     static var authScaledStackBottomOffset: CGFloat { authBaseStackBottomOffset * (screenWidth / baseWidth) }
 }
-
