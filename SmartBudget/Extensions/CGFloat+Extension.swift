@@ -33,3 +33,22 @@ extension CGFloat {
 
     static var authScaledStackBottomOffset: CGFloat { authBaseStackBottomOffset * (screenWidth / baseWidth) }
 }
+
+// MARK: - Profile
+
+extension CGFloat {
+    static let profileAvatarSize: CGFloat = 160
+    static let profileAvatarTopOffset: CGFloat = 50
+    static let profileAddButtonOffset: CGFloat = 120
+    static let profileCornerRadius: CGFloat = 80
+    static let profileAddButtonImageSize: CGFloat = 30
+    static let profileKeyboardVisibleTopOffset: CGFloat = 20
+    static let profileKeyboardHiddenTopOffset: CGFloat = 50
+    static let profileStackViewCenterOffset: CGFloat = 100
+    static let profileClueBottomOffset: CGFloat = 50
+
+    static var profileScaledAvatarSize: CGFloat { profileAvatarSize * (screenWidth / baseWidth) }
+    static var profileScaledAvatarTopOffset: CGFloat { profileAvatarTopOffset * (screenWidth / baseWidth) }
+    static var profileScaledAddButtonOffset: CGFloat { profileAddButtonOffset * (screenWidth / baseWidth) }
+    static var profileScaledCornerRadius: CGFloat { profileCornerRadius * (screenWidth / baseWidth) }
+}

@@ -23,8 +23,11 @@ final class AppCoordinator: Coordinator {
 
     // MARK: Private Methods
     private func showAuthFlow() {
-        let authCoordinator = AuthCoordinator(navigationController: navigationController, appContainer: appContainer)
-        authCoordinator.start()
+        let authCoordinator = AuthCoordinator(
+            navigationController: navigationController,
+            appContainer: appContainer
+        )
+        authCoordinator.imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer)
         childrens.append(authCoordinator)
     }
 }
