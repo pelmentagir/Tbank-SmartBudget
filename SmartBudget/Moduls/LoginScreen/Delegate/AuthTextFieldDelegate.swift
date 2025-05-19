@@ -8,7 +8,11 @@ final class AuthTextFieldDelegate: NSObject, UITextFieldDelegate {
     private var passwordTextField: ITextField?
     private var confirmPasswordTextField: ITextField?
 
+    var checkPasswords: ((String) -> Void)?
+
     @Published var active = false
+    private var confirmPasswordWorkItem: DispatchWorkItem?
+    private let debounceDelay: TimeInterval = 0.5
 
     // MARK: Public Methods
     func setEmailTextField(_ textField: ITextField) {
@@ -22,6 +26,7 @@ final class AuthTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
 
     func setConfirmPasswordTextField(_ textField: ITextField) {
+        textField.delegate = self
         confirmPasswordTextField = textField
     }
 
@@ -51,6 +56,17 @@ final class AuthTextFieldDelegate: NSObject, UITextFieldDelegate {
             updatedText = string
         }
         textField.text = updatedText
+
+        if textField === confirmPasswordTextField {
+            confirmPasswordWorkItem?.cancel()
+
+            let workItem = DispatchWorkItem { [weak self] in
+                self?.checkPasswords?(textField.text!)
+            }
+
+            confirmPasswordWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + debounceDelay, execute: workItem)
+        }
 
         if confirmPasswordTextField != nil {
             active = emailTextField!.isValid && passwordTextField!.isValid && passwordTextField!.text == confirmPasswordTextField!.text

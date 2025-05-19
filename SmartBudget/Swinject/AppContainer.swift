@@ -31,6 +31,14 @@ final class AppContainer {
             return CodeVerificationViewModel()
         }
 
+        container.register(RegistrationViewModel.self) { _ in
+            return RegistrationViewModel()
+        }
+
+        container.register(CreateProfileViewModel.self) { _ in
+            return CreateProfileViewModel()
+        }
+
         // MARK: Controller
         container.register(LoginViewController.self) { resolver in
             return LoginViewController(viewModel: resolver.resolve(LoginViewModel.self)!)
@@ -38,6 +46,14 @@ final class AppContainer {
 
         container.register(CodeVerificationViewController.self) { resolver in
             return CodeVerificationViewController(viewModel: resolver.resolve(CodeVerificationViewModel.self)!)
+        }
+
+        container.register(RegistrationViewController.self) { resolver in
+            return RegistrationViewController(viewModel: resolver.resolve(RegistrationViewModel.self)!)
+        }
+
+        container.register(CreateProfileViewController.self) { resolver in
+            return CreateProfileViewController(viewModel: resolver.resolve(CreateProfileViewModel.self)!)
         }
     }
 }
