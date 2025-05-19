@@ -1,6 +1,13 @@
 import UIKit
 
-class CreateProfileView: UIView {
+private extension String {
+    static let nameTextFieldPlaceholder = "Введите имя"
+    static let lastNameTextFieldPlaceholder = "Введите фамилию"
+    static let continueButtonText = "Продолжить"
+    static let clueText = "Допустимы буквы, дефисы и апострофы \n (2–50 символов)"
+}
+
+final class CreateProfileView: UIView {
 
     // MARK: Properties
     private var buttonFactory: ButtonFactory
@@ -26,7 +33,7 @@ class CreateProfileView: UIView {
     }()
 
     private(set) lazy var nameTextField: TextFieldView = {
-        let textField = textFieldFactory.createTextFieldView(type: .default, placeholder: "Введите имя")
+        let textField = textFieldFactory.createTextFieldView(type: .default, placeholder: .nameTextFieldPlaceholder)
         textField.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.authScaledHeight)
         }
@@ -34,7 +41,7 @@ class CreateProfileView: UIView {
     }()
 
     private(set) lazy var lastNameTextField: TextFieldView = {
-        let textField = textFieldFactory.createTextFieldView(type: .default, placeholder: "Введите фамилию")
+        let textField = textFieldFactory.createTextFieldView(type: .default, placeholder: .lastNameTextFieldPlaceholder)
         textField.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.authScaledHeight)
         }
@@ -42,13 +49,13 @@ class CreateProfileView: UIView {
     }()
 
     private(set) lazy var continueButton: IButton = {
-        buttonFactory.createButton(type: .standard, title: "Продолжить")
+        buttonFactory.createButton(type: .standard, title: .continueButtonText)
     }()
 
     private lazy var clueLabel: UILabel = {
         let label = UILabel()
         label.textColor = .red
-        label.text = "Допустимы буквы, дефисы и апострофы \n (2–50 символов)"
+        label.text = .clueText
         label.textAlignment = .center
         label.numberOfLines = 2
         label.isHidden = true

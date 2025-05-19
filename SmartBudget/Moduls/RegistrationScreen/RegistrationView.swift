@@ -1,5 +1,13 @@
 import UIKit
 
+private extension String {
+    static let loginTextFieldPlaceholder = "Почта"
+    static let passwordTextFieldPlaceholder = "Пароль"
+    static let confirmTextFieldPlaceholder = "Повторите пароль"
+    static let clueText = "Пароли не совпадают"
+    static let registrationButtonText = "Зарегистрироваться"
+}
+
 final class RegistrationView: UIView {
 
     // MARK: Properties
@@ -15,7 +23,7 @@ final class RegistrationView: UIView {
     }()
 
     private(set) lazy var loginTextField: TextFieldView = {
-        let textField = textFieldFactory.createTextFieldView(type: .email, placeholder: "Почта")
+        let textField = textFieldFactory.createTextFieldView(type: .email, placeholder: .loginTextFieldPlaceholder)
         textField.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.authScaledHeight)
         }
@@ -23,7 +31,7 @@ final class RegistrationView: UIView {
     }()
 
     private(set) lazy var passwordTextField: TextFieldView = {
-        let textField = textFieldFactory.createTextFieldView(type: .password, placeholder: "Пароль")
+        let textField = textFieldFactory.createTextFieldView(type: .password, placeholder: .passwordTextFieldPlaceholder)
         textField.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.authScaledHeight)
         }
@@ -31,7 +39,7 @@ final class RegistrationView: UIView {
     }()
 
     private(set) lazy var passwordConfirmTextField: TextFieldView = {
-        let textField = textFieldFactory.createTextFieldView(type: .password, placeholder: "Повторите пароль")
+        let textField = textFieldFactory.createTextFieldView(type: .password, placeholder: .confirmTextFieldPlaceholder)
         textField.snp.makeConstraints { make in
             make.height.equalTo(CGFloat.authScaledHeight)
         }
@@ -48,15 +56,15 @@ final class RegistrationView: UIView {
 
     private lazy var clueLabel: UILabel = {
         let label = UILabel()
-        label.text = "Пароли не совпадают"
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.text = .clueText
+        label.font = .systemFont(ofSize: .defaultFontSize, weight: .regular)
         label.textColor = .systemRed
         label.isHidden = true
         return label
     }()
 
     private(set) lazy var registrationButton: IButton = {
-        let button = buttonFactory.createButton(type: .standard, title: "Зарегистрироваться", state: .disabled)
+        let button = buttonFactory.createButton(type: .standard, title: .registrationButtonText, state: .disabled)
         return button
     }()
 

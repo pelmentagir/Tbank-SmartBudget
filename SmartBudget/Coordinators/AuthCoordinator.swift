@@ -48,6 +48,7 @@ final class AuthCoordinator: Coordinator {
 
     private func showRegistrationFlow() {
         let controller = appContainer.resolveController(RegistrationViewController.self)
+
         controller.completionHandler = { [weak self] user in
             self?.showCodeFlow()
         }
@@ -61,11 +62,9 @@ final class AuthCoordinator: Coordinator {
 
         }
 
-        imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer)
-
         controller.presentImagePicker = { [weak self] in
             guard let self else { return }
-            imagePickerCoordinator!.start()
+            imagePickerCoordinator?.start()
         }
 
         imagePickerCoordinator?.didSelectImage = { image in

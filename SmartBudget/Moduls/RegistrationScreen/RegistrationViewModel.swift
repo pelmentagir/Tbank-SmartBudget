@@ -1,6 +1,6 @@
 import Foundation
 
-class RegistrationViewModel {
+final class RegistrationViewModel {
 
     // MARK: Published Properties
     @Published private(set) var isRegistration: Bool = false

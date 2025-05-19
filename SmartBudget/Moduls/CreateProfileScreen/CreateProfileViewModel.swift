@@ -1,15 +1,15 @@
 import Foundation
 
-class CreateProfileViewModel {
+final class CreateProfileViewModel {
 
     // MARK: Published Properties
     @Published private(set) var isValid: Bool = false
     @Published private(set) var shouldShowClue: Bool = false
 
     // MARK: Properties
-    private var nameRegex = "^[\\p{L}\\-'\\s]+$"
-    private var minLenght = 2
-    private var maxLenght = 50
+    private let nameRegex = "^[\\p{L}\\-'\\s]+$"
+    private let minLenght = 2
+    private let maxLenght = 50
 
     // MARK: Public Methods
     func updateValidationStatus(name: String, lastName: String) {

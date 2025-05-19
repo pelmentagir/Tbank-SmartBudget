@@ -1,11 +1,10 @@
 import UIKit
 
-class FullNameTextFieldDelegate: NSObject, UITextFieldDelegate {
+final class FullNameTextFieldDelegate: NSObject, UITextFieldDelegate {
 
     // MARK: Properties
     private var nameTextField: ITextField?
     private var lastNameTextField: ITextField?
-    private let debounceDelay: TimeInterval = 0.5
 
     weak var viewModel: CreateProfileViewModel?
 
@@ -30,10 +29,6 @@ class FullNameTextFieldDelegate: NSObject, UITextFieldDelegate {
         } else if textField === lastNameTextField {
             lastNameTextField?.resignFirstResponder()
         }
-        return true
-    }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
 }

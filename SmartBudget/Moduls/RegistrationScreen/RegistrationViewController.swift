@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class RegistrationViewController: UIViewController, FlowController {
+final class RegistrationViewController: UIViewController, FlowController {
 
     private var registrationView: RegistrationView {
         self.view as! RegistrationView
