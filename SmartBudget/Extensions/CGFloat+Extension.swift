@@ -7,9 +7,13 @@ extension CGFloat {
     static let baseWidth: CGFloat = 390
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
     static let lowFontSize: CGFloat = 12
+    static let normalFontSize: CGFloat = 14
     static let defaultFontSize: CGFloat = 16
+    static let regularFontSize: CGFloat = 20
+    static let mediumFontSize: CGFloat = 24
     static let highFontSize: CGFloat = 28
     static let cornerRadius: CGFloat = 16
+    static let alphaBackgorundViewCategory: CGFloat = 0.12
 }
 
 // MARK: - Auth

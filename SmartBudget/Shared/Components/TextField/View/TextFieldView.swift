@@ -6,6 +6,10 @@ private extension CGFloat {
     static let buttonSize: CGFloat = 24
 }
 
+private extension String {
+    static let currencyText = "₽"
+}
+
 final class TextFieldView: UIView {
 
     // MARK: Properties

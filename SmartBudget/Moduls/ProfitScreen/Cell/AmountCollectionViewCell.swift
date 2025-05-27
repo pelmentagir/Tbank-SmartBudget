@@ -6,14 +6,14 @@ private extension String {
 
 private extension CGFloat {
     static let spacing: CGFloat = 2
-    static let fontSize: CGFloat = 14
 }
 
-class AmountCollectionViewCell: UICollectionViewCell {
+final class AmountCollectionViewCell: UICollectionViewCell {
 
+    // MARK: UI Elements
     private lazy var amountLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: .fontSize, weight: .medium)
+        label.font = .systemFont(ofSize: .normalFontSize, weight: .medium)
         label.textAlignment = .right
         return label
     }()
@@ -21,7 +21,7 @@ class AmountCollectionViewCell: UICollectionViewCell {
     private lazy var currencyLabel: UILabel = {
         let label = UILabel()
         label.text = .currencyText
-        label.font = .systemFont(ofSize: .fontSize, weight: .bold)
+        label.font = .systemFont(ofSize: .normalFontSize, weight: .bold)
         return label
     }()
 
@@ -40,6 +40,13 @@ class AmountCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
 
+    override var isSelected: Bool {
+        didSet {
+            updateAppearance()
+        }
+    }
+
+    // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: .zero)
         addSubviews()
@@ -50,8 +57,16 @@ class AmountCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Public Methods
     func configureCell(amount: Int) {
         amountLabel.text = "\(amount) "
+    }
+
+    // MARK: Private Methods
+    private func updateAppearance() {
+        UIView.animate(withDuration: 0.2) {
+            self.yellowViewBackground.backgroundColor = self.isSelected ? .customYellow : .customYellow2
+        }
     }
 
     private func addSubviews() {

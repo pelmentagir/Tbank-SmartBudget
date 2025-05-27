@@ -1,14 +1,18 @@
 import UIKit
 
-class AmountCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    private var viewModel: ProfitViewModel
-    private var dataSource: [Int]
+final class AmountCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
+    // MARK: Properties
+    private let viewModel: ProfitViewModel
+    private let dataSource: [Int]
+
+    // MARK: Initialization
     init(viewModel: ProfitViewModel) {
         self.viewModel = viewModel
         self.dataSource = viewModel.obtainAmount()
     }
 
+    // MARK: Delegate Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.obtainCountAmount()
     }

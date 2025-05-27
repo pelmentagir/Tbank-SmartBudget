@@ -3,7 +3,6 @@ import UIKit
 private extension String {
     static let nameTextFieldPlaceholder = "Введите имя"
     static let lastNameTextFieldPlaceholder = "Введите фамилию"
-    static let continueButtonText = "Продолжить"
     static let clueText = "Допустимы буквы, дефисы и апострофы \n (2–50 символов)"
 }
 
