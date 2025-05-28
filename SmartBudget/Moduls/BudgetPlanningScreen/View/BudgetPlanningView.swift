@@ -54,9 +54,7 @@ final class BudgetPlanningView: UIView {
         return label
     }()
 
-    private(set) lazy var slider: CustomSlider = {
-        CustomSlider()
-    }()
+    private(set) lazy var slider = CustomSlider()
 
     private lazy var amountLabel: UILabel = {
         let label = UILabel()
