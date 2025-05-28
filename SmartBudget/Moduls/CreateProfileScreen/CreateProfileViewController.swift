@@ -11,7 +11,7 @@ final class CreateProfileViewController: UIViewController, FlowController {
     // MARK: Properties
     var completionHandler: ((User) -> Void)?
     var presentImagePicker: (() -> Void)?
-    private var viewModel: CreateProfileViewModel
+    private var viewModel: CreateProfileViewModelProtocol
     private var keyboardObserver: KeyboardObserver?
     private var textFieldDelegate: FullNameTextFieldDelegate?
     private var cancellable = Set<AnyCancellable>()
@@ -27,7 +27,7 @@ final class CreateProfileViewController: UIViewController, FlowController {
     }
 
     // MARK: Initialization
-    init(viewModel: CreateProfileViewModel) {
+    init(viewModel: CreateProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -80,7 +80,7 @@ final class CreateProfileViewController: UIViewController, FlowController {
 
     private func setupBindings() {
 
-        viewModel.$isValid
+        viewModel.isValidPublisher
             .removeDuplicates()
             .sink { [weak self] valid in
                 if valid {
@@ -88,7 +88,7 @@ final class CreateProfileViewController: UIViewController, FlowController {
                 }
             }.store(in: &cancellable)
 
-        viewModel.$shouldShowClue
+        viewModel.shouldShowCluePublisher
             .removeDuplicates()
             .sink { [weak self] show in
                 self?.createProfileView.showClue(!show)

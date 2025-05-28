@@ -2,7 +2,6 @@ import UIKit
 import Combine
 
 private extension CGFloat {
-    static let fieldSpacing: CGFloat = 16
     static let fieldSize: CGFloat = 56
     static let infoToSubInfoSpacing: CGFloat = 20
     static let defaultSpacing: CGFloat = 30
@@ -48,7 +47,7 @@ final class CodeVerificationView: UIView {
     private lazy var codeStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = .fieldSpacing
+        stack.spacing = .largePadding
         stack.distribution = .fillEqually
         return stack
     }()
@@ -126,7 +125,7 @@ final class CodeVerificationView: UIView {
         codeStack.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.height.equalTo(CGFloat.fieldSize)
-            make.width.equalTo((CGFloat.fieldSize * CGFloat(codeLength)) + (CGFloat.fieldSpacing * CGFloat(codeLength - 1)))
+            make.width.equalTo((CGFloat.fieldSize * CGFloat(codeLength)) + (CGFloat.largePadding * CGFloat(codeLength - 1)))
             make.bottom.lessThanOrEqualTo(timerLabel.snp.top).offset(-CGFloat.defaultSpacing)
         }
 
