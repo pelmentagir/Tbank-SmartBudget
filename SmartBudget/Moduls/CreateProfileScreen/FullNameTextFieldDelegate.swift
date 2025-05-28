@@ -6,7 +6,7 @@ final class FullNameTextFieldDelegate: NSObject, UITextFieldDelegate {
     private var nameTextField: ITextField?
     private var lastNameTextField: ITextField?
 
-    weak var viewModel: CreateProfileViewModel?
+    weak var viewModel: CreateProfileViewModelProtocol?
 
     // MARK: Public Methods
     func setNameTextField(_ textField: ITextField) {

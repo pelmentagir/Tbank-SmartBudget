@@ -3,7 +3,6 @@ import UIKit
 private extension String {
     static let nameTextFieldPlaceholder = "Введите имя"
     static let lastNameTextFieldPlaceholder = "Введите фамилию"
-    static let continueButtonText = "Продолжить"
     static let clueText = "Допустимы буквы, дефисы и апострофы \n (2–50 символов)"
 }
 
@@ -48,9 +47,7 @@ final class CreateProfileView: UIView {
         return textField
     }()
 
-    private(set) lazy var continueButton: IButton = {
-        buttonFactory.createButton(type: .standard, title: .continueButtonText)
-    }()
+    private(set) lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .continueButtonText)
 
     private lazy var clueLabel: UILabel = {
         let label = UILabel()
@@ -66,7 +63,7 @@ final class CreateProfileView: UIView {
     private lazy var fullNameStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameTextField, lastNameTextField])
         stackView.axis = .vertical
-        stackView.spacing = .authSpacing
+        stackView.spacing = .largePadding
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -141,7 +138,7 @@ final class CreateProfileView: UIView {
 
         continueButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
     }
 }

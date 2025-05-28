@@ -4,7 +4,7 @@ import Combine
 final class LoginViewController: UIViewController, FlowController {
 
     // MARK: Properties
-    private let viewModel: LoginViewModel
+    private let viewModel: LoginViewModelProtocol
     private var authTextFieldDelegate: AuthTextFieldDelegate?
     private var cancellables = Set<AnyCancellable>()
     private var keyboardObserver: KeyboardObserver?
@@ -32,7 +32,7 @@ final class LoginViewController: UIViewController, FlowController {
     }
 
     // MARK: Initialization
-    init(viewModel: LoginViewModel) {
+    init(viewModel: LoginViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,19 +62,19 @@ final class LoginViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$isPasswordVisible
+        viewModel.isPasswordVisiblePublisher
             .sink { [weak self] isVisible in
                 self?.loginView.updatePasswordVisibility(isVisible)
             }
             .store(in: &cancellables)
 
-        viewModel.$isAuthenticating
+        viewModel.isAuthenticatingPublisher
             .dropFirst()
             .sink { [weak self] isAuthenticating in
                 self?.loginView.loginButton.buttonViewModel.buttonState = isAuthenticating ? .loading : .normal
             }.store(in: &cancellables)
 
-        viewModel.$user
+        viewModel.userPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
                 self?.completionHandler?(user)

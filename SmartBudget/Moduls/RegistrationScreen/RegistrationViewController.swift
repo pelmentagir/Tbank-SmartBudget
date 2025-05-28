@@ -8,7 +8,7 @@ final class RegistrationViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private let viewModel: RegistrationViewModel
+    private let viewModel: RegistrationViewModelProtocol
     private var authTextFieldDelegate: AuthTextFieldDelegate?
     private var keyboardObserver: KeyboardObserver?
     var completionHandler: ((User?) -> Void)?
@@ -20,7 +20,7 @@ final class RegistrationViewController: UIViewController, FlowController {
     }
 
     // MARK: Initialization
-    init(viewModel: RegistrationViewModel) {
+    init(viewModel: RegistrationViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -57,13 +57,13 @@ final class RegistrationViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$isRegistration
+        viewModel.isRegistrationPublisher
             .dropFirst()
             .sink { [weak self] isRegistration in
                 self?.registrationView.registrationButton.buttonViewModel.buttonState = isRegistration ? .loading : .normal
             }.store(in: &cancellables)
 
-        viewModel.$user
+        viewModel.userPublisher
             .compactMap { $0 }
             .sink { [weak self] user in
                 self?.completionHandler?(user)

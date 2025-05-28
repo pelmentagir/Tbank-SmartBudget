@@ -10,6 +10,7 @@
 		53419F642DD692E900CD45BF /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 53419F632DD692E900CD45BF /* CropViewController */; };
 		53419F662DD692E900CD45BF /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 53419F652DD692E900CD45BF /* TOCropViewController */; };
 		5362EF502DD29FB4000FE29F /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 5362EF4F2DD29FB4000FE29F /* Swinject */; };
+		53EA9E6B2DE6E87400694772 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 53EA9E6A2DE6E87400694772 /* DGCharts */; };
 		53F1DFDE2DB5859A007243B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 53F1DFDD2DB5859A007243B9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 			files = (
 				53F1DFDE2DB5859A007243B9 /* SnapKit in Frameworks */,
 				5362EF502DD29FB4000FE29F /* Swinject in Frameworks */,
+				53EA9E6B2DE6E87400694772 /* DGCharts in Frameworks */,
 				53419F662DD692E900CD45BF /* TOCropViewController in Frameworks */,
 				53419F642DD692E900CD45BF /* CropViewController in Frameworks */,
 			);
@@ -149,6 +151,7 @@
 				5362EF4F2DD29FB4000FE29F /* Swinject */,
 				53419F632DD692E900CD45BF /* CropViewController */,
 				53419F652DD692E900CD45BF /* TOCropViewController */,
+				53EA9E6A2DE6E87400694772 /* DGCharts */,
 			);
 			productName = SmartBudget;
 			productReference = 535C098D2DB57D6900970DCF /* SmartBudget.app */;
@@ -236,6 +239,7 @@
 				53F1DFDC2DB5859A007243B9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5362EF4D2DD29FAC000FE29F /* XCRemoteSwiftPackageReference "Swinject" */,
 				53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				53EA9E692DE6E84A00694772 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 535C098E2DB57D6900970DCF /* Products */;
@@ -640,6 +644,14 @@
 				minimumVersion = 2.9.1;
 			};
 		};
+		53EA9E692DE6E84A00694772 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ChartsOrg/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		53F1DFDC2DB5859A007243B9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -665,6 +677,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5362EF4D2DD29FAC000FE29F /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
+		};
+		53EA9E6A2DE6E87400694772 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53EA9E692DE6E84A00694772 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 		53F1DFDD2DB5859A007243B9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
