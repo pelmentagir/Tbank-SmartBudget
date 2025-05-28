@@ -3,7 +3,7 @@ import UIKit
 final class SearchBarDelegate: NSObject, UISearchBarDelegate {
 
     // MARK: Properties
-    weak var viewModel: BudgetPlanningViewModel?
+    weak var viewModel: BudgetPlanningViewModelProtocol?
 
     // MARK: Delegate Methods
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

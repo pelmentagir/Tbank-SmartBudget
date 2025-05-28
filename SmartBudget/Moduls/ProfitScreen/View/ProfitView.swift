@@ -9,14 +9,11 @@ private extension String {
 }
 
 private extension CGFloat {
-    static let defaultSpacing: CGFloat = 16
     static let titleTopSpacing: CGFloat = 26
     static let collectionViewHeight: CGFloat = 30
     static let collectionViewItemWidth: CGFloat = 90
     static let collectionViewItemHeight: CGFloat = 30
-    static let collectionViewInteritemSpacing: CGFloat = 8
     static let amountLabelBottomSpacing: CGFloat = 30
-    static let amountValueLabelLeadingSpacing: CGFloat = 4
     static let animationScale: CGFloat = 0.9
 }
 
@@ -61,7 +58,7 @@ final class ProfitView: UIView {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.itemSize = CGSize(width: .collectionViewItemWidth, height: .collectionViewItemHeight)
         collectionViewLayout.scrollDirection = .horizontal
-        collectionViewLayout.minimumInteritemSpacing = .collectionViewInteritemSpacing
+        collectionViewLayout.minimumInteritemSpacing = .smallPadding
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .systemBackground
@@ -84,9 +81,8 @@ final class ProfitView: UIView {
         return label
     }()
 
-    private(set) lazy var continueButton: IButton = {
-        buttonFactory.createButton(type: .standard, title: .confirmButtonText, state: .disabled, font: .systemFont(ofSize: .defaultFontSize))
-    }()
+    private(set) lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .confirmButtonText, state: .disabled, font: .systemFont(ofSize: .defaultFontSize))
+    
 
     // MARK: Initialization
     init(textFieldFactory: ITextFieldFactory, buttonFactory: IButtonFactory) {
@@ -134,24 +130,24 @@ final class ProfitView: UIView {
     private func setupLayout() {
         stepLabel.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().offset(CGFloat.defaultSpacing)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(stepLabel.snp.bottom).offset(CGFloat.defaultSpacing)
-            make.leading.equalToSuperview().offset(CGFloat.defaultSpacing)
+            make.top.equalTo(stepLabel.snp.bottom).offset(CGFloat.largePadding)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
         }
 
         profitTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.titleTopSpacing)
-            make.leading.equalToSuperview().offset(CGFloat.defaultSpacing)
-            make.trailing.equalToSuperview().offset(-CGFloat.defaultSpacing)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
+            make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
 
         amountCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(profitTextField.snp.bottom).offset(CGFloat.defaultSpacing)
-            make.leading.equalToSuperview().offset(CGFloat.defaultSpacing)
-            make.trailing.equalToSuperview().offset(-CGFloat.defaultSpacing)
+            make.top.equalTo(profitTextField.snp.bottom).offset(CGFloat.largePadding)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
+            make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
             make.height.equalTo(CGFloat.collectionViewHeight)
         }
 
@@ -162,13 +158,13 @@ final class ProfitView: UIView {
 
         finalAmountValueLabel.snp.makeConstraints { make in
             make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.amountLabelBottomSpacing)
-            make.leading.equalTo(finalAmountLabel.snp.trailing).offset(CGFloat.amountValueLabelLeadingSpacing)
-            make.trailing.equalToSuperview().offset(-CGFloat.defaultSpacing)
+            make.leading.equalTo(finalAmountLabel.snp.trailing).offset(CGFloat.extraSmallPadding)
+            make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
 
         continueButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
     }
 }

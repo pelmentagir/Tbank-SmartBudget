@@ -8,7 +8,7 @@ final class BudgetPlanningViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private let viewModel: BudgetPlanningViewModel
+    private let viewModel: BudgetPlanningViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
 
     private lazy var searchResultsViewController = SearchResultsViewController(viewModel: SearchViewModel())
@@ -43,7 +43,7 @@ final class BudgetPlanningViewController: UIViewController, FlowController {
     }()
 
     // MARK: Initialization
-    init(viewModel: BudgetPlanningViewModel) {
+    init(viewModel: BudgetPlanningViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,7 +90,7 @@ final class BudgetPlanningViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$category
+        viewModel.categoryPublisher
             .removeDuplicates()
             .sink { [weak self] category in
                 guard let self else { return }
@@ -111,18 +111,18 @@ final class BudgetPlanningViewController: UIViewController, FlowController {
             }
             .store(in: &cancellables)
 
-        viewModel.$selectedAmount
+        viewModel.selectedAmountPublisher
             .sink { [weak self] amount in
                 self?.budgetPlanningView.setAmount(amount)
             }
             .store(in: &cancellables)
 
-        viewModel.$percentage
+        viewModel.percentagePublisher
             .sink { [weak self] percentage in
                 self?.budgetPlanningView.setPercentage(percentage)
             }.store(in: &cancellables)
 
-        viewModel.$buttonState
+        viewModel.buttonStatePublisher
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] buttonState in

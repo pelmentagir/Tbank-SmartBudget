@@ -11,7 +11,7 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     var completionHandler: (([String]) -> Void)?
     var presentBudgetPlanning: ((Category) -> Void)?
 
-    private var viewModel: CategoryDistributionViewModel
+    private var viewModel: CategoryDistributionViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
 
     private var tagsCollectionViewDataSource: TagsCollectionViewDataSource?
@@ -20,7 +20,7 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     private var categoryCollectionViewDelegate: CategoryCollectionViewDelegate?
 
     // MARK: Initialization
-    init(viewModel: CategoryDistributionViewModel) {
+    init(viewModel: CategoryDistributionViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -58,14 +58,14 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     }
 
     private func setupBindings() {
-        viewModel.$selectedCategory
+        viewModel.selectedCategoryPublisher
             .dropFirst()
             .sink { [weak self] category in
                 guard let self, let category = category else { return }
                 presentBudgetPlanning?(category)
             }.store(in: &cancellables)
 
-        viewModel.$tags
+        viewModel.tagsPublisher
             .sink { [weak self] tags in
                 self?.tagsCollectionViewDataSource?.applySnapshot(tags: tags, animated: true)
             }.store(in: &cancellables)

@@ -14,13 +14,17 @@ extension CGFloat {
     static let highFontSize: CGFloat = 28
     static let cornerRadius: CGFloat = 16
     static let alphaBackgorundViewCategory: CGFloat = 0.12
+
+    static let extraSmallPadding: CGFloat = 4
+    static let smallPadding: CGFloat = 8
+    static let mediumPadding: CGFloat = 12
+    static let largePadding: CGFloat = 16
+    static let extraLargePadding: CGFloat = 40
 }
 
 // MARK: - Auth
 
 extension CGFloat {
-    static let authBottomPadding: CGFloat = 12
-    static let authSpacing: CGFloat = 16
     static let authBaseHeight: CGFloat = 50
     static let authBaseLogoSize: CGFloat = 110
     static let authBaseBottomInset: CGFloat = 30

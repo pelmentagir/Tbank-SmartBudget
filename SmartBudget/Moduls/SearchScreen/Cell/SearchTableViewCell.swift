@@ -2,10 +2,7 @@ import UIKit
 
 private extension CGFloat {
     static let backgroundIconViewSize: CGFloat = 32
-    static let horizontalPadding: CGFloat = 16
-    static let titleLeadingPadding: CGFloat = 8
     static let icomEdges: CGFloat = 5
-    static let backgroundIconViewCornerRadius: CGFloat = 16
 }
 
 final class SearchTableViewCell: UITableViewCell {
@@ -13,7 +10,7 @@ final class SearchTableViewCell: UITableViewCell {
     // MARK: UI Elements
     private lazy var backgroundIconView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = .backgroundIconViewCornerRadius
+        view.layer.cornerRadius = .cornerRadius
         return view
     }()
 
@@ -58,7 +55,7 @@ final class SearchTableViewCell: UITableViewCell {
     private func setupLayout() {
 
         backgroundIconView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(CGFloat.horizontalPadding)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(CGFloat.backgroundIconViewSize)
         }
@@ -68,8 +65,8 @@ final class SearchTableViewCell: UITableViewCell {
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(backgroundIconView.snp.trailing).offset(CGFloat.titleLeadingPadding)
-            make.trailing.equalToSuperview().inset(CGFloat.horizontalPadding)
+            make.leading.equalTo(backgroundIconView.snp.trailing).offset(CGFloat.smallPadding)
+            make.trailing.equalToSuperview().inset(CGFloat.largePadding)
             make.centerY.equalToSuperview()
         }
     }

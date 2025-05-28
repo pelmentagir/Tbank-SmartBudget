@@ -2,8 +2,6 @@ import UIKit
 
 private extension CGFloat {
     static let edgesPadding: CGFloat = 6
-    static let horizontalPadding: CGFloat = 8
-    static let removeButtonSize: CGFloat = 12
 }
 
 final class TagCollectionViewCell: UICollectionViewCell {
@@ -78,13 +76,13 @@ final class TagCollectionViewCell: UICollectionViewCell {
 
         infoLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(CGFloat.horizontalPadding)
+            make.leading.equalToSuperview().offset(CGFloat.smallPadding)
         }
 
         removeButton.snp.makeConstraints { make in
-            make.height.width.equalTo(CGFloat.removeButtonSize)
-            make.leading.equalTo(infoLabel.snp.trailing).offset(CGFloat.horizontalPadding)
-            make.trailing.equalToSuperview().offset(-CGFloat.horizontalPadding)
+            make.height.width.equalTo(CGFloat.mediumPadding)
+            make.leading.equalTo(infoLabel.snp.trailing).offset(CGFloat.smallPadding)
+            make.trailing.equalToSuperview().offset(-CGFloat.smallPadding)
             make.centerY.equalToSuperview()
         }
     }

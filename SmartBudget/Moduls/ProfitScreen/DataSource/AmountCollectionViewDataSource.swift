@@ -3,11 +3,11 @@ import UIKit
 final class AmountCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     // MARK: Properties
-    private let viewModel: ProfitViewModel
+    private let viewModel: ProfitViewModelProtocol
     private let dataSource: [Int]
 
     // MARK: Initialization
-    init(viewModel: ProfitViewModel) {
+    init(viewModel: ProfitViewModelProtocol) {
         self.viewModel = viewModel
         self.dataSource = viewModel.obtainAmount()
     }

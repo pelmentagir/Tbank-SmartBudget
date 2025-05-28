@@ -5,9 +5,9 @@ final class TagsCollectionViewDataSource: NSObject {
     // MARK: Properties
     private var dataSource: UICollectionViewDiffableDataSource<ViewSection, String>?
     private var collectionView: UICollectionView
-    var viewModel: CategoryDistributionViewModel?
+    var viewModel: CategoryDistributionViewModelProtocol?
 
-    init(collectionView: UICollectionView, viewModel: CategoryDistributionViewModel) {
+    init(collectionView: UICollectionView, viewModel: CategoryDistributionViewModelProtocol) {
         self.collectionView = collectionView
         self.viewModel = viewModel
         super.init()

@@ -8,12 +8,12 @@ final class CodeVerificationViewController: UIViewController, FlowController {
     }
 
     // MARK: - Properties
-    private let viewModel: CodeVerificationViewModel
+    private let viewModel: CodeVerificationViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     var completionHandler: ((Bool) -> Void)?
 
     // MARK: Initialization
-    init(viewModel: CodeVerificationViewModel) {
+    init(viewModel: CodeVerificationViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,13 +41,13 @@ final class CodeVerificationViewController: UIViewController, FlowController {
 
     // MARK: - Private Methods
     private func setupBindings() {
-        viewModel.$timerText
+        viewModel.timerTextPublisher
             .sink { [weak self] text in
                 self?.verificationCodeView.updateTimerText(text)
             }
             .store(in: &cancellables)
 
-        viewModel.$email
+        viewModel.emailPublisher
             .sink { [weak self] email in
                 self?.verificationCodeView.updateEmailText(email)
             }

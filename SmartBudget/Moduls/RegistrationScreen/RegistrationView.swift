@@ -48,7 +48,7 @@ final class RegistrationView: UIView {
 
     private lazy var authStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [loginTextField, passwordTextField, passwordConfirmTextField])
-        stackView.spacing = .authSpacing
+        stackView.spacing = .largePadding
         stackView.axis = .vertical
         stackView.distribution = .equalCentering
         return stackView
@@ -63,10 +63,7 @@ final class RegistrationView: UIView {
         return label
     }()
 
-    private(set) lazy var registrationButton: IButton = {
-        let button = buttonFactory.createButton(type: .standard, title: .registrationButtonText, state: .disabled)
-        return button
-    }()
+    private(set) lazy var registrationButton: IButton = buttonFactory.createButton(type: .standard, title: .registrationButtonText, state: .disabled)
 
     // MARK: Initialization
     init(textFieldFactory: TextFieldFactory, buttonFactory: ButtonFactory) {
@@ -95,7 +92,7 @@ final class RegistrationView: UIView {
 
         authStackView.snp.remakeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(CGFloat.authScaledHorizontalInset)
-            make.bottom.equalTo(clueLabel.snp.top).inset(-CGFloat.authSpacing)
+            make.bottom.equalTo(clueLabel.snp.top).inset(-CGFloat.largePadding)
         }
 
         clueLabel.snp.remakeConstraints { make in
@@ -103,7 +100,7 @@ final class RegistrationView: UIView {
             make.bottom.equalTo(isKeyboardVisible ?
                                 superview.snp.bottom : registrationButton.snp.top
             ).offset(isKeyboardVisible ?
-                     -keyboardRect.height - .authSpacing : -CGFloat.authScaledStackBottomOffset
+                     -keyboardRect.height - .largePadding : -CGFloat.authScaledStackBottomOffset
             )
         }
 
@@ -131,12 +128,12 @@ final class RegistrationView: UIView {
 
         registrationButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         authStackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(CGFloat.authScaledHorizontalInset)
-            make.bottom.equalTo(clueLabel.snp.top).offset(-CGFloat.authBottomPadding)
+            make.bottom.equalTo(clueLabel.snp.top).offset(-CGFloat.mediumPadding)
         }
 
         clueLabel.snp.makeConstraints { make in

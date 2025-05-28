@@ -6,10 +6,6 @@ private extension String {
 }
 
 private extension CGFloat {
-    static let defaultSpacing: CGFloat = 16
-    static let compactSpacing: CGFloat = 12
-    static let minimalSpacing: CGFloat = 8
-    static let tinySpacing: CGFloat = 4
     static let microSpacing: CGFloat = 2
 
     static let categoryCollectionHeight: CGFloat = 300
@@ -66,8 +62,8 @@ final class CategoryDistributionView: UIView {
     private(set) lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: .categoryItemWidth, height: .categoryItemHeight)
-        layout.minimumInteritemSpacing = .tinySpacing
-        layout.minimumLineSpacing = .tinySpacing
+        layout.minimumInteritemSpacing = .extraSmallPadding
+        layout.minimumLineSpacing = .extraSmallPadding
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false
@@ -75,9 +71,8 @@ final class CategoryDistributionView: UIView {
         return collectionView
     }()
 
-    private lazy var continueButton: IButton = {
-        buttonFactory.createButton(type: .standard, title: .continueButtonText)
-    }()
+    private lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .continueButtonText)
+    
 
     // MARK: Initialization
     init(buttonFactory: ButtonFactory) {
@@ -118,7 +113,7 @@ final class CategoryDistributionView: UIView {
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.defaultSpacing)
+            make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.largePadding)
         }
 
         contentView.snp.makeConstraints { make in
@@ -128,29 +123,29 @@ final class CategoryDistributionView: UIView {
 
         stepLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalToSuperview().offset(CGFloat.defaultSpacing)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(stepLabel.snp.bottom).offset(CGFloat.defaultSpacing)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.defaultSpacing)
+            make.top.equalTo(stepLabel.snp.bottom).offset(CGFloat.largePadding)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         tagsCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.defaultSpacing)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.compactSpacing)
-            make.bottom.equalTo(categoryCollectionView.snp.top).offset(-CGFloat.defaultSpacing)
+            make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.largePadding)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.mediumPadding)
+            make.bottom.equalTo(categoryCollectionView.snp.top).offset(-CGFloat.largePadding)
         }
 
         categoryCollectionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(CGFloat.minimalSpacing)
-            make.bottom.equalToSuperview().offset(-CGFloat.defaultSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.smallPadding)
+            make.bottom.equalToSuperview().offset(-CGFloat.largePadding)
             make.height.equalTo(CGFloat.categoryCollectionHeight)
         }
 
         continueButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
     }
 }

@@ -8,7 +8,7 @@ final class SearchResultsViewController: UIViewController {
     }
 
     // MARK: Properties
-    private let viewModel: SearchViewModel
+    private let viewModel: SearchViewModelProtocol
     private var searchTableViewDataSource: SearchTableViewDataSource?
     private var searchTableViewDelegate: SearchTableViewDelegate?
     private var cancellables = Set<AnyCancellable>()
@@ -16,7 +16,7 @@ final class SearchResultsViewController: UIViewController {
     var onCategorySelected: ((Category) -> Void)?
 
     // MARK: Initialization
-    init(viewModel: SearchViewModel) {
+    init(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,7 +38,7 @@ final class SearchResultsViewController: UIViewController {
 
     // MARK: Private Methods
     private func setupBindings() {
-        viewModel.$categories
+        viewModel.categoriesPublisher
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] categories in
@@ -46,7 +46,7 @@ final class SearchResultsViewController: UIViewController {
                 self?.searchTableViewDataSource?.applySnapshot(categories: categories, animated: false)
             }.store(in: &cancellables)
 
-        viewModel.$selectedCategory
+        viewModel.selectedCategoryPublisher
             .dropFirst()
             .sink { [weak self] category in
                 guard let self, let category else { return }

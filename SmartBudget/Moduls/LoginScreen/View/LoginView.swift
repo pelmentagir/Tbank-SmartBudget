@@ -39,20 +39,15 @@ final class LoginView: UIView {
 
     private lazy var authStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [loginTextField, passwordTextField])
-        stackView.spacing = .authSpacing
+        stackView.spacing = .largePadding
         stackView.axis = .vertical
         stackView.distribution = .equalCentering
         return stackView
     }()
 
-    private(set) lazy var loginButton: IButton = {
-        let button = buttonFactory.createButton(type: .standard, title: "Войти", state: .disabled)
-        return button
-    }()
+    private(set) lazy var loginButton: IButton = buttonFactory.createButton(type: .standard, title: "Войти", state: .disabled)
 
-    private(set) lazy var registrationButton: IButton = {
-        buttonFactory.createButton(type: .outline, title: "Регистрация")
-    }()
+    private(set) lazy var registrationButton: IButton = buttonFactory.createButton(type: .outline, title: "Регистрация")
 
     // MARK: Initialization
     init(textFieldFactory: TextFieldFactory, buttonFactory: ButtonFactory) {
@@ -113,13 +108,13 @@ final class LoginView: UIView {
         }
 
         loginButton.snp.makeConstraints { make in
-            make.bottom.equalTo(registrationButton.snp.top).inset(-CGFloat.authBottomPadding)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.bottom.equalTo(registrationButton.snp.top).inset(-CGFloat.mediumPadding)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         registrationButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         authStackView.snp.makeConstraints { make in

@@ -3,11 +3,11 @@ import UIKit
 final class CategoryCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     // MARK: Properties
-    var viewModel: CategoryDistributionViewModel
+    var viewModel: CategoryDistributionViewModelProtocol
     var categories: [Category]
 
     // MARK: Initialization
-    init(viewModel: CategoryDistributionViewModel) {
+    init(viewModel: CategoryDistributionViewModelProtocol) {
         self.viewModel = viewModel
         self.categories = viewModel.obtainCategories()
         super.init()

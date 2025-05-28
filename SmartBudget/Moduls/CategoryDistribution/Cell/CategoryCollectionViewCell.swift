@@ -2,7 +2,6 @@ import UIKit
 
 private extension CGFloat {
     static let circleSize: CGFloat = 80
-    static let edgesPadding: CGFloat = 16
     static let circleBacgroundCornerRadius: CGFloat = 40
 }
 
@@ -63,11 +62,11 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         }
 
         iconCategory.snp.makeConstraints { make in
-            make.top.trailing.leading.bottom.equalToSuperview().inset(CGFloat.edgesPadding)
+            make.top.trailing.leading.bottom.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         titleCategory.snp.makeConstraints { make in
-            make.top.equalTo(circleBackground.snp.bottom).offset(CGFloat.edgesPadding)
+            make.top.equalTo(circleBackground.snp.bottom).offset(CGFloat.largePadding)
             make.trailing.leading.equalToSuperview()
         }
     }

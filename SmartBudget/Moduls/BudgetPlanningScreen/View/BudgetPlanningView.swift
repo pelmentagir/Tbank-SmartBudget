@@ -7,16 +7,10 @@ private extension String {
 
 private extension CGFloat {
     static let budgetIconSize: CGFloat = 80
-    static let budgetIconInset: CGFloat = 12
-    static let budgetTopOffset: CGFloat = 40
     static let budgetHorizontalOffset: CGFloat = 24
-    static let budgetStackSpacing: CGFloat = 16
     static let budgetPlaningTopOffset: CGFloat = 60
     static let budgetAmountBottomOffset: CGFloat = 32
-    static let budgetAmountTrailingOffset: CGFloat = 4
 
-    static let budgetStackViewSpacing: CGFloat = 12
-    static let budgetInfoStackView: CGFloat = 8
     static let cornerRadiusIconView: CGFloat = 40
 }
 
@@ -86,15 +80,13 @@ final class BudgetPlanningView: UIView {
         return label
     }()
 
-    private(set) lazy var confirmButton: IButton = {
-        buttonFactory.createButton(type: .standard, title: .confirmButtonText, state: .disabled)
-    }()
+    private(set) lazy var confirmButton: IButton = buttonFactory.createButton(type: .standard, title: .confirmButtonText, state: .disabled)
 
     private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = .budgetInfoStackView
+        stackView.spacing = .smallPadding
         return stackView
     }()
 
@@ -102,7 +94,7 @@ final class BudgetPlanningView: UIView {
         let stackView = UIStackView(arrangedSubviews: [iconView, infoStackView])
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.spacing = .budgetStackSpacing
+        stackView.spacing = .largePadding
         return stackView
     }()
 
@@ -116,7 +108,7 @@ final class BudgetPlanningView: UIView {
     private lazy var planingBudgetStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [percentageStackView, slider])
         stackView.axis = .vertical
-        stackView.spacing = .budgetStackViewSpacing
+        stackView.spacing = .mediumPadding
         return stackView
     }()
 
@@ -176,18 +168,18 @@ final class BudgetPlanningView: UIView {
         }
 
         iconImage.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalToSuperview().inset(CGFloat.budgetIconInset)
+            make.leading.trailing.top.bottom.equalToSuperview().inset(CGFloat.mediumPadding)
         }
 
         fullInfoStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(CGFloat.budgetTopOffset)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(CGFloat.extraLargePadding)
             make.leading.equalToSuperview().offset(CGFloat.budgetHorizontalOffset)
             make.trailing.equalToSuperview().offset(-CGFloat.budgetHorizontalOffset)
         }
 
         planingBudgetStackView.snp.makeConstraints { make in
             make.top.equalTo(fullInfoStackView.snp.bottom).offset(CGFloat.budgetPlaningTopOffset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.budgetStackSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         descriptionAmountLabel.snp.makeConstraints { make in
@@ -197,13 +189,13 @@ final class BudgetPlanningView: UIView {
 
         amountLabel.snp.makeConstraints { make in
             make.bottom.equalTo(confirmButton.snp.top).offset(-CGFloat.budgetAmountBottomOffset)
-            make.leading.equalTo(descriptionAmountLabel.snp.trailing).offset(CGFloat.budgetAmountTrailingOffset)
+            make.leading.equalTo(descriptionAmountLabel.snp.trailing).offset(CGFloat.extraSmallPadding)
             make.trailing.equalToSuperview().offset(-CGFloat.budgetHorizontalOffset)
         }
 
         confirmButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
-            make.leading.trailing.equalToSuperview().inset(CGFloat.authSpacing)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
     }
 }

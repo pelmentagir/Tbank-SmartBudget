@@ -5,7 +5,6 @@ final class NumericTextField: UITextField, ITextField {
     private let rubleFont = UIFont.boldSystemFont(ofSize: .regularFontSize)
     private let rubleColor = UIColor.black
     private let rubleSymbol = "₽"
-    private let rubleSpacing: CGFloat = 4
 
     // MARK: Properties
     var isValid: Bool {
@@ -37,7 +36,7 @@ final class NumericTextField: UITextField, ITextField {
 
         let textRect = self.textRect(forBounds: rect)
         let textWidth = (displayText as NSString).size(withAttributes: [.font: displayFont]).width
-        let x = textRect.origin.x + textWidth + rubleSpacing
+        let x = textRect.origin.x + textWidth + CGFloat.extraSmallPadding
         let y = (rect.height - rubleFont.lineHeight) / 2
         (rubleSymbol as NSString).draw(at: CGPoint(x: x, y: y), withAttributes: [
             .font: rubleFont,

@@ -3,7 +3,7 @@ import UIKit
 final class AmountCollectionViewDelegate: NSObject, UICollectionViewDelegate {
 
     // MARK: Properties
-    weak var viewModel: ProfitViewModel?
+    weak var viewModel: ProfitViewModelProtocol?
 
     // MARK: Delegate Methods
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

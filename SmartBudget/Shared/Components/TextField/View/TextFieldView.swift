@@ -1,8 +1,6 @@
 import UIKit
 
 private extension CGFloat {
-    static let defaultPadding: CGFloat = 12
-    static let normalPadding: CGFloat = 16
     static let buttonSize: CGFloat = 24
 }
 
@@ -50,20 +48,20 @@ final class TextFieldView: UIView {
             rightButton.setContentCompressionResistancePriority(.required, for: .horizontal)
 
             textField.snp.makeConstraints { make in
-                make.leading.equalToSuperview().inset(CGFloat.defaultPadding)
+                make.leading.equalToSuperview().inset(CGFloat.mediumPadding)
                 make.centerY.equalToSuperview()
-                make.trailing.equalTo(rightButton.snp.leading).offset(-CGFloat.defaultPadding)
+                make.trailing.equalTo(rightButton.snp.leading).offset(-CGFloat.mediumPadding)
             }
 
             rightButton.snp.makeConstraints { make in
-                make.trailing.equalToSuperview().inset(CGFloat.normalPadding)
+                make.trailing.equalToSuperview().inset(CGFloat.largePadding)
                 make.centerY.equalToSuperview()
             }
         } else {
             addSubview(textField)
 
             textField.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview().inset(CGFloat.defaultPadding)
+                make.leading.trailing.equalToSuperview().inset(CGFloat.mediumPadding)
                 make.centerY.equalToSuperview()
             }
         }

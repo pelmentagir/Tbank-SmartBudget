@@ -8,7 +8,7 @@ final class ProfitViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private var viewModel: ProfitViewModel
+    private var viewModel: ProfitViewModelProtocol
     private var amountCollectionViewDataSource: AmountCollectionViewDataSource?
     private var amountCollectionViewDelegate: AmountCollectionViewDelegate?
 
@@ -18,7 +18,7 @@ final class ProfitViewController: UIViewController, FlowController {
     var completionHandler: ((Int) -> Void)?
 
     // MARK: Initialization
-    init(viewModel: ProfitViewModel) {
+    init(viewModel: ProfitViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,14 +41,14 @@ final class ProfitViewController: UIViewController, FlowController {
 
     // MARK: Private Methods
     private func setupBindings() {
-        viewModel.$currentProfit
+        viewModel.currentProfitPublisher
             .compactMap({ String($0) })
             .sink { [weak self] profit in
                 guard let self else { return }
                 profitView.setupFinalAmountValue(text: profit)
             }.store(in: &cancellable)
 
-        viewModel.$selectedIndexInCollectionView
+        viewModel.selectedIndexInCollectionViewPublisher
             .sink { [weak self] index in
                 guard let self else { return }
                 if index != nil {
@@ -59,7 +59,7 @@ final class ProfitViewController: UIViewController, FlowController {
                 }
             }.store(in: &cancellable)
 
-        viewModel.$valid
+        viewModel.validPublisher
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] valid in

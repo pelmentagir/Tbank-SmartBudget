@@ -4,7 +4,7 @@ final class ProfitTextFieldDelegate: NSObject, UITextFieldDelegate {
 
     // MARK: Properties
     var updateFinalAmountLabel: ((String) -> Void)?
-    weak var viewModel: ProfitViewModel?
+    weak var viewModel: ProfitViewModelProtocol?
 
     // MARK: Delegate Methods
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
