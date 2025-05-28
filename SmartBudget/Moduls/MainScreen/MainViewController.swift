@@ -10,6 +10,7 @@ final class MainViewController: UIViewController, FlowController {
     private var viewModel: MainViewModel
     private var cancellables = Set<AnyCancellable>()
     var completionHandler: ((String) -> Void)?
+    private var categoryCollectionViewDataSource: CategoryBudgetDataSource?
 
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
@@ -26,13 +27,20 @@ final class MainViewController: UIViewController, FlowController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCollectionView()
         setupBindings()
     }
-    
+
+    private func configureCollectionView() {
+        categoryCollectionViewDataSource = CategoryBudgetDataSource(tableView: mainView.tableView)
+    }
+
     private func setupBindings() {
         viewModel.$chartItems
             .sink { [weak self] items in
                 self?.mainView.configure(with: items)
+                self?.categoryCollectionViewDataSource?.applySnapshot(categories: items, animated: true)
             }.store(in: &cancellables)
+        
     }
 }

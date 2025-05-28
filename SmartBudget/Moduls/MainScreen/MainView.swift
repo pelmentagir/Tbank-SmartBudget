@@ -44,12 +44,12 @@ final class MainView: UIView {
     }
 
     // MARK: Public Methods
-    func configure(with items: [ChartItem]) {
-        let total = items.map(\.value).reduce(0, +)
+    func configure(with items: [CategorySpendingDTO]) {
+        let total = items.map(\.percent).reduce(0, +)
         let amountText = String(format: "%.0f ₽", total)
         pieChartView.centerAttributedText = createCenterText(amount: amountText)
 
-        let entries = items.map { PieChartDataEntry(value: $0.value, label: $0.label) }
+        let entries = items.map { PieChartDataEntry(value: Double($0.percent), label: $0.categoryName) }
         let dataSet = PieChartDataSet(entries: entries, label: "")
         dataSet.sliceSpace = 2
         dataSet.selectionShift = 10
@@ -66,6 +66,7 @@ final class MainView: UIView {
 
     private func addSubviews() {
         addSubview(pieChartView)
+        addSubview(tableView)
     }
 
     private func setupLayout() {
@@ -74,6 +75,11 @@ final class MainView: UIView {
             make.size.equalTo(CGFloat.chartSize)
         }
         
+        tableView.snp.makeConstraints { make in
+            make.trailing.leading.equalToSuperview().inset(16)
+            make.top.equalTo(pieChartView.snp.bottom).offset(40)
+            make.height.equalTo(300)
+        }
     }
 
     private func createCenterText(amount: String) -> NSAttributedString {

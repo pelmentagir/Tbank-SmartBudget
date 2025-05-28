@@ -87,19 +87,14 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configure(
-        icon: UIImage?,
-        iconBackgroundColor: UIColor,
-        title: String,
-        spent: String,
-        remaining: String,
-        percentage: String
+        category: CategorySpendingDTO
     ) {
-        iconImageView.image = icon
-        iconBackgroundView.backgroundColor = iconBackgroundColor
-        titleLabel.text = title
-        spentValueLabel.text = spent
-        remainingValueLabel.text = remaining
-        percentLabel.text = percentage
+        //iconImageView.image = icon
+        //iconBackgroundView.backgroundColor = iconBackgroundColor
+        titleLabel.text = category.categoryName
+        spentValueLabel.text = "\(category.spentMoney)"
+        remainingValueLabel.text = "\(category.leftMoney)"
+        percentLabel.text = "\(category.percent)"
     }
 
     // MARK: - Private Methods
