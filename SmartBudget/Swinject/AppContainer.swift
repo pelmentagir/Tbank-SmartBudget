@@ -38,6 +38,18 @@ final class AppContainer {
         container.register(CreateProfileViewModel.self) { _ in
             return CreateProfileViewModel()
         }
+        
+        container.register(MainViewModel.self) { _ in
+            return MainViewModel()
+        }
+        
+        container.register(SavingViewModel.self) { _ in
+            return SavingViewModel()
+        }
+        
+        container.register(OperationViewModel.self) { _ in
+            return OperationViewModel()
+        }
 
         // MARK: Controller
         container.register(LoginViewController.self) { resolver in
@@ -54,6 +66,18 @@ final class AppContainer {
 
         container.register(CreateProfileViewController.self) { resolver in
             return CreateProfileViewController(viewModel: resolver.resolve(CreateProfileViewModel.self)!)
+        }
+        
+        container.register(MainViewController.self) { resolver in
+            return MainViewController(viewModel: resolver.resolve(MainViewModel.self)!)
+        }
+        
+        container.register(SavingViewController.self) { resolver in
+            return SavingViewController(viewModel: resolver.resolve(SavingViewModel.self)!)
+        }
+        
+        container.register(OperationViewController.self) { resolver in
+            return OperationViewController(viewModel: resolver.resolve(OperationViewModel.self)!)
         }
     }
 }

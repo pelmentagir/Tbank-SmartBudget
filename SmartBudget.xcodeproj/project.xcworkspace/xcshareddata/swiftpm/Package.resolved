@@ -1,6 +1,15 @@
 {
-  "originHash" : "9574b9c458311ebc6053aa73ba31bd84972af11d18c9087d84447f31d3c31386",
+  "originHash" : "e142af4a683b7f9146abd2e44305adca699022ec1a70154fe63174ad15ff9615",
   "pins" : [
+    {
+      "identity" : "charts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ChartsOrg/Charts",
+      "state" : {
+        "revision" : "dd9c72e3d7e751e769971092a6bd72d39198ae63",
+        "version" : "5.1.0"
+      }
+    },
     {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
