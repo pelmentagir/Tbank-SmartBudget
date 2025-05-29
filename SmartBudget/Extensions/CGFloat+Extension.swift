@@ -9,6 +9,7 @@ extension CGFloat {
     static let lowFontSize: CGFloat = 12
     static let normalFontSize: CGFloat = 14
     static let defaultFontSize: CGFloat = 16
+    static let italicFontSize: CGFloat = 18
     static let regularFontSize: CGFloat = 20
     static let mediumFontSize: CGFloat = 24
     static let highFontSize: CGFloat = 28

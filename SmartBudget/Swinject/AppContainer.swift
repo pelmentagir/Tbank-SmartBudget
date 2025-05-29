@@ -98,15 +98,16 @@ final class AppContainer {
         container.register(BudgetPlanningViewController.self) { (resolver, category: Category) in
             let viewModel = resolver.resolve(BudgetPlanningViewModel.self, argument: category)!
             return BudgetPlanningViewController(viewModel: viewModel)
-        
+        }
+
         container.register(MainViewController.self) { resolver in
             return MainViewController(viewModel: resolver.resolve(MainViewModel.self)!)
         }
-        
+
         container.register(SavingViewController.self) { resolver in
             return SavingViewController(viewModel: resolver.resolve(SavingViewModel.self)!)
         }
-        
+
         container.register(OperationViewController.self) { resolver in
             return OperationViewController(viewModel: resolver.resolve(OperationViewModel.self)!)
         }

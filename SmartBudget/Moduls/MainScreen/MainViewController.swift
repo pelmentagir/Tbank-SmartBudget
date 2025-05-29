@@ -7,11 +7,13 @@ final class MainViewController: UIViewController, FlowController {
         self.view as! MainView
     }
 
+    // MARK: Properties
     private var viewModel: MainViewModel
     private var cancellables = Set<AnyCancellable>()
     var completionHandler: ((String) -> Void)?
     private var categoryCollectionViewDataSource: CategoryBudgetDataSource?
 
+    // MARK: Initialization
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +23,7 @@ final class MainViewController: UIViewController, FlowController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: LifeCicle
     override func loadView() {
         self.view = MainView()
     }
@@ -31,6 +34,8 @@ final class MainViewController: UIViewController, FlowController {
         setupBindings()
     }
 
+    // MARK: Private Methods
+
     private func configureCollectionView() {
         categoryCollectionViewDataSource = CategoryBudgetDataSource(tableView: mainView.tableView)
     }
@@ -38,9 +43,19 @@ final class MainViewController: UIViewController, FlowController {
     private func setupBindings() {
         viewModel.$chartItems
             .sink { [weak self] items in
-                self?.mainView.configure(with: items)
+                self?.mainView.configurePie(with: items)
                 self?.categoryCollectionViewDataSource?.applySnapshot(categories: items, animated: true)
             }.store(in: &cancellables)
-        
+
+        viewModel.$leftIncome
+            .sink { [weak self] leftIncome in
+                self?.mainView.setLeftIncome(left: leftIncome)
+            }.store(in: &cancellables)
+
+        viewModel.$spentIncome
+            .sink { [weak self] spentIncome in
+                self?.mainView.setSpentIncome(spent: spentIncome)
+            }.store(in: &cancellables)
     }
 }
+

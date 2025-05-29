@@ -21,26 +21,15 @@ class MainCoordinator: Coordinator {
         let operationController = appContainer.resolveController(OperationViewController.self)
         operationController.tabBarItem = UITabBarItem(title: "Операции", image: UIImage.operations, selectedImage: UIImage.operations)
 
-        operationController.completionHandler = { _ in
-
-        }
-
         let mainViewController = appContainer.resolveController(MainViewController.self)
         mainViewController.tabBarItem = UITabBarItem(title: "Главная", image: UIImage.donutСhart, selectedImage: UIImage.donutСhart)
-
-        mainViewController.completionHandler = { _ in
-
-        }
 
         let savingController = appContainer.resolveController(SavingViewController.self)
         savingController.tabBarItem = UITabBarItem(title: "Накопления", image: UIImage.piggyBank, selectedImage: UIImage.piggyBank)
 
-        savingController.completionHandler = { _ in
-
-        }
-
         tabBarController.viewControllers = [operationController, mainViewController, savingController]
         tabBarController.tabBar.setupTinkoffStyle()
+
         navigationController.setViewControllers([tabBarController], animated: true)
     }
 }
