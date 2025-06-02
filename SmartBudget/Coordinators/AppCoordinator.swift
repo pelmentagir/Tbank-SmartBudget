@@ -18,6 +18,7 @@ final class AppCoordinator: Coordinator {
 
     // MARK: Public Methods
     func start() {
+        //showAuthFlow()
         showMainFlow()
     }
 
@@ -27,15 +28,16 @@ final class AppCoordinator: Coordinator {
             navigationController: navigationController,
             appContainer: appContainer
         )
-        authCoordinator.imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer)
+        authCoordinator.imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer, type: .photo)
+        authCoordinator.start()
         childrens.append(authCoordinator)
     }
-    
+
     private func showMainFlow() {
         let mainCoordinator = MainCoordinator(
             navigationController: navigationController,
             appContainer: appContainer)
-        mainCoordinator.start() 
+        mainCoordinator.start()
         childrens.append(mainCoordinator)
     }
 }

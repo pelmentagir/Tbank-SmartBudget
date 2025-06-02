@@ -14,7 +14,6 @@ final class AuthCoordinator: Coordinator {
     init(navigationController: UINavigationController, appContainer: AppContainer) {
         self.navigationController = navigationController
         self.appContainer = appContainer
-        start()
     }
 
     // MARK: Public Methods
@@ -67,11 +66,11 @@ final class AuthCoordinator: Coordinator {
             guard let self else { return }
             imagePickerCoordinator?.start()
         }
-
+        
         imagePickerCoordinator?.didSelectImage = { image in
             controller.handleAvatarImage(image: image)
         }
-
+        
         navigationController.setViewControllers([controller], animated: true)
     }
 

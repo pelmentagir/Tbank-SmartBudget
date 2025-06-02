@@ -1,23 +1,31 @@
 import UIKit
 
+private extension CGFloat {
+    static let iconSize: CGFloat = 24
+    static let cornerRadiusIconView: CGFloat = 20
+    static let iconBackgroundAlphaComponent: CGFloat = 0.2
+    static let shadowRadius: CGFloat = 8
+    static let shadowOpacity: Float = 0.08
+}
+
 final class CategoryBudgetTableViewCell: UITableViewCell {
 
     // MARK: UI Elements
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = .cornerRadius
         view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.08
-        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowOpacity = CGFloat.shadowOpacity
+        view.layer.shadowOffset = CGSize(width: 0, height: CGFloat.extraSmallPadding)
         view.layer.shadowRadius = 8
         return view
     }()
 
     private lazy var iconBackgroundView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 20
-        view.backgroundColor = UIColor.systemYellow.withAlphaComponent(0.2)
+        view.layer.cornerRadius = .cornerRadiusIconView
+        view.backgroundColor = UIColor.systemYellow.withAlphaComponent(.iconBackgroundAlphaComponent)
         return view
     }()
 
@@ -30,7 +38,7 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.font = .systemFont(ofSize: .italicFontSize, weight: .medium)
         label.textColor = .label
         return label
     }()
@@ -38,14 +46,14 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
     private lazy var spentLabel: UILabel = {
         let label = UILabel()
         label.text = "Потрачено:"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: .normalFontSize)
         label.textColor = .secondaryLabel
         return label
     }()
 
     private lazy var spentValueLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: .defaultFontSize, weight: .semibold)
         label.textColor = .label
         return label
     }()
@@ -53,21 +61,21 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
     private lazy var remainingLabel: UILabel = {
         let label = UILabel()
         label.text = "Осталось:"
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: .normalFontSize)
         label.textColor = .secondaryLabel
         return label
     }()
 
     private lazy var remainingValueLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: .defaultFontSize, weight: .semibold)
         label.textColor = .label
         return label
     }()
 
     private lazy var percentLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: .defaultFontSize)
         label.textColor = .systemGray
         return label
     }()
@@ -75,7 +83,7 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
     private lazy var spentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [spentLabel, spentValueLabel])
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = .extraSmallPadding
         stackView.alignment = .center
         return stackView
     }()
@@ -83,7 +91,7 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
     private lazy var percentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [remainingLabel, remainingValueLabel])
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = .extraSmallPadding
         stackView.alignment = .center
         return stackView
     }()
@@ -128,33 +136,33 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
         containerView.addSubview(percentLabel)
 
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
+            make.edges.equalToSuperview().inset(CGFloat.smallPadding)
         }
 
         iconBackgroundView.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().inset(16)
-            make.size.equalTo(40)
+            make.leading.top.equalToSuperview().inset(CGFloat.largePadding)
+            make.size.equalTo(CGFloat.extraLargePadding)
         }
 
         iconImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.size.equalTo(24)
+            make.size.equalTo(CGFloat.iconSize)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(iconBackgroundView.snp.trailing).offset(12)
+            make.leading.equalTo(iconBackgroundView.snp.trailing).offset(CGFloat.mediumPadding)
             make.centerY.equalTo(iconBackgroundView)
-            make.trailing.lessThanOrEqualTo(percentLabel.snp.leading).offset(-8)
+            make.trailing.lessThanOrEqualTo(percentLabel.snp.leading).offset(-CGFloat.smallPadding)
         }
 
         percentLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(CGFloat.largePadding)
             make.centerY.equalTo(iconBackgroundView)
         }
 
         infoAmountStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(iconImageView.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
+            make.top.equalTo(iconImageView.snp.bottom).offset(CGFloat.largePadding)
         }
     }
 }

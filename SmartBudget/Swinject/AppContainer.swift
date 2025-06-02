@@ -45,15 +45,15 @@ final class AppContainer {
         container.register(CreateProfileViewModel.self) { _ in
             return CreateProfileViewModel()
         }
-        
+
         container.register(MainViewModel.self) { _ in
             return MainViewModel()
         }
-        
+
         container.register(SavingViewModel.self) { _ in
             return SavingViewModel()
         }
-        
+
         container.register(OperationViewModel.self) { _ in
             return OperationViewModel()
         }
@@ -68,6 +68,22 @@ final class AppContainer {
 
         container.register(BudgetPlanningViewModel.self) { (_, category: Category) in
             return BudgetPlanningViewModel(category: category)
+        }
+
+        container.register(ReplenishViewModel.self) { (_, savingGoal: SavingGoal) in
+            return ReplenishViewModel(savingGoal: savingGoal)
+        }
+        
+        container.register(FirstScreenAddingGoalViewModel.self) { _ in
+            return FirstScreenAddingGoalViewModel()
+        }
+
+        container.register(SecondScreenAddingGoalViewModel.self) { _ in
+            return SecondScreenAddingGoalViewModel()
+        }
+        
+        container.register(ThirdScreenAddingGoalViewModel.self) { _ in
+            return ThirdScreenAddingGoalViewModel()
         }
 
         // MARK: Controller
@@ -110,6 +126,23 @@ final class AppContainer {
 
         container.register(OperationViewController.self) { resolver in
             return OperationViewController(viewModel: resolver.resolve(OperationViewModel.self)!)
+        }
+
+        container.register(ReplenishViewController.self) { (resolver, savingGoal: SavingGoal) in
+            let viewModel = resolver.resolve(ReplenishViewModel.self, argument: savingGoal)!
+            return ReplenishViewController(viewModel: viewModel)
+        }
+        
+        container.register(FirstScreenAddingGoalViewController.self) { resolver in
+            return FirstScreenAddingGoalViewController(viewModel: resolver.resolve(FirstScreenAddingGoalViewModel.self)!)
+        }
+
+        container.register(SecondScreenAddingGoalViewController.self) { resolver in
+            return SecondScreenAddingGoalViewController(viewModel: resolver.resolve(SecondScreenAddingGoalViewModel.self)!)
+        }
+        
+        container.register(ThirdScreenAddingGoalViewController.self) { resolver in
+            return ThirdScreenAddingGoalViewController(viewModel: resolver.resolve(ThirdScreenAddingGoalViewModel.self)!)
         }
     }
 }
