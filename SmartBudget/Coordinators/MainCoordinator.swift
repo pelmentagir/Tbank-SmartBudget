@@ -1,17 +1,20 @@
 import UIKit
 
 class MainCoordinator: NSObject, Coordinator {
-    var navigationController: UINavigationController
 
+    // MARK: Properties
+    private let appContainer: AppContainer
+    var navigationController: UINavigationController
     var flowCompletionHandler: (() -> Void)?
-    let appContainer: AppContainer
     var childrens: [Coordinator] = []
 
+    // MARK: Initialization
     init(navigationController: UINavigationController, appContainer: AppContainer) {
         self.navigationController = navigationController
         self.appContainer = appContainer
     }
-    
+
+    // MARK: Actions
     private lazy var showAddingCoordinator = UIAction { [weak self] _ in
         guard let self else { return }
         let coordinator = AdditingGoalCoordinator(navigationController: navigationController, appContainer: appContainer)
@@ -23,10 +26,12 @@ class MainCoordinator: NSObject, Coordinator {
         childrens.append(coordinator)
     }
 
+    // MARK: Public Methods
     func start() {
         showTabBarFlow()
     }
 
+    // MARK: Private Methods
     private func showTabBarFlow() {
         let tabBarController = UITabBarController()
         let operationController = appContainer.resolveController(OperationViewController.self)
@@ -37,18 +42,10 @@ class MainCoordinator: NSObject, Coordinator {
 
         let savingController = appContainer.resolveController(SavingViewController.self)
         savingController.tabBarItem = UITabBarItem(title: "Накопления", image: UIImage.piggyBank, selectedImage: UIImage.piggyBank)
-        
+
         savingController.presentReplenishView = { [weak self] savingGoal in
             guard let self else { return }
-            let replenishController = appContainer.resolveController(ReplenishViewController.self, argument: savingGoal)
-            replenishController.completionHandler = { savingGoal in
-                savingController.replenishAmount(goal: savingGoal)
-                replenishController.dismiss(animated: true)
-            }
-            replenishController.modalPresentationStyle = .custom
-            replenishController.modalTransitionStyle = .coverVertical
-            replenishController.transitioningDelegate = savingController
-            savingController.present(replenishController, animated: true)
+            showReplenishFlow(with: savingGoal, rootController: savingController)
         }
 
         tabBarController.viewControllers = [operationController, mainViewController, savingController]
@@ -57,6 +54,18 @@ class MainCoordinator: NSObject, Coordinator {
         tabBarController.delegate = self
 
         navigationController.setViewControllers([tabBarController], animated: true)
+    }
+
+    private func showReplenishFlow(with savingGoal: SavingGoal, rootController: SavingViewController) {
+        let replenishController = appContainer.resolveController(ReplenishViewController.self, argument: savingGoal)
+        replenishController.completionHandler = { savingGoal in
+            rootController.replenishAmount(goal: savingGoal)
+            replenishController.dismiss(animated: true)
+        }
+        replenishController.modalPresentationStyle = .custom
+        replenishController.modalTransitionStyle = .coverVertical
+        replenishController.transitioningDelegate = rootController
+        navigationController.present(replenishController, animated: true)
     }
 }
 

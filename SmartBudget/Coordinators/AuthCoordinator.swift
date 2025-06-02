@@ -3,8 +3,8 @@ import UIKit
 final class AuthCoordinator: Coordinator {
 
     // MARK: Properties
+    private let appContainer: AppContainer
     var navigationController: UINavigationController
-    var appContainer: AppContainer
     var imagePickerCoordinator: ImagePickerCoordinator?
     weak var categoryDistributionController: CategoryDistributionViewController?
 
@@ -18,7 +18,6 @@ final class AuthCoordinator: Coordinator {
 
     // MARK: Public Methods
     func start() {
-        /*showLoginFlow()*/
         showCategoryDistributionFlow()
     }
 

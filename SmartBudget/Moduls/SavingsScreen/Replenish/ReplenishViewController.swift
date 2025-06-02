@@ -39,6 +39,8 @@ final class ReplenishViewController: UIViewController, FlowController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        modalTransitionStyle = .coverVertical
+        modalPresentationStyle = .custom
         configureCollectionView()
         configureTextField()
         setupBindings()

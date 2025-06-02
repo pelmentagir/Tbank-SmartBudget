@@ -22,7 +22,7 @@ final class CustomHeightPresentationController: UIPresentationController {
         view.addGestureRecognizer(tapGesture)
         return view
     }()
-    
+
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView else { return .zero }
 

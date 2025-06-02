@@ -1,21 +1,26 @@
 import UIKit
 
 final class AdditingGoalCoordinator: Coordinator {
+
+    // MARK: Properties
+    private var savingGoal = SavingGoalRequestDTO()
+    private let appContainer: AppContainer
     var navigationController: UINavigationController
-    private var appContainer: AppContainer
     var imagePickerCoordinator: ImagePickerCoordinator?
-    var savingGoal = SavingGoalRequestDTO()
     var flowCompletionHandler: (() -> Void)?
 
+    // MARK: Initialization
     init(navigationController: UINavigationController, appContainer: AppContainer) {
         self.navigationController = navigationController
         self.appContainer = appContainer
     }
 
+    // MARK: Public Methods
     func start() {
         showFirstView()
     }
 
+    // MARK: Private Methods
     private func showFirstView() {
         let controller = appContainer.resolveController(FirstScreenAddingGoalViewController.self)
         controller.completionHandler = { [weak self] targetName in

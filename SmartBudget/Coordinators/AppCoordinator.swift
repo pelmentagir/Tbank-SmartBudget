@@ -5,7 +5,7 @@ final class AppCoordinator: Coordinator {
     // MARK: Properties
     var childrens: [Coordinator] = []
     var navigationController: UINavigationController
-    var appContainer: AppContainer
+    private let appContainer: AppContainer
 
     var flowCompletionHandler: (() -> Void)?
 
@@ -18,7 +18,6 @@ final class AppCoordinator: Coordinator {
 
     // MARK: Public Methods
     func start() {
-        //showAuthFlow()
         showMainFlow()
     }
 

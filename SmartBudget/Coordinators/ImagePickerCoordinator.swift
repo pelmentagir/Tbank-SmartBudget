@@ -9,10 +9,10 @@ enum CropType {
 final class ImagePickerCoordinator: NSObject, Coordinator {
 
     // MARK: Properties
+    private let appContainer: AppContainer
+    private let cropType: CropType
     var navigationController: UINavigationController
-    var appContainer: AppContainer
     var didSelectImage: ((UIImage) -> Void)?
-    let cropType: CropType
 
     var flowCompletionHandler: (() -> Void)?
 
