@@ -14,12 +14,14 @@ extension CGFloat {
     static let mediumFontSize: CGFloat = 24
     static let highFontSize: CGFloat = 28
     static let cornerRadius: CGFloat = 16
+    static let baseHeight: CGFloat = 56
     static let alphaBackgorundViewCategory: CGFloat = 0.12
 
     static let extraSmallPadding: CGFloat = 4
     static let smallPadding: CGFloat = 8
     static let mediumPadding: CGFloat = 12
     static let largePadding: CGFloat = 16
+    static let bigPadding: CGFloat = 32
     static let extraLargePadding: CGFloat = 40
 }
 

@@ -1,43 +1,24 @@
 import UIKit
 
 private extension String {
-    static let stepText = "Шаг 1 из 2"
-    static let titleText = "Укажите ваш доход"
     static let defaultProfit = "0"
     static let defaultFinalAmountValue = "0 ₽"
-    static let finalAmountLabelText = "Итоговая сумма: "
+    static let buttonText = "Пополнить"
 }
 
 private extension CGFloat {
-    static let titleTopSpacing: CGFloat = 26
     static let collectionViewHeight: CGFloat = 30
     static let collectionViewItemWidth: CGFloat = 90
     static let collectionViewItemHeight: CGFloat = 30
-    static let amountLabelBottomSpacing: CGFloat = 30
-    static let animationScale: CGFloat = 0.9
 }
 
-final class ProfitView: UIView {
+final class ReplenishView: UIView {
 
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory
     private var buttonFactory: IButtonFactory
 
     // MARK: UI Elements
-    private lazy var stepLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: .defaultFontSize)
-        label.text = .stepText
-        return label
-    }()
-
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: .highFontSize)
-        label.text = .titleText
-        return label
-    }()
-
     private(set) lazy var profitTextField: TextFieldView = {
         let textField = textFieldFactory.createTextFieldView(type: .numeric, placeholder: .defaultProfit, rightButton: nil)
 
@@ -67,23 +48,9 @@ final class ProfitView: UIView {
         return collectionView
     }()
 
-    private lazy var finalAmountLabel: UILabel = {
-        let label = UILabel()
-        label.text = .finalAmountLabelText
-        label.font = .systemFont(ofSize: .regularFontSize, weight: .medium)
-        return label
-    }()
-
-    private lazy var finalAmountValueLabel: UILabel = {
-        let label = UILabel()
-        label.text = .defaultFinalAmountValue
-        label.font = .boldSystemFont(ofSize: .normalFontSize)
-        return label
-    }()
-
-    private(set) lazy var continueButton: IButton = buttonFactory.createButton(
+    private(set) lazy var replenishButton: IButton = buttonFactory.createButton(
         type: .standard,
-        title: .confirmButtonText,
+        title: .buttonText,
         state: .disabled,
         font: .systemFont(ofSize: .defaultFontSize),
         height: .baseHeight)
@@ -103,18 +70,6 @@ final class ProfitView: UIView {
     }
 
     // MARK: Public Methods
-    func setupFinalAmountValue(text: String) {
-        let text = text.isEmpty ? "0" : text
-        finalAmountValueLabel.alpha = 0
-        finalAmountValueLabel.transform = CGAffineTransform(scaleX: .animationScale, y: .animationScale)
-        finalAmountValueLabel.text = "\(text) ₽"
-
-        UIView.animate(withDuration: 0.4) {
-            self.finalAmountValueLabel.alpha = 1
-            self.finalAmountValueLabel.transform = .identity
-        }
-    }
-
     func updateTextAtTextField(_ newText: String) {
         self.profitTextField.getField().text = newText
         self.profitTextField.getField().setNeedsDisplay()
@@ -122,28 +77,14 @@ final class ProfitView: UIView {
 
     // MARK: Private Methods
     private func addSubviews() {
-        addSubview(stepLabel)
-        addSubview(titleLabel)
         addSubview(profitTextField)
         addSubview(amountCollectionView)
-        addSubview(finalAmountLabel)
-        addSubview(finalAmountValueLabel)
-        addSubview(continueButton)
+        addSubview(replenishButton)
     }
 
     private func setupLayout() {
-        stepLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().offset(CGFloat.largePadding)
-        }
-
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(stepLabel.snp.bottom).offset(CGFloat.largePadding)
-            make.leading.equalToSuperview().offset(CGFloat.largePadding)
-        }
-
         profitTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.titleTopSpacing)
+            make.top.equalToSuperview().offset(CGFloat.bigPadding)
             make.leading.equalToSuperview().offset(CGFloat.largePadding)
             make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
@@ -155,18 +96,7 @@ final class ProfitView: UIView {
             make.height.equalTo(CGFloat.collectionViewHeight)
         }
 
-        finalAmountLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.amountLabelBottomSpacing)
-            make.leading.equalToSuperview().offset(CGFloat.amountLabelBottomSpacing)
-        }
-
-        finalAmountValueLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.amountLabelBottomSpacing)
-            make.leading.equalTo(finalAmountLabel.snp.trailing).offset(CGFloat.extraSmallPadding)
-            make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
-        }
-
-        continueButton.snp.makeConstraints { make in
+        replenishButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
             make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }

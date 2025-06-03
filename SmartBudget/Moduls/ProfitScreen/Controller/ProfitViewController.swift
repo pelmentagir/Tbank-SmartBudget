@@ -65,13 +65,17 @@ final class ProfitViewController: UIViewController, FlowController {
             .sink { [weak self] valid in
                 self?.profitView.continueButton.buttonViewModel.buttonState = valid ? .normal : .disabled
             }.store(in: &cancellable)
+        
+        viewModel.amountPublished
+            .sink { [weak self] amount in
+                self?.amountCollectionViewDataSource?.applySnapshot(items: amount, animated: true)
+            }.store(in: &cancellable)
     }
 
     private func configureCollectionView() {
         amountCollectionViewDelegate = AmountCollectionViewDelegate()
-        amountCollectionViewDataSource = AmountCollectionViewDataSource(viewModel: viewModel)
+        amountCollectionViewDataSource = AmountCollectionViewDataSource(collectionView: profitView.amountCollectionView)
 
-        profitView.amountCollectionView.dataSource = amountCollectionViewDataSource
         profitView.amountCollectionView.delegate = amountCollectionViewDelegate
 
         amountCollectionViewDelegate?.viewModel = viewModel

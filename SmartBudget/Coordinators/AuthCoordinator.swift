@@ -3,8 +3,8 @@ import UIKit
 final class AuthCoordinator: Coordinator {
 
     // MARK: Properties
+    private let appContainer: AppContainer
     var navigationController: UINavigationController
-    var appContainer: AppContainer
     var imagePickerCoordinator: ImagePickerCoordinator?
     weak var categoryDistributionController: CategoryDistributionViewController?
 
@@ -14,12 +14,10 @@ final class AuthCoordinator: Coordinator {
     init(navigationController: UINavigationController, appContainer: AppContainer) {
         self.navigationController = navigationController
         self.appContainer = appContainer
-        start()
     }
 
     // MARK: Public Methods
     func start() {
-        /*showLoginFlow()*/
         showCategoryDistributionFlow()
     }
 
@@ -67,11 +65,11 @@ final class AuthCoordinator: Coordinator {
             guard let self else { return }
             imagePickerCoordinator?.start()
         }
-
+        
         imagePickerCoordinator?.didSelectImage = { image in
             controller.handleAvatarImage(image: image)
         }
-
+        
         navigationController.setViewControllers([controller], animated: true)
     }
 

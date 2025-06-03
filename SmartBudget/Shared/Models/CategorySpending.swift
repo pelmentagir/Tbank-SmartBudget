@@ -1,6 +1,6 @@
 import Foundation
 
-struct CategorySpendingDTO: Hashable {
+struct CategorySpending: Hashable {
     let categoryName: String
     let spentMoney: Int
     let leftMoney: Int
