@@ -1,19 +1,26 @@
 import UIKit
 import TOCropViewController
 
+enum CropType {
+    case avatar
+    case photo
+}
+
 final class ImagePickerCoordinator: NSObject, Coordinator {
 
     // MARK: Properties
+    private let appContainer: AppContainer
+    private let cropType: CropType
     var navigationController: UINavigationController
-    var appContainer: AppContainer
     var didSelectImage: ((UIImage) -> Void)?
 
     var flowCompletionHandler: (() -> Void)?
 
     // MARK: Initialization
-    init(navigationController: UINavigationController, appContainer: AppContainer) {
+    init(navigationController: UINavigationController, appContainer: AppContainer, type: CropType) {
         self.navigationController = navigationController
         self.appContainer = appContainer
+        self.cropType = type
     }
 
     // MARK: Public Methods
@@ -30,10 +37,20 @@ final class ImagePickerCoordinator: NSObject, Coordinator {
         navigationController.present(imagePicker, animated: true)
     }
 
-    private func showCropViewController(with image: UIImage) {
+    private func showCropAvatarViewController(with image: UIImage) {
         let cropViewController = TOCropViewController(croppingStyle: .circular, image: image)
         cropViewController.delegate = self
         cropViewController.aspectRatioPreset = .presetSquare
+        cropViewController.aspectRatioLockEnabled = true
+        cropViewController.resetAspectRatioEnabled = false
+        cropViewController.cropView.cropBoxResizeEnabled = false
+        navigationController.present(cropViewController, animated: true)
+    }
+
+    private func showCropViewController(with image: UIImage) {
+        let cropViewController = TOCropViewController(croppingStyle: .default, image: image)
+        cropViewController.delegate = self
+        cropViewController.aspectRatioPreset = .preset16x9
         cropViewController.aspectRatioLockEnabled = true
         cropViewController.resetAspectRatioEnabled = false
         cropViewController.cropView.cropBoxResizeEnabled = false
@@ -47,7 +64,11 @@ extension ImagePickerCoordinator: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true) { [weak self] in
             if let image = info[.originalImage] as? UIImage {
-                self?.showCropViewController(with: image)
+                if self?.cropType == .avatar {
+                    self?.showCropAvatarViewController(with: image)
+                } else {
+                    self?.showCropViewController(with: image)
+                }
             }
         }
     }

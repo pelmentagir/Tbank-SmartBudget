@@ -1,26 +1,31 @@
 import UIKit
 
-final class AmountCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+final class AmountCollectionViewDataSource: NSObject {
 
     // MARK: Properties
-    private let viewModel: ProfitViewModelProtocol
-    private let dataSource: [Int]
+    private var dataSource: UICollectionViewDiffableDataSource<ViewSection, Int>?
+    private let collectionView: UICollectionView
 
     // MARK: Initialization
-    init(viewModel: ProfitViewModelProtocol) {
-        self.viewModel = viewModel
-        self.dataSource = viewModel.obtainAmount()
+    init(collectionView: UICollectionView) {
+        self.collectionView = collectionView
+        super.init()
+        setupDataSource()
+    }
+    
+    func applySnapshot(items: [Int], animated: Bool) {
+        var snapshot = NSDiffableDataSourceSnapshot<ViewSection, Int>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items)
+        dataSource?.apply(snapshot, animatingDifferences: animated)
     }
 
-    // MARK: Delegate Methods
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.obtainCountAmount()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AmountCollectionViewCell.reuseIdentifier, for: indexPath) as! AmountCollectionViewCell
-        cell.configureCell(amount: dataSource[indexPath.item])
-        return cell
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, amount in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AmountCollectionViewCell.reuseIdentifier, for: indexPath) as! AmountCollectionViewCell
+            cell.configureCell(amount: amount)
+            
+            return cell
+        })
     }
 }

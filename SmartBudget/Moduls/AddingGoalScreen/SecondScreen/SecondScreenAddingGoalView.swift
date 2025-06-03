@@ -1,11 +1,10 @@
 import UIKit
 
 private extension String {
-    static let stepText = "Шаг 1 из 2"
-    static let titleText = "Укажите ваш доход"
+    static let stepText = "Шаг 2 из 3"
+    static let titleText = "Укажите желаемую сумму"
+    static let capitalText = "Сколько уже накопили:"
     static let defaultProfit = "0"
-    static let defaultFinalAmountValue = "0 ₽"
-    static let finalAmountLabelText = "Итоговая сумма: "
 }
 
 private extension CGFloat {
@@ -17,7 +16,7 @@ private extension CGFloat {
     static let animationScale: CGFloat = 0.9
 }
 
-final class ProfitView: UIView {
+final class SecondScreenAddingGoalView: UIView {
 
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory
@@ -38,7 +37,7 @@ final class ProfitView: UIView {
         return label
     }()
 
-    private(set) lazy var profitTextField: TextFieldView = {
+    private(set) lazy var totalSumTextField: TextFieldView = {
         let textField = textFieldFactory.createTextFieldView(type: .numeric, placeholder: .defaultProfit, rightButton: nil)
 
         textField.getField().attributedPlaceholder = NSAttributedString(
@@ -67,18 +66,27 @@ final class ProfitView: UIView {
         return collectionView
     }()
 
-    private lazy var finalAmountLabel: UILabel = {
+    private(set) lazy var capitalLabel: UILabel = {
         let label = UILabel()
-        label.text = .finalAmountLabelText
-        label.font = .systemFont(ofSize: .regularFontSize, weight: .medium)
+        label.font = .systemFont(ofSize: .italicFontSize, weight: .medium)
+        label.text = .capitalText
         return label
     }()
 
-    private lazy var finalAmountValueLabel: UILabel = {
-        let label = UILabel()
-        label.text = .defaultFinalAmountValue
-        label.font = .boldSystemFont(ofSize: .normalFontSize)
-        return label
+    private(set) lazy var capitalTextField: TextFieldView = {
+        let textField = textFieldFactory.createTextFieldView(type: .numeric, placeholder: .defaultProfit, rightButton: nil)
+
+        textField.getField().attributedPlaceholder = NSAttributedString(
+            string: .defaultProfit,
+            attributes: [
+                .foregroundColor: UIColor.black
+            ]
+        )
+
+        textField.snp.makeConstraints { make in
+            make.height.equalTo(CGFloat.authScaledHeight)
+        }
+        return textField
     }()
 
     private(set) lazy var continueButton: IButton = buttonFactory.createButton(
@@ -103,31 +111,19 @@ final class ProfitView: UIView {
     }
 
     // MARK: Public Methods
-    func setupFinalAmountValue(text: String) {
-        let text = text.isEmpty ? "0" : text
-        finalAmountValueLabel.alpha = 0
-        finalAmountValueLabel.transform = CGAffineTransform(scaleX: .animationScale, y: .animationScale)
-        finalAmountValueLabel.text = "\(text) ₽"
-
-        UIView.animate(withDuration: 0.4) {
-            self.finalAmountValueLabel.alpha = 1
-            self.finalAmountValueLabel.transform = .identity
-        }
-    }
-
     func updateTextAtTextField(_ newText: String) {
-        self.profitTextField.getField().text = newText
-        self.profitTextField.getField().setNeedsDisplay()
+        self.totalSumTextField.getField().text = newText
+        self.totalSumTextField.getField().setNeedsDisplay()
     }
 
     // MARK: Private Methods
     private func addSubviews() {
         addSubview(stepLabel)
         addSubview(titleLabel)
-        addSubview(profitTextField)
+        addSubview(totalSumTextField)
         addSubview(amountCollectionView)
-        addSubview(finalAmountLabel)
-        addSubview(finalAmountValueLabel)
+        addSubview(capitalLabel)
+        addSubview(capitalTextField)
         addSubview(continueButton)
     }
 
@@ -142,27 +138,28 @@ final class ProfitView: UIView {
             make.leading.equalToSuperview().offset(CGFloat.largePadding)
         }
 
-        profitTextField.snp.makeConstraints { make in
+        totalSumTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.titleTopSpacing)
             make.leading.equalToSuperview().offset(CGFloat.largePadding)
             make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
 
         amountCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(profitTextField.snp.bottom).offset(CGFloat.largePadding)
+            make.top.equalTo(totalSumTextField.snp.bottom).offset(CGFloat.largePadding)
             make.leading.equalToSuperview().offset(CGFloat.largePadding)
             make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
             make.height.equalTo(CGFloat.collectionViewHeight)
         }
 
-        finalAmountLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.amountLabelBottomSpacing)
-            make.leading.equalToSuperview().offset(CGFloat.amountLabelBottomSpacing)
+        capitalLabel.snp.makeConstraints { make in
+            make.top.equalTo(amountCollectionView.snp.bottom).offset(CGFloat.bigPadding)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
+            make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
 
-        finalAmountValueLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.amountLabelBottomSpacing)
-            make.leading.equalTo(finalAmountLabel.snp.trailing).offset(CGFloat.extraSmallPadding)
+        capitalTextField.snp.makeConstraints { make in
+            make.top.equalTo(capitalLabel.snp.bottom).offset(CGFloat.largePadding)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
             make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
 

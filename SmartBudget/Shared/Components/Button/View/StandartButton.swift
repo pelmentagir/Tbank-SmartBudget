@@ -2,8 +2,6 @@ import UIKit
 import Combine
 
 private extension CGFloat {
-    static let baseHeight: CGFloat = 56
-    static var scaledHeight: CGFloat = baseHeight * (screenWidth / baseWidth)
     static var activityIndicatorSize: CGFloat = 30
     static let loadingAlpha: CGFloat = 0.5
     static let defaultAlpha: CGFloat = 1
@@ -16,6 +14,7 @@ final class StandartButton: UIButton {
 
     // MARK: Properties
     var buttonViewModel: ButtonViewModel
+    let baseHeight: CGFloat
 
     private lazy var activityIndicator: ActivityIndicator = {
         let activity = ActivityIndicator()
@@ -34,8 +33,9 @@ final class StandartButton: UIButton {
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: Initialization
-    init(viewModel: ButtonViewModel) {
+    init(viewModel: ButtonViewModel, height: CGFloat = .baseHeight) {
         self.buttonViewModel = viewModel
+        self.baseHeight = height
         super.init(frame: .zero)
         setup()
     }
@@ -55,7 +55,7 @@ final class StandartButton: UIButton {
 
     private func setupLayout() {
         snp.makeConstraints { make in
-            make.height.equalTo(CGFloat.scaledHeight)
+            make.height.equalTo(baseHeight * (CGFloat.screenWidth / CGFloat.baseWidth))
         }
     }
 

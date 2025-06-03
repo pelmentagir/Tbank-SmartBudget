@@ -53,6 +53,7 @@ final class MainView: UIView {
         chartView.transparentCircleRadiusPercent = .transparentCircleRadiusPercent
         chartView.chartDescription.enabled = false
         chartView.drawEntryLabelsEnabled = false
+        chartView.holeRadiusPercent = .holeRadiusPercent
         chartView.centerTextRadiusPercent = .centerTextRadiusPercent
         chartView.legend.enabled = false
         chartView.rotationEnabled = false
