@@ -46,6 +46,12 @@ final class ReplenishViewController: UIViewController, FlowController {
         setupBindings()
         setupAction()
     }
+    
+    // MARK: Public Methods
+    func configurePresentation() {
+        modalPresentationStyle = .custom
+        modalTransitionStyle = .coverVertical
+    }
 
     // MARK: Private Methods
     private func setupAction() {

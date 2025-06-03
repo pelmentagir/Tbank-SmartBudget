@@ -3,7 +3,7 @@ import UIKit
 final class AdditingGoalCoordinator: Coordinator {
 
     // MARK: Properties
-    private var savingGoal = SavingGoalRequestDTO()
+    private var savingGoal = SavingGoalRequest()
     private let appContainer: AppContainer
     var navigationController: UINavigationController
     var imagePickerCoordinator: ImagePickerCoordinator?

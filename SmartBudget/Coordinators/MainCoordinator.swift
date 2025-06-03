@@ -62,8 +62,7 @@ class MainCoordinator: NSObject, Coordinator {
             rootController.replenishAmount(goal: savingGoal)
             replenishController.dismiss(animated: true)
         }
-        replenishController.modalPresentationStyle = .custom
-        replenishController.modalTransitionStyle = .coverVertical
+        replenishController.configurePresentation()
         replenishController.transitioningDelegate = rootController
         navigationController.present(replenishController, animated: true)
     }

@@ -1,6 +1,6 @@
 import UIKit
 
-struct SavingGoalRequestDTO {
+struct SavingGoalRequest {
     var title: String = ""
     var image: UIImage?
     var totalCost: Int = 0
