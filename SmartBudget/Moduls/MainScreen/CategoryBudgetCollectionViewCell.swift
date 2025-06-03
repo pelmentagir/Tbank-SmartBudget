@@ -107,7 +107,7 @@ final class CategoryBudgetTableViewCell: UITableViewCell {
     }
 
     // MARK: Public Methods
-    func configure(category: CategorySpendingDTO) {
+    func configure(category: CategorySpending) {
         iconImageView.image = UIImage.getIconByCategory(categoryName: category.categoryName)
         iconBackgroundView.backgroundColor = UIColor.getBackgroundColorByCategory(categoryName: category.categoryName).withAlphaComponent(.alphaBackgorundViewCategory)
         titleLabel.text = category.categoryName

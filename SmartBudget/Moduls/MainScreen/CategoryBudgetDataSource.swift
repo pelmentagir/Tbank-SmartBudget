@@ -3,7 +3,7 @@ import UIKit
 final class CategoryBudgetDataSource: NSObject {
     
     // MARK: Properties
-    private var dataSource: UITableViewDiffableDataSource<Int, CategorySpendingDTO>?
+    private var dataSource: UITableViewDiffableDataSource<Int, CategorySpending>?
     private let tableView: UITableView
 
     // MARK: Intialization
@@ -14,8 +14,8 @@ final class CategoryBudgetDataSource: NSObject {
     }
     
     // MARK: Public Methods
-    func applySnapshot(categories: [CategorySpendingDTO], animated: Bool) {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, CategorySpendingDTO>()
+    func applySnapshot(categories: [CategorySpending], animated: Bool) {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CategorySpending>()
         snapshot.appendSections([0])
         snapshot.appendItems(categories)
         dataSource?.apply(snapshot, animatingDifferences: animated)

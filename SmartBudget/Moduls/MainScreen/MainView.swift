@@ -99,7 +99,7 @@ final class MainView: UIView {
         pieChartView.centerAttributedText = createCenterText(amount: "\(left) ₽")
     }
 
-    func configurePie(with items: [CategorySpendingDTO]) {
+    func configurePie(with items: [CategorySpending]) {
         let entries = items.map { PieChartDataEntry(value: Double($0.percent), label: $0.categoryName) }
         let dataSet = PieChartDataSet(entries: entries, label: "")
         dataSet.sliceSpace = .sliceSpace

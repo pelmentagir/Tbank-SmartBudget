@@ -6,7 +6,7 @@ final class AppContainer {
     // MARK: Properties
     private var container = Container()
 
-    // MARK: Initializated
+    // MARK: Initialization
     init() {
         setupDependency()
     }
@@ -70,6 +70,10 @@ final class AppContainer {
             return BudgetPlanningViewModel(category: category)
         }
 
+        container.register(ProfileViewModel.self) { _ in
+            return ProfileViewModel()
+        }
+
         // MARK: Controller
         container.register(LoginViewController.self) { resolver in
             return LoginViewController(viewModel: resolver.resolve(LoginViewModel.self)!)
@@ -110,6 +114,10 @@ final class AppContainer {
 
         container.register(OperationViewController.self) { resolver in
             return OperationViewController(viewModel: resolver.resolve(OperationViewModel.self)!)
+        }
+        
+        container.register(ProfileViewController.self) { resolver in
+            return ProfileViewController(viewModel: resolver.resolve(ProfileViewModel.self)!)
         }
     }
 }

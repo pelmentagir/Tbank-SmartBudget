@@ -20,7 +20,7 @@ final class AuthCoordinator: Coordinator {
     // MARK: Public Methods
     func start() {
         /*showLoginFlow()*/
-        showCategoryDistributionFlow()
+        showCreateProfileFlow()
     }
 
     // MARK: Private Methods

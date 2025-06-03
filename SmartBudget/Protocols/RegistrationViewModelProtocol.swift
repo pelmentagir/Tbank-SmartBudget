@@ -3,10 +3,10 @@ import Combine
 protocol RegistrationViewModelProtocol: AnyObject {
     // MARK: Published Properties
     var isRegistration: Bool { get }
-    var user: User? { get }
+    var user: AuthUser? { get }
 
     var isRegistrationPublisher: Published<Bool>.Publisher { get }
-    var userPublisher: Published<User?>.Publisher { get }
+    var userPublisher: Published<AuthUser?>.Publisher { get }
 
     // MARK: Methods
     func isPasswordValid(with passwordText: String, confirmText: String) -> Bool
@@ -15,5 +15,5 @@ protocol RegistrationViewModelProtocol: AnyObject {
 
 extension RegistrationViewModel: RegistrationViewModelProtocol {
     var isRegistrationPublisher: Published<Bool>.Publisher { $isRegistration }
-    var userPublisher: Published<User?>.Publisher { $user }
+    var userPublisher: Published<AuthUser?>.Publisher { $user }
 }

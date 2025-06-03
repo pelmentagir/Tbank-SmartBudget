@@ -24,7 +24,7 @@ extension UIColor {
         }
     }
 
-    static func getColorForPieChart(categories: [CategorySpendingDTO]) -> [UIColor] {
+    static func getColorForPieChart(categories: [CategorySpending]) -> [UIColor] {
         var colors: [UIColor] = []
 
         for category in categories {

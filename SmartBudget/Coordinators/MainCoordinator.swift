@@ -26,8 +26,11 @@ class MainCoordinator: Coordinator {
 
         let savingController = appContainer.resolveController(SavingViewController.self)
         savingController.tabBarItem = UITabBarItem(title: "Накопления", image: UIImage.piggyBank, selectedImage: UIImage.piggyBank)
+        
+        let profileController = appContainer.resolveController(ProfileViewController.self)
+        profileController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage.profile, selectedImage: UIImage.profile)
 
-        tabBarController.viewControllers = [operationController, mainViewController, savingController]
+        tabBarController.viewControllers = [operationController, mainViewController, savingController, profileController]
         tabBarController.tabBar.setupTinkoffStyle()
 
         navigationController.setViewControllers([tabBarController], animated: true)

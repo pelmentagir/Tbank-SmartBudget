@@ -11,7 +11,7 @@ final class RegistrationViewController: UIViewController, FlowController {
     private let viewModel: RegistrationViewModelProtocol
     private var authTextFieldDelegate: AuthTextFieldDelegate?
     private var keyboardObserver: KeyboardObserver?
-    var completionHandler: ((User?) -> Void)?
+    var completionHandler: ((AuthUser?) -> Void)?
     private var cancellables = Set<AnyCancellable>()
 
     private lazy var registrationButtonTapped = UIAction { [weak self] _ in
