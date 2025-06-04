@@ -6,6 +6,7 @@ enum AppIcon {
     case plusCircleFill
     case xmark
     case plusCircle
+    case squareAndPencil
 
     var image: UIImage? {
         switch self {
@@ -19,6 +20,8 @@ enum AppIcon {
             return UIImage(systemName: "xmark")
         case .plusCircle:
             return UIImage(systemName: "plus.circle")
+        case .squareAndPencil:
+            return UIImage(systemName: "square.and.pencil")
         }
     }
 }

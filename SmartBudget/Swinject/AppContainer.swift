@@ -26,6 +26,13 @@ final class AppContainer {
         return controller
     }
 
+    func resolveViewModel<T>(_ type: T.Type) -> T {
+        guard let viewModel = container.resolve(type) else {
+            fatalError("ViewModel of type \(type) not registered.")
+        }
+        return viewModel
+    }
+
     // MARK: Private Methods
     private func setupDependency() {
 
@@ -81,12 +88,17 @@ final class AppContainer {
         container.register(SecondScreenAddingGoalViewModel.self) { _ in
             return SecondScreenAddingGoalViewModel()
         }
-        
+
         container.register(ThirdScreenAddingGoalViewModel.self) { _ in
             return ThirdScreenAddingGoalViewModel()
+        }
 
         container.register(ProfileViewModel.self) { _ in
             return ProfileViewModel()
+        }.inObjectScope(.container)
+        
+        container.register(EdittingProfileViewModel.self) { (_, user: User) in
+            return EdittingProfileViewModel(user: user)
         }
 
         // MARK: Controller
@@ -135,7 +147,7 @@ final class AppContainer {
             let viewModel = resolver.resolve(ReplenishViewModel.self, argument: savingGoal)!
             return ReplenishViewController(viewModel: viewModel)
         }
-        
+
         container.register(FirstScreenAddingGoalViewController.self) { resolver in
             return FirstScreenAddingGoalViewController(viewModel: resolver.resolve(FirstScreenAddingGoalViewModel.self)!)
         }
@@ -143,12 +155,18 @@ final class AppContainer {
         container.register(SecondScreenAddingGoalViewController.self) { resolver in
             return SecondScreenAddingGoalViewController(viewModel: resolver.resolve(SecondScreenAddingGoalViewModel.self)!)
         }
-        
+
         container.register(ThirdScreenAddingGoalViewController.self) { resolver in
             return ThirdScreenAddingGoalViewController(viewModel: resolver.resolve(ThirdScreenAddingGoalViewModel.self)!)
-        
+        }
+
         container.register(ProfileViewController.self) { resolver in
             return ProfileViewController(viewModel: resolver.resolve(ProfileViewModel.self)!)
+        }
+        
+        container.register(EdittingProfileViewController.self) { (resolver, user: User) in
+            let viewModel = resolver.resolve(EdittingProfileViewModel.self, argument: user)!
+            return EdittingProfileViewController(viewModel: viewModel)
         }
     }
 }

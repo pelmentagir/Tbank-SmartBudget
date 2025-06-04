@@ -6,12 +6,14 @@ final class ProfileViewController: UIViewController, FlowController {
         self.view as! ProfileView
     }
 
+    // MARK: Properties
     private let viewModel: ProfileViewModel
     private var cancellables = Set<AnyCancellable>()
     private var tableViewDataSource: ProfileTableViewDataSource?
-    
-    var completionHandler: ((Bool) -> Void)?
 
+    var completionHandler: ((Bool) -> Void)?
+    
+    // MARK: Initialization
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +23,7 @@ final class ProfileViewController: UIViewController, FlowController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: LifeCicle
     override func loadView() {
         self.view = ProfileView()
     }
@@ -31,13 +34,15 @@ final class ProfileViewController: UIViewController, FlowController {
         configureTableView()
     }
 
+    // MARK: Private Methods
     private func setupBindings() {
         viewModel.$user
             .sink { [weak self] user in
                 self?.profileView.configure(with: user)
+                self?.profileView.tableView.reloadData()
             }.store(in: &cancellables)
     }
-    
+
     private func configureTableView() {
         tableViewDataSource = ProfileTableViewDataSource(viewModel: viewModel)
         profileView.tableView.dataSource = tableViewDataSource

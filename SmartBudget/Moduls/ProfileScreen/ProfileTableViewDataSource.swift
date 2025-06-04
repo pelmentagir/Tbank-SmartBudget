@@ -2,6 +2,7 @@ import UIKit
 
 final class ProfileTableViewDataSource: NSObject, UITableViewDataSource {
 
+    // MARK: Properties
     private let viewModel: ProfileViewModel
 
     private lazy var toggleThemeAction = UIAction { [weak self] sender in
@@ -14,10 +15,12 @@ final class ProfileTableViewDataSource: NSObject, UITableViewDataSource {
             .forEach { $0.overrideUserInterfaceStyle = isDarkMode ? .dark : .light }
     }
 
+    // MARK: Initialization
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
     }
 
+    // MARK: Methods Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.sections.count
     }
@@ -31,16 +34,20 @@ final class ProfileTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.reuseIdentifier, for: indexPath) as? ProfileTableViewCell else { return UITableViewCell() }
+
         if indexPath.section == 0 {
-            cell.textLabel?.text = viewModel.mainInfoItems[indexPath.row]
-            cell.accessoryType = .disclosureIndicator
+            cell.configure(title: viewModel.mainInfoItems[indexPath.row], value: viewModel.getInfoUserAtIndex(index: indexPath.row))
         } else {
-            cell.textLabel?.text = viewModel.settingsItems[indexPath.row]
-            let themeSwitch = UISwitch()
-            themeSwitch.addAction(toggleThemeAction, for: .valueChanged)
-            cell.accessoryView = themeSwitch
+            let isThemeRow = indexPath.row == 0
+            cell.configure(
+                title: viewModel.settingsItems[indexPath.row],
+                value: "",
+                showToggle: isThemeRow,
+                toggleAction: isThemeRow ? toggleThemeAction : nil
+            )
         }
+
         return cell
     }
 }

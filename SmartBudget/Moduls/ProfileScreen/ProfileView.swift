@@ -1,14 +1,22 @@
 import UIKit
 
+private extension CGFloat {
+    static let avatarImageSize: CGFloat = 100
+    static let avatarImageTopPadding: CGFloat = 20
+    static let tableTopPadding: CGFloat = 30
+    static let rowHeight: CGFloat = 44
+}
+
 final class ProfileView: UIView {
 
-    // MARK: - UI Elements
+    // MARK: UI Elements
     private(set) var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = .secondarySystemBackground
         tableView.separatorStyle = .singleLine
+        tableView.rowHeight = .rowHeight
         tableView.isScrollEnabled = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.reuseIdentifier)
         return tableView
     }()
 
@@ -18,20 +26,20 @@ final class ProfileView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .systemGray6
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 50
+        imageView.layer.cornerRadius = .avatarImageSize / 2
         return imageView
     }()
 
     private let fullNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: .mediumFontSize, weight: .bold)
         label.textAlignment = .center
         return label
     }()
 
     private let emailLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: .defaultFontSize, weight: .regular)
         label.textColor = .gray
         label.textAlignment = .center
         return label
@@ -48,8 +56,14 @@ final class ProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: Public Methods
+    func configure(with profileData: User) {
+        fullNameLabel.text = "\(profileData.name) \(profileData.lastName)"
+        emailLabel.text = profileData.login
+    }
 
-    // MARK: - Setup
+    // MARK: Private Methods
     private func addSubviews() {
         addSubview(avatarImageView)
         addSubview(fullNameLabel)
@@ -59,30 +73,24 @@ final class ProfileView: UIView {
 
     private func setupLayout() {
         avatarImageView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(CGFloat.avatarImageTopPadding)
             make.centerX.equalToSuperview()
-            make.size.equalTo(100)
+            make.size.equalTo(CGFloat.avatarImageSize)
         }
 
         fullNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(avatarImageView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(avatarImageView.snp.bottom).offset(CGFloat.largePadding)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(fullNameLabel.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(fullNameLabel.snp.bottom).offset(CGFloat.smallPadding)
+            make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
         }
 
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(emailLabel.snp.bottom).offset(40)
+            make.top.equalTo(emailLabel.snp.bottom).offset(CGFloat.tableTopPadding)
             make.leading.trailing.bottom.equalToSuperview()
         }
-    }
-
-    // MARK: Configure
-    func configure(with profileData: User) {
-        fullNameLabel.text = "\(profileData.name) \(profileData.lastName)"
-        emailLabel.text = profileData.login
     }
 }

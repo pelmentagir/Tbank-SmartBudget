@@ -26,6 +26,29 @@ class MainCoordinator: NSObject, Coordinator {
         childrens.append(coordinator)
     }
 
+    private lazy var showEdittingProfileScreenAction = UIAction { [weak self] _ in
+        guard let self else { return }
+        let profileViewModel = appContainer.resolveViewModel(ProfileViewModel.self)
+        let controller =  appContainer.resolveController(EdittingProfileViewController.self, argument: profileViewModel.getCurrentUser())
+
+        let imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer, type: .avatar)
+
+        controller.presentImagePicker = {
+            imagePickerCoordinator.start()
+        }
+
+        imagePickerCoordinator.didSelectImage = { image in
+            controller.handleAvatarImage(image: image)
+        }
+
+        controller.completionHandler = { [weak self] user in
+            profileViewModel.changeUser(user)
+            self?.navigationController.popViewController(animated: true)
+        }
+
+        navigationController.pushViewController(controller, animated: true)
+    }
+
     // MARK: Public Methods
     func start() {
         showTabBarFlow()
@@ -42,7 +65,7 @@ class MainCoordinator: NSObject, Coordinator {
 
         let savingController = appContainer.resolveController(SavingViewController.self)
         savingController.tabBarItem = UITabBarItem(title: "Накопления", image: UIImage.piggyBank, selectedImage: UIImage.piggyBank)
-        
+
         let profileController = appContainer.resolveController(ProfileViewController.self)
         profileController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage.profile, selectedImage: UIImage.profile)
 
@@ -69,6 +92,10 @@ class MainCoordinator: NSObject, Coordinator {
         replenishController.transitioningDelegate = rootController
         navigationController.present(replenishController, animated: true)
     }
+
+    private func showEdittingProfileFlow() {
+
+    }
 }
 
 extension MainCoordinator: UITabBarControllerDelegate {
@@ -77,6 +104,8 @@ extension MainCoordinator: UITabBarControllerDelegate {
         switch viewController {
         case is SavingViewController:
             tabBarController.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: showAddingCoordinator)
+        case is ProfileViewController:
+            tabBarController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: AppIcon.squareAndPencil.image, primaryAction: showEdittingProfileScreenAction)
         default:
             tabBarController.navigationItem.rightBarButtonItem = nil
         }
