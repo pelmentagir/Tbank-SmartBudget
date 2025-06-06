@@ -73,7 +73,7 @@ final class AppContainer {
         container.register(ReplenishViewModel.self) { (_, savingGoal: SavingGoal) in
             return ReplenishViewModel(savingGoal: savingGoal)
         }
-        
+
         container.register(FirstScreenAddingGoalViewModel.self) { _ in
             return FirstScreenAddingGoalViewModel()
         }
@@ -81,9 +81,13 @@ final class AppContainer {
         container.register(SecondScreenAddingGoalViewModel.self) { _ in
             return SecondScreenAddingGoalViewModel()
         }
-        
+
         container.register(ThirdScreenAddingGoalViewModel.self) { _ in
             return ThirdScreenAddingGoalViewModel()
+        }
+        
+        container.register(IncomeDistributionViewModel.self) { _ in
+            return IncomeDistributionViewModel()
         }
 
         // MARK: Controller
@@ -132,7 +136,7 @@ final class AppContainer {
             let viewModel = resolver.resolve(ReplenishViewModel.self, argument: savingGoal)!
             return ReplenishViewController(viewModel: viewModel)
         }
-        
+
         container.register(FirstScreenAddingGoalViewController.self) { resolver in
             return FirstScreenAddingGoalViewController(viewModel: resolver.resolve(FirstScreenAddingGoalViewModel.self)!)
         }
@@ -140,9 +144,13 @@ final class AppContainer {
         container.register(SecondScreenAddingGoalViewController.self) { resolver in
             return SecondScreenAddingGoalViewController(viewModel: resolver.resolve(SecondScreenAddingGoalViewModel.self)!)
         }
-        
+
         container.register(ThirdScreenAddingGoalViewController.self) { resolver in
             return ThirdScreenAddingGoalViewController(viewModel: resolver.resolve(ThirdScreenAddingGoalViewModel.self)!)
+        }
+        
+        container.register(IncomeDistributionViewController.self) { resolver in
+            return IncomeDistributionViewController(viewModel: resolver.resolve(IncomeDistributionViewModel.self)!)
         }
     }
 }

@@ -39,6 +39,12 @@ class MainCoordinator: NSObject, Coordinator {
 
         let mainViewController = appContainer.resolveController(MainViewController.self)
         mainViewController.tabBarItem = UITabBarItem(title: "Главная", image: UIImage.donutСhart, selectedImage: UIImage.donutСhart)
+        mainViewController.completionHandler = { [weak self] leftMoney in
+            guard let self else { return }
+            let distributionController = appContainer.resolveController(IncomeDistributionViewController.self)
+            distributionController.handleLeftMoney(leftMoney)
+            navigationController.present(distributionController, animated: true)
+        }
 
         let savingController = appContainer.resolveController(SavingViewController.self)
         savingController.tabBarItem = UITabBarItem(title: "Накопления", image: UIImage.piggyBank, selectedImage: UIImage.piggyBank)
