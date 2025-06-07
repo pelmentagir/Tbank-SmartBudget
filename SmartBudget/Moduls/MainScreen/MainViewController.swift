@@ -10,7 +10,7 @@ final class MainViewController: UIViewController, FlowController {
     // MARK: Properties
     private var viewModel: MainViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
-    var completionHandler: ((String) -> Void)?
+    var completionHandler: ((Int) -> Void)?
     private var categoryCollectionViewDataSource: CategoryBudgetDataSource?
 
     // MARK: Initialization
@@ -32,6 +32,7 @@ final class MainViewController: UIViewController, FlowController {
         super.viewDidLoad()
         configureCollectionView()
         setupBindings()
+        completionHandler?(viewModel.leftIncome)
     }
 
     // MARK: Private Methods

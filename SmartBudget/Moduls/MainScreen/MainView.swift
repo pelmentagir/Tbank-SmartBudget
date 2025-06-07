@@ -93,11 +93,11 @@ final class MainView: UIView, MainViewProtocol {
 
     // MARK: Public Methods
     func setSpentIncome(spent: Int) {
-        spentIncomeLabel.text = "\(spent) ₽"
+        pieChartView.centerAttributedText = createCenterText(amount: "\(spent) ₽")
     }
 
     func setLeftIncome(left: Int) {
-        pieChartView.centerAttributedText = createCenterText(amount: "\(left) ₽")
+        spentIncomeLabel.text = "\(left) ₽"
     }
 
     func configurePie(with items: [CategorySpending]) {
