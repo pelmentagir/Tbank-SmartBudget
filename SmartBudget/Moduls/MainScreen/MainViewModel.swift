@@ -1,7 +1,7 @@
 import Foundation
 
 final class MainViewModel {
-    
+
     // MARK: Published Properties
     @Published var chartItems: [CategorySpending] = [
         .init(categoryName: "Продукты питания", spentMoney: 2500, leftMoney: 3000, percent: 40),

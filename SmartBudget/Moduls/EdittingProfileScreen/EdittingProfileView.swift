@@ -11,7 +11,7 @@ private extension CGFloat {
     static let rowHeight: CGFloat = 44
 }
 
-final class EdittingProfileView: UIView {
+final class EdittingProfileView: UIView, EdittingProfileViewProtocol {
 
     // MARK: Properties
     private var buttonFactory: ButtonFactory

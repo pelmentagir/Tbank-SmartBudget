@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class ProfileTableViewCell: UITableViewCell {
+final class ProfileTableViewCell: UITableViewCell, ProfileTableViewCellProtocol {
 
     // MARK: UI Elements
     private lazy var titleLabel: UILabel = {

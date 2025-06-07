@@ -12,7 +12,7 @@ private extension CGFloat {
     static let imageBackgroundViewHeight: CGFloat = 160
 }
 
-final class FirstScreenAddingGoalView: UIView {
+final class FirstScreenAddingGoalView: UIView, FirstScreenAddingGoalViewProtocol {
 
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory

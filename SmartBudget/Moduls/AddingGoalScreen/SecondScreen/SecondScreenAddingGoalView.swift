@@ -16,7 +16,7 @@ private extension CGFloat {
     static let animationScale: CGFloat = 0.9
 }
 
-final class SecondScreenAddingGoalView: UIView {
+final class SecondScreenAddingGoalView: UIView, SecondScreenAddingGoalViewProtocol {
 
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory

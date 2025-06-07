@@ -1,6 +1,6 @@
 import UIKit
 
-final class ProfileEditCell: UITableViewCell {
+final class ProfileEditCell: UITableViewCell, ProfileEditCellProtocol {
     
     // MARK: UI Elements
     private let titleLabel: UILabel = {

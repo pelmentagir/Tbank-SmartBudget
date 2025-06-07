@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class EdittingProfileViewController: UIViewController, FlowController {
+final class EdittingProfileViewController: UIViewController, FlowController, EdittingProfileViewControllerProtocol {
 
     private var edittingProfileView: EdittingProfileView {
         self.view as! EdittingProfileView

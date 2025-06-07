@@ -14,7 +14,7 @@ private extension CGFloat {
     static let cornerRadiusIconView: CGFloat = 40
 }
 
-final class BudgetPlanningView: UIView {
+final class BudgetPlanningView: UIView, BudgetPlanningViewProtocol {
 
     // MARK: Properties
     private let buttonFactory: ButtonFactory

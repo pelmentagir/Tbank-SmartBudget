@@ -7,7 +7,7 @@ private extension CGFloat {
     static let rowHeight: CGFloat = 44
 }
 
-final class ProfileView: UIView {
+final class ProfileView: UIView, ProfileViewProtocol {
 
     // MARK: UI Elements
     private(set) var tableView: UITableView = {
@@ -56,7 +56,7 @@ final class ProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Public Methods
     func configure(with profileData: User) {
         fullNameLabel.text = "\(profileData.name) \(profileData.lastName)"

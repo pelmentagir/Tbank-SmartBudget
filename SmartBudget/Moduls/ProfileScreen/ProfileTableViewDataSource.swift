@@ -3,7 +3,7 @@ import UIKit
 final class ProfileTableViewDataSource: NSObject, UITableViewDataSource {
 
     // MARK: Properties
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
 
     private lazy var toggleThemeAction = UIAction { [weak self] sender in
         guard let switchControl = sender.sender as? UISwitch else { return }
@@ -16,7 +16,7 @@ final class ProfileTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     // MARK: Initialization
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
     }
 

@@ -2,7 +2,7 @@ import UIKit
 import TOCropViewController
 import Combine
 
-final class CreateProfileViewController: UIViewController, FlowController {
+final class CreateProfileViewController: UIViewController, FlowController, CreateProfileViewControllerProtocol {
 
     private var createProfileView: CreateProfileView {
         self.view as! CreateProfileView

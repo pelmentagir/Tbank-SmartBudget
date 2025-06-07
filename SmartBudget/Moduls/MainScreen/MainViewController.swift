@@ -8,13 +8,13 @@ final class MainViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private var viewModel: MainViewModel
+    private var viewModel: MainViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     var completionHandler: ((String) -> Void)?
     private var categoryCollectionViewDataSource: CategoryBudgetDataSource?
 
     // MARK: Initialization
-    init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,21 +41,20 @@ final class MainViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$chartItems
+        viewModel.chartItemsPublisher
             .sink { [weak self] items in
                 self?.mainView.configurePie(with: items)
                 self?.categoryCollectionViewDataSource?.applySnapshot(categories: items, animated: true)
             }.store(in: &cancellables)
 
-        viewModel.$leftIncome
+        viewModel.leftIncomePublisher
             .sink { [weak self] leftIncome in
                 self?.mainView.setLeftIncome(left: leftIncome)
             }.store(in: &cancellables)
 
-        viewModel.$spentIncome
+        viewModel.spentIncomePublisher
             .sink { [weak self] spentIncome in
                 self?.mainView.setSpentIncome(spent: spentIncome)
             }.store(in: &cancellables)
     }
 }
-

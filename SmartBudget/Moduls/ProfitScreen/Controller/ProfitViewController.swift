@@ -65,7 +65,7 @@ final class ProfitViewController: UIViewController, FlowController {
             .sink { [weak self] valid in
                 self?.profitView.continueButton.buttonViewModel.buttonState = valid ? .normal : .disabled
             }.store(in: &cancellable)
-        
+
         viewModel.amountPublished
             .sink { [weak self] amount in
                 self?.amountCollectionViewDataSource?.applySnapshot(items: amount, animated: true)

@@ -8,7 +8,7 @@ private extension String {
     static let registrationButtonText = "Зарегистрироваться"
 }
 
-final class RegistrationView: UIView {
+final class RegistrationView: UIView, RegistrationViewProtocol {
 
     // MARK: Properties
     private let textFieldFactory: TextFieldFactory

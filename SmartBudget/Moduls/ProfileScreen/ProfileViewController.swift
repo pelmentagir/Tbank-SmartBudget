@@ -7,14 +7,14 @@ final class ProfileViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private let viewModel: ProfileViewModel
+    private let viewModel: ProfileViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     private var tableViewDataSource: ProfileTableViewDataSource?
 
     var completionHandler: ((Bool) -> Void)?
-    
+
     // MARK: Initialization
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController, FlowController {
 
     // MARK: Private Methods
     private func setupBindings() {
-        viewModel.$user
+        viewModel.userPublisher
             .sink { [weak self] user in
                 self?.profileView.configure(with: user)
                 self?.profileView.tableView.reloadData()

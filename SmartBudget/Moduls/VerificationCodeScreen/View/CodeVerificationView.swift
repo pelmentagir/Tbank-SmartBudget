@@ -8,7 +8,7 @@ private extension CGFloat {
     static let timerToKeyboardSpacing: CGFloat = 60
 }
 
-final class CodeVerificationView: UIView {
+final class CodeVerificationView: UIView, CodeVerificationViewProtocol {
 
     // MARK: Properties
     weak var delegate: CodeVerificationViewDelegate?
