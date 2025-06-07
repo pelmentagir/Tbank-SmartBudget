@@ -9,7 +9,7 @@ private extension String {
     static let defaultAmountPlaceholder: String = "0"
 }
 
-final class CategoryDistributionTableViewCell: UITableViewCell {
+final class CategoryDistributionTableViewCell: UITableViewCell, CategoryDistributionTableViewCellProtocol {
 
     // MARK: Properties
     private let textFieldFactory = TextFieldFactory()

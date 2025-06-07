@@ -15,7 +15,7 @@ private extension CGFloat {
     static let tableRowHeight: CGFloat = 90
 }
 
-final class IncomeDistributionView: UIView {
+final class IncomeDistributionView: UIView, IncomeDistributionViewProtocol{
 
     // MARK: Properties
     private let buttonFactory: IButtonFactory

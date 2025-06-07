@@ -1,13 +1,13 @@
 import UIKit
 import Combine
 
-final class IncomeDistributionViewController: UIViewController, FlowController {
+final class IncomeDistributionViewController: UIViewController, FlowController, IncomeDistributionViewControllerProtocol {
     private var incomeDistributionView: IncomeDistributionView {
         self.view as! IncomeDistributionView
     }
 
     // MARK: Properties
-    private let viewModel: IncomeDistributionViewModel
+    private let viewModel: IncomeDistributionViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     private var tableViewDataSource: CategoryDistributionTableDataSource?
     var completionHandler: ((Bool) -> Void)?
@@ -24,7 +24,7 @@ final class IncomeDistributionViewController: UIViewController, FlowController {
     }
 
     // MARK: Initialization
-    init(viewModel: IncomeDistributionViewModel) {
+    init(viewModel: IncomeDistributionViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -62,12 +62,12 @@ final class IncomeDistributionViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$savingGoals
+        viewModel.savingGoalsPublisher
             .sink { [weak self] goals in
                 self?.tableViewDataSource?.applySnapshot(savingGoals: goals)
             }.store(in: &cancellables)
 
-        viewModel.$hideDistributionTable
+        viewModel.hideDistributionTablePublisher
             .sink { [weak self] state in
                 self?.incomeDistributionView.toogleStateDistribution(state)
             }.store(in: &cancellables)

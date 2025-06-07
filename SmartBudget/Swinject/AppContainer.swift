@@ -34,6 +34,7 @@ final class AppContainer {
     }
 
     // MARK: Private Methods
+    //swiftlint:disable:next function_body_length
     private func setupDependency() {
 
         // MARK: ViewModels
@@ -92,7 +93,7 @@ final class AppContainer {
         container.register(ThirdScreenAddingGoalViewModel.self) { _ in
             return ThirdScreenAddingGoalViewModel()
         }
-        
+
         container.register(IncomeDistributionViewModel.self) { _ in
             return IncomeDistributionViewModel()
         }
@@ -100,7 +101,7 @@ final class AppContainer {
         container.register(ProfileViewModel.self) { _ in
             return ProfileViewModel()
         }.inObjectScope(.container)
-        
+
         container.register(EdittingProfileViewModel.self) { (_, user: User) in
             return EdittingProfileViewModel(user: user)
         }
@@ -171,7 +172,8 @@ final class AppContainer {
         container.register(EdittingProfileViewController.self) { (resolver, user: User) in
             let viewModel = resolver.resolve(EdittingProfileViewModel.self, argument: user)!
             return EdittingProfileViewController(viewModel: viewModel)
-        
+        }
+
         container.register(IncomeDistributionViewController.self) { resolver in
             return IncomeDistributionViewController(viewModel: resolver.resolve(IncomeDistributionViewModel.self)!)
         }
