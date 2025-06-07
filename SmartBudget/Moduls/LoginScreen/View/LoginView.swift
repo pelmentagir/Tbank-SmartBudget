@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class LoginView: UIView {
+final class LoginView: UIView, LoginViewProtocol {
 
     // MARK: Properties
     private let textFieldFactory: TextFieldFactory

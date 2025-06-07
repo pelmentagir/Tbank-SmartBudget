@@ -12,7 +12,7 @@ private extension CGFloat {
     static let collectionViewItemHeight: CGFloat = 30
 }
 
-final class ReplenishView: UIView {
+final class ReplenishView: UIView, ReplenishViewProtocol {
 
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory

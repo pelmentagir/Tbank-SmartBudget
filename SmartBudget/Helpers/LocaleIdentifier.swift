@@ -2,7 +2,7 @@ import Foundation
 
 enum LocaleIdentifier {
     case ru
-    
+
     var identifier: String {
         switch self {
         case .ru:

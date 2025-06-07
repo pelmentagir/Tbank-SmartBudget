@@ -11,7 +11,7 @@ private extension CGFloat {
     static let normalPadding: CGFloat = 24
 }
 
-final class ThirdScreenAddingGoalView: UIView {
+final class ThirdScreenAddingGoalView: UIView, ThirdScreenAddingGoalViewProtocol {
 
     // MARK: Properties
     private let buttonFactory: IButtonFactory

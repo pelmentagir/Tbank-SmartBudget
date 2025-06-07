@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class CategoryDistributionViewController: UIViewController, FlowController {
+final class CategoryDistributionViewController: UIViewController, FlowController, CategoryDistributionControllerProtocol {
 
     private var categoryDistributionView: CategoryDistributionView {
         self.view as! CategoryDistributionView

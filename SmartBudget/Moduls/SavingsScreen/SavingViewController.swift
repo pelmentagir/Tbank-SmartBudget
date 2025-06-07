@@ -5,20 +5,20 @@ private extension CGFloat {
     static let modalScreenHeight: CGFloat = .screenHeight * 0.33
 }
 
-final class SavingViewController: UIViewController, FlowController {
+final class SavingViewController: UIViewController, FlowController, SavingViewControllerProtocol {
     private var savingView: SavingView {
         self.view as! SavingView
     }
 
     // MARK: Properties
-    private var viewModel: SavingViewModel
+    private var viewModel: SavingViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     var completionHandler: ((String) -> Void)?
     var presentReplenishView: ((SavingGoal) -> Void)?
     private var savingTargetTableViewDataSource: SavingTargetTableViewDataSource?
 
     // MARK: Initialization
-    init(viewModel: SavingViewModel) {
+    init(viewModel: SavingViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,7 +50,7 @@ final class SavingViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$savingGoals.sink { [weak self] items in
+        viewModel.savingGoalsPublisher.sink { [weak self] items in
             self?.savingTargetTableViewDataSource?.applySnapshot(items: items, animated: false)
         }.store(in: &cancellables)
 

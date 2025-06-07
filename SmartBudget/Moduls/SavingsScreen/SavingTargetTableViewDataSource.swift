@@ -6,7 +6,7 @@ final class SavingTargetTableViewDataSource: NSObject {
     var dataSource: UITableViewDiffableDataSource<ViewSection, SavingGoal>?
     let tableView: UITableView
     var onReplenishTapped: ((SavingGoal) -> Void)?
-    weak var viewModel: SavingViewModel?
+    weak var viewModel: SavingViewModelProtocol?
 
     // MARK: Initialization
     init(tableView: UITableView) {
@@ -27,7 +27,7 @@ final class SavingTargetTableViewDataSource: NSObject {
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, savingGoal in
             let cell = tableView.dequeueReusableCell(withIdentifier: SavingTargetTableViewCell.reuseIdentifier, for: indexPath) as! SavingTargetTableViewCell
-            let monthlySaving = self.viewModel?.calculateMonthlySaving(for: savingGoal)
+            let monthlySaving = self.viewModel?.calculateMonthlySaving(for: savingGoal, currentDate: Date())
             cell.configureCell(item: savingGoal, monthlySaving: monthlySaving ?? 0) { [weak self] in
                 guard let self else { return }
                 onReplenishTapped?(savingGoal)

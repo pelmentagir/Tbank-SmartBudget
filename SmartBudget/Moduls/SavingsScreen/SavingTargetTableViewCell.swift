@@ -12,7 +12,7 @@ private extension CGFloat {
     static let heightImageBackgroundView: CGFloat = 160
 }
 
-final class SavingTargetTableViewCell: UITableViewCell {
+final class SavingTargetTableViewCell: UITableViewCell, SavingTargetTableViewCellProtocol {
 
     // MARK: Properties
     private lazy var buttonFactory = ButtonFactory()

@@ -2,7 +2,7 @@ import UIKit
 import TOCropViewController
 import Combine
 
-final class CreateProfileViewController: UIViewController, FlowController {
+final class CreateProfileViewController: UIViewController, FlowController, CreateProfileViewControllerProtocol {
 
     private var createProfileView: CreateProfileView {
         self.view as! CreateProfileView
@@ -84,7 +84,7 @@ final class CreateProfileViewController: UIViewController, FlowController {
             .removeDuplicates()
             .sink { [weak self] valid in
                 if valid {
-                    self?.completionHandler?(User(name: "", lastName: "", login: "", password: ""))
+                    self?.completionHandler?(User(name: "Олег", lastName: "Тинькофф", login: "tbank@gmail.com", birthDate: Date(), averageSpending: 50000, income: 100000, dayOfSalary: 25))
                 }
             }.store(in: &cancellable)
 
