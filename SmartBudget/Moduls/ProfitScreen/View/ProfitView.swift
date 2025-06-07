@@ -17,7 +17,7 @@ private extension CGFloat {
     static let animationScale: CGFloat = 0.9
 }
 
-final class ProfitView: UIView {
+final class ProfitView: UIView, ProfitViewProtocol {
 
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory

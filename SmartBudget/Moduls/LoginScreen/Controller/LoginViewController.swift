@@ -9,7 +9,7 @@ final class LoginViewController: UIViewController, FlowController {
     private var cancellables = Set<AnyCancellable>()
     private var keyboardObserver: KeyboardObserver?
     private var userInfo: User?
-    var completionHandler: ((User?) -> Void)?
+    var completionHandler: ((AuthUser?) -> Void)?
 
     private var loginView: LoginView {
         self.view as! LoginView

@@ -5,7 +5,7 @@ private extension CGFloat {
     static let icomEdges: CGFloat = 5
 }
 
-final class SearchTableViewCell: UITableViewCell {
+final class SearchTableViewCell: UITableViewCell, SearchTableViewCellProtocol {
 
     // MARK: UI Elements
     private lazy var backgroundIconView: UIView = {

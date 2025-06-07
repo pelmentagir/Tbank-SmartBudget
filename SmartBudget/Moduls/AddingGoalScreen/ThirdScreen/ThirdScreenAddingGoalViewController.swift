@@ -7,7 +7,7 @@ final class ThirdScreenAddingGoalViewController: UIViewController, FlowControlle
     }
 
     // MARK: Properties
-    private var viewModel: ThirdScreenAddingGoalViewModel
+    private var viewModel: ThirdScreenAddingGoalViewModelProtocol
     private var cancellable = Set<AnyCancellable>()
     var completionHandler: ((Date) -> Void)?
 
@@ -24,7 +24,7 @@ final class ThirdScreenAddingGoalViewController: UIViewController, FlowControlle
     }
 
     // MARK: Initialization
-    init(viewModel: ThirdScreenAddingGoalViewModel) {
+    init(viewModel: ThirdScreenAddingGoalViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -55,7 +55,7 @@ final class ThirdScreenAddingGoalViewController: UIViewController, FlowControlle
     }
 
     private func setupBindings() {
-        viewModel.$daysDifference
+        viewModel.daysDifferencePublisher
             .removeDuplicates()
             .compactMap({ $0 })
             .sink { [weak self] daysDifference in

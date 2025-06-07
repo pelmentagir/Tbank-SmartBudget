@@ -1,13 +1,14 @@
 import UIKit
 import Combine
 
-final class FirstScreenAddingGoalViewController: UIViewController, FlowController {
+final class FirstScreenAddingGoalViewController: UIViewController, FlowController, FirstScreenAddingGoalViewControllerProtocol {
+
     private var addingGoalView: FirstScreenAddingGoalView {
         self.view as! FirstScreenAddingGoalView
     }
 
     // MARK: Properties
-    private let viewModel: FirstScreenAddingGoalViewModel
+    private let viewModel: FirstScreenAddingGoalViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     var completionHandler: ((String) -> Void)?
     var presentImagePicker: (() -> Void)?
@@ -24,7 +25,7 @@ final class FirstScreenAddingGoalViewController: UIViewController, FlowControlle
     }
 
     // MARK: Initialization
-    init(viewModel: FirstScreenAddingGoalViewModel) {
+    init(viewModel: FirstScreenAddingGoalViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -61,7 +62,7 @@ final class FirstScreenAddingGoalViewController: UIViewController, FlowControlle
                 self?.viewModel.setTargetName(name: text)
             }.store(in: &cancellables)
 
-        viewModel.$buttonState
+        viewModel.buttonStatePublisher
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] state in

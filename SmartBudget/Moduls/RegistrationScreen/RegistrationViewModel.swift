@@ -4,7 +4,7 @@ final class RegistrationViewModel {
 
     // MARK: Published Properties
     @Published private(set) var isRegistration: Bool = false
-    @Published private(set) var user: User?
+    @Published private(set) var user: AuthUser?
 
     // MARK: Public Methods
     func isPasswordValid(with passwordText: String, confirmText: String) -> Bool {
@@ -18,7 +18,7 @@ final class RegistrationViewModel {
 
         // TODO: Запрос в бд, пока что имитация
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.user = User(login: login, password: password)
+            self?.user = AuthUser(email: login, password: password)
             self?.isRegistration = false
         }
     }

@@ -12,7 +12,7 @@ final class AmountCollectionViewDataSource: NSObject {
         super.init()
         setupDataSource()
     }
-    
+
     func applySnapshot(items: [Int], animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<ViewSection, Int>()
         snapshot.appendSections([.main])

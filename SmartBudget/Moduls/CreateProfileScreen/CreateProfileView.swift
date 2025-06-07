@@ -6,14 +6,14 @@ private extension String {
     static let clueText = "Допустимы буквы, дефисы и апострофы \n (2–50 символов)"
 }
 
-final class CreateProfileView: UIView {
+final class CreateProfileView: UIView, CreateProfileViewProtocol {
 
     // MARK: Properties
     private var buttonFactory: ButtonFactory
     private var textFieldFactory: TextFieldFactory
 
     // MARK: UI Elements
-    private let avatarImageView: UIImageView = {
+    private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .systemGray6

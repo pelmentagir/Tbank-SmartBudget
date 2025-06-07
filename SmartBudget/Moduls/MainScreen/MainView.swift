@@ -17,7 +17,7 @@ private extension String {
     static let expensesText = "Расходы"
 }
 
-final class MainView: UIView {
+final class MainView: UIView, MainViewProtocol {
 
     // MARK: UI Elements
     private(set) lazy var scrollView = UIScrollView()
