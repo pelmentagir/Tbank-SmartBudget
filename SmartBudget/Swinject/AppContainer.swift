@@ -72,7 +72,7 @@ final class AppContainer {
 
         container.register(CategoryDistributionViewModel.self) { _ in
             return CategoryDistributionViewModel()
-        }
+        }.inObjectScope(.container)
 
         container.register(BudgetPlanningViewModel.self) { (_, category: Category) in
             return BudgetPlanningViewModel(category: category)
@@ -104,6 +104,10 @@ final class AppContainer {
 
         container.register(EdittingProfileViewModel.self) { (_, user: User) in
             return EdittingProfileViewModel(user: user)
+        }
+        
+        container.register(RangeDatePickerViewModel.self) { _ in
+            return RangeDatePickerViewModel()
         }
 
         // MARK: Controller
@@ -176,6 +180,10 @@ final class AppContainer {
 
         container.register(IncomeDistributionViewController.self) { resolver in
             return IncomeDistributionViewController(viewModel: resolver.resolve(IncomeDistributionViewModel.self)!)
+        }
+        
+        container.register(RangeDatePickerViewController.self) { resolver in
+            return RangeDatePickerViewController(viewModel: resolver.resolve(RangeDatePickerViewModel.self)!)
         }
     }
 }

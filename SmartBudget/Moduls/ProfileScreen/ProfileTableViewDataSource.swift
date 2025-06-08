@@ -44,7 +44,8 @@ final class ProfileTableViewDataSource: NSObject, UITableViewDataSource {
                 title: viewModel.settingsItems[indexPath.row],
                 value: "",
                 showToggle: isThemeRow,
-                toggleAction: isThemeRow ? toggleThemeAction : nil
+                toggleAction: isThemeRow ? toggleThemeAction : nil,
+                showDisclosure: !isThemeRow
             )
         }
 

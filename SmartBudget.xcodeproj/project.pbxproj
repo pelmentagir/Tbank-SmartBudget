@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53378B2D2DF4EE7F0026FF12 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 53378B2C2DF4EE7F0026FF12 /* FSCalendar */; };
 		53419F642DD692E900CD45BF /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 53419F632DD692E900CD45BF /* CropViewController */; };
 		53419F662DD692E900CD45BF /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 53419F652DD692E900CD45BF /* TOCropViewController */; };
 		5362EF502DD29FB4000FE29F /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 5362EF4F2DD29FB4000FE29F /* Swinject */; };
@@ -74,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53F1DFDE2DB5859A007243B9 /* SnapKit in Frameworks */,
+				53378B2D2DF4EE7F0026FF12 /* FSCalendar in Frameworks */,
 				5362EF502DD29FB4000FE29F /* Swinject in Frameworks */,
 				53EA9E6B2DE6E87400694772 /* DGCharts in Frameworks */,
 				53419F662DD692E900CD45BF /* TOCropViewController in Frameworks */,
@@ -152,6 +154,7 @@
 				53419F632DD692E900CD45BF /* CropViewController */,
 				53419F652DD692E900CD45BF /* TOCropViewController */,
 				53EA9E6A2DE6E87400694772 /* DGCharts */,
+				53378B2C2DF4EE7F0026FF12 /* FSCalendar */,
 			);
 			productName = SmartBudget;
 			productReference = 535C098D2DB57D6900970DCF /* SmartBudget.app */;
@@ -240,6 +243,7 @@
 				5362EF4D2DD29FAC000FE29F /* XCRemoteSwiftPackageReference "Swinject" */,
 				53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				53EA9E692DE6E84A00694772 /* XCRemoteSwiftPackageReference "Charts" */,
+				53378B2B2DF4EE620026FF12 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 535C098E2DB57D6900970DCF /* Products */;
@@ -628,6 +632,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		53378B2B2DF4EE620026FF12 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 		53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pelmentagir/TOCropViewController.git";
@@ -663,6 +675,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		53378B2C2DF4EE7F0026FF12 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53378B2B2DF4EE620026FF12 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
 		53419F632DD692E900CD45BF /* CropViewController */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 53419F622DD692E900CD45BF /* XCRemoteSwiftPackageReference "TOCropViewController" */;

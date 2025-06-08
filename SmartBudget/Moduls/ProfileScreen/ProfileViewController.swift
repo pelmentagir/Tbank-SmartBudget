@@ -10,6 +10,7 @@ final class ProfileViewController: UIViewController, FlowController {
     private let viewModel: ProfileViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     private var tableViewDataSource: ProfileTableViewDataSource?
+    var presentCategoryDistributionScreen: (() -> Void)?
 
     var completionHandler: ((Bool) -> Void)?
 
@@ -46,5 +47,17 @@ final class ProfileViewController: UIViewController, FlowController {
     private func configureTableView() {
         tableViewDataSource = ProfileTableViewDataSource(viewModel: viewModel)
         profileView.tableView.dataSource = tableViewDataSource
+        profileView.tableView.delegate = self
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 1 && indexPath.row == 1 {
+            presentCategoryDistributionScreen?()
+        }
     }
 }
