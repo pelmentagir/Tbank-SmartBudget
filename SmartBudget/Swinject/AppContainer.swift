@@ -42,8 +42,8 @@ final class AppContainer {
             return LoginViewModel()
         }
 
-        container.register(CodeVerificationViewModel.self) { _ in
-            return CodeVerificationViewModel()
+        container.register(CodeVerificationViewModel.self) { (_, email: String) in
+            return CodeVerificationViewModel(email: email)
         }
 
         container.register(RegistrationViewModel.self) { _ in
@@ -111,8 +111,9 @@ final class AppContainer {
             return LoginViewController(viewModel: resolver.resolve(LoginViewModel.self)!)
         }
 
-        container.register(CodeVerificationViewController.self) { resolver in
-            return CodeVerificationViewController(viewModel: resolver.resolve(CodeVerificationViewModel.self)!)
+        container.register(CodeVerificationViewController.self) { (resolver, email: String) in
+            let viewModel = resolver.resolve(CodeVerificationViewModel.self, argument: email)!
+            return CodeVerificationViewController(viewModel: viewModel)
         }
 
         container.register(RegistrationViewController.self) { resolver in

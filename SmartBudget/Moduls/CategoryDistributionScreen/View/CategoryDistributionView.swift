@@ -71,8 +71,7 @@ final class CategoryDistributionView: UIView {
         return collectionView
     }()
 
-    private lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .continueButtonText)
-    
+    private(set) lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .continueButtonText)
 
     // MARK: Initialization
     init(buttonFactory: ButtonFactory) {

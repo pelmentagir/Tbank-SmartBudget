@@ -1,6 +1,7 @@
 import UIKit
 
 struct Category: Hashable {
+    let id: Int
     let icon: UIImage
     let name: String
     let discription: String

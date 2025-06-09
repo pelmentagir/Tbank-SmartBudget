@@ -5,6 +5,11 @@ final class RegistrationViewModel {
     // MARK: Published Properties
     @Published private(set) var isRegistration: Bool = false
     @Published private(set) var user: AuthUser?
+    @Published private(set) var error: Error?
+    @Published private(set) var message: String?
+
+    private let networkService: NetworkService = .shared
+    private let tokenStorage: TokenStorage = .shared
 
     // MARK: Public Methods
     func isPasswordValid(with passwordText: String, confirmText: String) -> Bool {
@@ -15,11 +20,31 @@ final class RegistrationViewModel {
         guard !isRegistration else { return }
 
         isRegistration = true
+        error = nil
+        message = nil
+        let request = AuthRequest(email: login, password: password)
+        let endpoint = RegistrationEndpoint(request: request)
 
-        // TODO: Запрос в бд, пока что имитация
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.user = AuthUser(email: login, password: password)
-            self?.isRegistration = false
+        networkService.request(endpoint, responseType: AuthResponse.self) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    if let message = response.message {
+                        self?.message = message
+                        print(message)
+                    }
+                    if let accessToken = response.accessToken {
+                        self?.tokenStorage.accessToken = accessToken
+                        if let refreshToken = response.refreshToken {
+                            self?.tokenStorage.refreshToken = refreshToken
+                        }
+                        self?.user = AuthUser(email: login, password: password)
+                    }
+                case .failure(let error):
+                    self?.error = error
+                }
+                self?.isRegistration = false
+            }
         }
     }
 }

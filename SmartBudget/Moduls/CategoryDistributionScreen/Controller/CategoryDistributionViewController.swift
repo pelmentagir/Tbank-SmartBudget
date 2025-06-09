@@ -8,7 +8,7 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     }
 
     // MARK: Properties
-    var completionHandler: (([String]) -> Void)?
+    var completionHandler: ((Bool) -> Void)?
     var presentBudgetPlanning: ((Category) -> Void)?
 
     private var viewModel: CategoryDistributionViewModelProtocol
@@ -19,6 +19,11 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     private var categoryCollectionViewDataSource: CategoryCollectionViewDataSource?
     private var categoryCollectionViewDelegate: CategoryCollectionViewDelegate?
 
+    private lazy var continueButtonTapped = UIAction { [weak self] _ in
+        guard let self else { return }
+        viewModel.submitCategoryLimits()
+    }
+    
     // MARK: Initialization
     init(viewModel: CategoryDistributionViewModelProtocol) {
         self.viewModel = viewModel
@@ -39,6 +44,7 @@ final class CategoryDistributionViewController: UIViewController, FlowController
         super.viewDidLoad()
         configureCollectionView()
         setupBindings()
+        setupActions()
     }
 
     // MARK: Public Methods
@@ -47,6 +53,10 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     }
 
     // MARK: Private Methods
+    private func setupActions() {
+        categoryDistributionView.continueButton.addAction(continueButtonTapped, for: .touchUpInside)
+    }
+    
     private func configureCollectionView() {
         tagsCollectionViewDataSource = TagsCollectionViewDataSource(collectionView: categoryDistributionView.tagsCollectionView, viewModel: viewModel)
         categoryCollectionViewDataSource = CategoryCollectionViewDataSource(viewModel: viewModel)
@@ -68,6 +78,18 @@ final class CategoryDistributionViewController: UIViewController, FlowController
         viewModel.tagsPublisher
             .sink { [weak self] tags in
                 self?.tagsCollectionViewDataSource?.applySnapshot(tags: tags, animated: true)
+            }.store(in: &cancellables)
+
+        viewModel.isLoadingPublisher
+            .sink { [weak self] state in
+                self?.categoryDistributionView.continueButton.buttonViewModel.buttonState = state ? .loading : .normal
+            }.store(in: &cancellables)
+
+        viewModel.successPublisher
+            .sink { [weak self] state in
+                if state {
+                    self?.completionHandler?(true)
+                }
             }.store(in: &cancellables)
     }
 }

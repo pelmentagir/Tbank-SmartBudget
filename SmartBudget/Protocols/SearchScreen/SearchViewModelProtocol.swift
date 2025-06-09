@@ -2,11 +2,11 @@ import Combine
 
 protocol SearchViewModelProtocol: AnyObject {
     // MARK: Published Properties
-    var categories: [Category] { get }
-    var selectedCategory: Category? { get }
+    var categories: [CategoryItem] { get }
+    var selectedCategory: CategoryItem? { get }
 
-    var categoriesPublisher: Published<[Category]>.Publisher { get }
-    var selectedCategoryPublisher: Published<Category?>.Publisher { get }
+    var categoriesPublisher: Published<[CategoryItem]>.Publisher { get }
+    var selectedCategoryPublisher: Published<CategoryItem?>.Publisher { get }
 
     // MARK: Methods
     func findCategoryAtIndex(_ index: Int)
@@ -14,6 +14,6 @@ protocol SearchViewModelProtocol: AnyObject {
 }
 
 extension SearchViewModel: SearchViewModelProtocol {
-    var categoriesPublisher: Published<[Category]>.Publisher { $categories }
-    var selectedCategoryPublisher: Published<Category?>.Publisher { $selectedCategory }
+    var categoriesPublisher: Published<[CategoryItem]>.Publisher { $categories }
+    var selectedCategoryPublisher: Published<CategoryItem?>.Publisher { $selectedCategory }
 }

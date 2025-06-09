@@ -12,7 +12,6 @@ final class IncomeDistributionViewModel {
     func distributeIncome(distribution: [Int: Int]) {
         for (goalId, amount) in distribution {
             if let index = savingGoals.firstIndex(where: { $0.id == goalId }) {
-                print(amount)
                 savingGoals[index].accumulatedMoney += amount
             }
         }

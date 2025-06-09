@@ -18,7 +18,11 @@ final class AppCoordinator: Coordinator {
 
     // MARK: Public Methods
     func start() {
-        showMainFlow()
+        if AuthenticationManager.shared.isAuthenticated {
+            showMainFlow()
+        } else {
+            showAuthFlow()
+        }
     }
 
     // MARK: Private Methods
@@ -27,8 +31,14 @@ final class AppCoordinator: Coordinator {
             navigationController: navigationController,
             appContainer: appContainer
         )
-        authCoordinator.imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer, type: .photo)
+        authCoordinator.imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer, type: .avatar)
         authCoordinator.start()
+
+        authCoordinator.flowCompletionHandler = { [weak self] in
+            AuthenticationManager.shared.signIn()
+            self?.showMainFlow()
+        }
+
         childrens.append(authCoordinator)
     }
 

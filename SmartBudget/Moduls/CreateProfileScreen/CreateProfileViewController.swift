@@ -9,12 +9,14 @@ final class CreateProfileViewController: UIViewController, FlowController, Creat
     }
 
     // MARK: Properties
-    var completionHandler: ((User) -> Void)?
+    var completionHandler: ((Bool) -> Void)?
     var presentImagePicker: (() -> Void)?
     private var viewModel: CreateProfileViewModelProtocol
     private var keyboardObserver: KeyboardObserver?
     private var textFieldDelegate: FullNameTextFieldDelegate?
+    private var dateOfBirthDelegate: DateOfBirthTextFieldDelegate?
     private var cancellable = Set<AnyCancellable>()
+    private var selectedImageData: Data?
 
     private lazy var selectImageButtonTapped = UIAction { [weak self] _ in
         guard let self else { return }
@@ -23,7 +25,15 @@ final class CreateProfileViewController: UIViewController, FlowController, Creat
 
     private lazy var continueButtonTapped = UIAction { [weak self] _ in
         guard let self else { return }
-        viewModel.updateValidationStatus(name: createProfileView.nameTextField.getField().text!, lastName: createProfileView.lastNameTextField.getField().text!)
+        guard let imageData = selectedImageData else {
+            return
+        }
+        viewModel.updateValidationStatus(
+            name: createProfileView.nameTextField.getField().text!,
+            lastName: createProfileView.lastNameTextField.getField().text!,
+            birthDate: dateOfBirthDelegate?.getSelectedDate(),
+            imageData: imageData
+        )
     }
 
     // MARK: Initialization
@@ -52,6 +62,7 @@ final class CreateProfileViewController: UIViewController, FlowController, Creat
     // MARK: Public Methods
     func handleAvatarImage(image: UIImage) {
         createProfileView.setupAvatar(image: image)
+        selectedImageData = image.jpegData(compressionQuality: 0.8)
     }
 
     // MARK: Private Methods
@@ -65,12 +76,15 @@ final class CreateProfileViewController: UIViewController, FlowController, Creat
         textFieldDelegate?.viewModel = viewModel
         textFieldDelegate?.setNameTextField(createProfileView.nameTextField.getField())
         textFieldDelegate?.setLastNameTextField(createProfileView.lastNameTextField.getField())
+
+        dateOfBirthDelegate = DateOfBirthTextFieldDelegate()
+        dateOfBirthDelegate?.viewModel = viewModel
+        dateOfBirthDelegate?.setDateOfBirthTextField(createProfileView.dateOfBirthTextField.getField())
     }
 
     private func setupKeyboardObserver() {
         keyboardObserver = KeyboardObserver(onShow: { [weak self] keyboardFrame in
             guard let self else { return }
-
             createProfileView.updateLayout(keyboardRect: keyboardFrame)
         }, onHide: { [weak self] in
             guard let self else { return }
@@ -80,18 +94,44 @@ final class CreateProfileViewController: UIViewController, FlowController, Creat
 
     private func setupBindings() {
 
-        viewModel.isValidPublisher
-            .removeDuplicates()
-            .sink { [weak self] valid in
-                if valid {
-                    self?.completionHandler?(User(name: "Олег", lastName: "Тинькофф", login: "tbank@gmail.com", birthDate: Date(), averageSpending: 50000, income: 100000, dayOfSalary: 25))
-                }
-            }.store(in: &cancellable)
-
         viewModel.shouldShowCluePublisher
             .removeDuplicates()
             .sink { [weak self] show in
                 self?.createProfileView.showClue(!show)
             }.store(in: &cancellable)
+            
+        viewModel.isUploadingPublisher
+            .sink { [weak self] isUploading in
+                self?.createProfileView.continueButton.isEnabled = !isUploading
+                
+                if isUploading {
+                    self?.completionHandler?(true)
+                }
+            }.store(in: &cancellable)
+            
+        viewModel.uploadErrorPublisher
+            .compactMap { $0 }
+            .sink { [weak self] error in
+              
+                let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self?.present(alert, animated: true)
+            }.store(in: &cancellable)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension CreateProfileViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField === createProfileView.dateOfBirthTextField.getField() {
+            viewModel.hideClue()
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField === createProfileView.dateOfBirthTextField.getField() {
+            return false
+        }
+        return true
     }
 }

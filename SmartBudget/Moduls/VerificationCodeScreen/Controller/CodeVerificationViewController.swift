@@ -52,6 +52,13 @@ final class CodeVerificationViewController: UIViewController, FlowController {
                 self?.verificationCodeView.updateEmailText(email)
             }
             .store(in: &cancellables)
+        
+        viewModel.successPublisher
+            .sink { [weak self] success in
+                if success {
+                    self?.completionHandler?(true)
+                }
+            }.store(in: &cancellables)
     }
 }
 

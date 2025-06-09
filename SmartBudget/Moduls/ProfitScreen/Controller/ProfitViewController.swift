@@ -13,9 +13,15 @@ final class ProfitViewController: UIViewController, FlowController {
     private var amountCollectionViewDelegate: AmountCollectionViewDelegate?
 
     private var profitTextFieldDelegate: ProfitTextFieldDelegate?
+    private var salaryDayDelegate: SalaryDayTextFieldDelegate?
 
     private var cancellable = Set<AnyCancellable>()
-    var completionHandler: ((Int) -> Void)?
+    var completionHandler: ((Bool) -> Void)?
+    
+    private lazy var confirmButtonTapped = UIAction { [weak self] _ in
+        guard let self else { return }
+        viewModel.submitProfitAndSalaryDay()
+    }
 
     // MARK: Initialization
     init(viewModel: ProfitViewModelProtocol) {
@@ -36,10 +42,16 @@ final class ProfitViewController: UIViewController, FlowController {
         super.viewDidLoad()
         configureCollectionView()
         configureTextField()
+        configureSalaryDayPicker()
         setupBindings()
+        setupActions()
     }
 
     // MARK: Private Methods
+    private func setupActions() {
+        profitView.continueButton.addAction(confirmButtonTapped, for: .touchUpInside)
+    }
+
     private func setupBindings() {
         viewModel.currentProfitPublisher
             .compactMap({ String($0) })
@@ -70,6 +82,18 @@ final class ProfitViewController: UIViewController, FlowController {
             .sink { [weak self] amount in
                 self?.amountCollectionViewDataSource?.applySnapshot(items: amount, animated: true)
             }.store(in: &cancellable)
+        
+        viewModel.isLoadingPublisher
+            .sink { [weak self] state in
+                self?.profitView.continueButton.buttonViewModel.buttonState = state ? .loading : .normal
+            }.store(in: &cancellable)
+        
+        viewModel.successPublisher
+            .sink { [weak self] success in
+                if success {
+                    self?.completionHandler?(true)
+                }
+            }.store(in: &cancellable)
     }
 
     private func configureCollectionView() {
@@ -85,5 +109,11 @@ final class ProfitViewController: UIViewController, FlowController {
         profitTextFieldDelegate = ProfitTextFieldDelegate()
         profitView.profitTextField.getField().delegate = profitTextFieldDelegate
         profitTextFieldDelegate?.viewModel = viewModel
+    }
+
+    private func configureSalaryDayPicker() {
+        salaryDayDelegate = SalaryDayTextFieldDelegate()
+        salaryDayDelegate?.setSalaryDayTextField(profitView.salaryDayTextField.getField())
+        salaryDayDelegate?.viewModel = viewModel
     }
 }

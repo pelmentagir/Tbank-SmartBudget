@@ -3,6 +3,7 @@ import UIKit
 private extension String {
     static let nameTextFieldPlaceholder = "Введите имя"
     static let lastNameTextFieldPlaceholder = "Введите фамилию"
+    static let dateOfBirthPlaceholder = "Дата рождения"
     static let clueText = "Допустимы буквы, дефисы и апострофы \n (2–50 символов)"
 }
 
@@ -47,6 +48,14 @@ final class CreateProfileView: UIView, CreateProfileViewProtocol {
         return textField
     }()
 
+    private(set) lazy var dateOfBirthTextField: TextFieldView = {
+        let textField = textFieldFactory.createTextFieldView(type: .default, placeholder: .dateOfBirthPlaceholder)
+        textField.snp.makeConstraints { make in
+            make.height.equalTo(CGFloat.authScaledHeight)
+        }
+        return textField
+    }()
+
     private(set) lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .continueButtonText)
 
     private lazy var clueLabel: UILabel = {
@@ -61,7 +70,7 @@ final class CreateProfileView: UIView, CreateProfileViewProtocol {
     }()
 
     private lazy var fullNameStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [nameTextField, lastNameTextField])
+        let stackView = UIStackView(arrangedSubviews: [nameTextField, lastNameTextField, dateOfBirthTextField])
         stackView.axis = .vertical
         stackView.spacing = .largePadding
         stackView.distribution = .equalSpacing

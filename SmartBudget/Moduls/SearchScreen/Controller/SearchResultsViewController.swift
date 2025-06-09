@@ -13,7 +13,7 @@ final class SearchResultsViewController: UIViewController {
     private var searchTableViewDelegate: SearchTableViewDelegate?
     private var cancellables = Set<AnyCancellable>()
 
-    var onCategorySelected: ((Category) -> Void)?
+    var onCategorySelected: ((CategoryItem) -> Void)?
 
     // MARK: Initialization
     init(viewModel: SearchViewModelProtocol) {
@@ -42,7 +42,6 @@ final class SearchResultsViewController: UIViewController {
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] categories in
-                print(categories)
                 self?.searchTableViewDataSource?.applySnapshot(categories: categories, animated: false)
             }.store(in: &cancellables)
 

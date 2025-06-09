@@ -68,7 +68,6 @@ final class StandartButton: UIButton {
 
         buttonViewModel.$buttonState
             .sink { [weak self] state in
-                print("Button state changed to: \(state)")
                 self?.configure(state: state)
             }
             .store(in: &cancellables)

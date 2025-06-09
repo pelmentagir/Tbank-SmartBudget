@@ -4,6 +4,8 @@ final class AuthCoordinator: Coordinator {
 
     // MARK: Properties
     private let appContainer: AppContainer
+    private var authUser: AuthUser?
+    private var isRegistration: Bool = false
     var navigationController: UINavigationController
     var imagePickerCoordinator: ImagePickerCoordinator?
     weak var categoryDistributionController: CategoryDistributionViewController?
@@ -18,16 +20,19 @@ final class AuthCoordinator: Coordinator {
 
     // MARK: Public Methods
     func start() {
-        showCategoryDistributionFlow()
+        showLoginFlow()
     }
 
     // MARK: Private Methods
     private func showLoginFlow() {
         let controller = appContainer.resolveController(LoginViewController.self)
         controller.completionHandler = { [weak self] user in
+
             if user != nil {
+                self?.authUser = user
                 self?.showCodeFlow()
             } else {
+                self?.isRegistration = true
                 self?.showRegistrationFlow()
             }
 
@@ -36,10 +41,16 @@ final class AuthCoordinator: Coordinator {
     }
 
     private func showCodeFlow() {
-        let controller = appContainer.resolveController(CodeVerificationViewController.self)
+        guard let email = authUser?.email else { return }
+        let controller = appContainer.resolveController(CodeVerificationViewController.self, argument: email)
 
         controller.completionHandler = { [weak self] _ in
-
+            guard let self else { return }
+            if isRegistration {
+                showCreateProfileFlow()
+            } else {
+                flowCompletionHandler?()
+            }
         }
 
         navigationController.setViewControllers([controller], animated: true)
@@ -49,6 +60,7 @@ final class AuthCoordinator: Coordinator {
         let controller = appContainer.resolveController(RegistrationViewController.self)
 
         controller.completionHandler = { [weak self] user in
+            self?.authUser = user
             self?.showCodeFlow()
         }
         navigationController.pushViewController(controller, animated: true)
@@ -57,27 +69,27 @@ final class AuthCoordinator: Coordinator {
     private func showCreateProfileFlow() {
         let controller = appContainer.resolveController(CreateProfileViewController.self)
 
-        controller.completionHandler = { [weak self] user in
-
+        controller.completionHandler = { [weak self] _ in
+            self?.showProfitFlow()
         }
 
         controller.presentImagePicker = { [weak self] in
             guard let self else { return }
             imagePickerCoordinator?.start()
         }
-        
+
         imagePickerCoordinator?.didSelectImage = { image in
             controller.handleAvatarImage(image: image)
         }
-        
+
         navigationController.setViewControllers([controller], animated: true)
     }
 
     private func showProfitFlow() {
         let controller = appContainer.resolveController(ProfitViewController.self)
 
-        controller.completionHandler = { value in
-
+        controller.completionHandler = { [weak self] _ in
+            self?.showCategoryDistributionFlow()
         }
 
         navigationController.setViewControllers([controller], animated: true)
@@ -86,8 +98,11 @@ final class AuthCoordinator: Coordinator {
     private func showCategoryDistributionFlow() {
         let controller = appContainer.resolveController(CategoryDistributionViewController.self)
         self.categoryDistributionController = controller
-        controller.completionHandler = { value in
-
+        controller.completionHandler = { [weak self] state in
+            guard let self else { return }
+            if state {
+                flowCompletionHandler?()
+            }
         }
 
         controller.presentBudgetPlanning = { [weak self] category in

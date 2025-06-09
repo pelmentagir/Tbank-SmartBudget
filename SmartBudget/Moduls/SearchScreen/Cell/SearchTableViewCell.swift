@@ -39,10 +39,10 @@ final class SearchTableViewCell: UITableViewCell, SearchTableViewCellProtocol {
     }
 
     // MARK: Public Methods
-    func configureCell(category: Category) {
-        titleLabel.text = category.name
-        iconView.image = category.icon
-        backgroundIconView.backgroundColor = category.backgroundColor.withAlphaComponent(.alphaBackgorundViewCategory)
+    func configureCell(category: CategoryItem) {
+        titleLabel.text = category.categoryName
+        iconView.image = UIImage.getIconByCategory(categoryName: category.categoryName)
+        backgroundIconView.backgroundColor = UIColor.getBackgroundColorByCategory(categoryName: category.categoryName).withAlphaComponent(.alphaBackgorundViewCategory)
     }
 
     // MARK: Private Methods
