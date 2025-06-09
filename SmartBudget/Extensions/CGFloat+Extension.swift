@@ -13,6 +13,7 @@ extension CGFloat {
     static let regularFontSize: CGFloat = 20
     static let mediumFontSize: CGFloat = 24
     static let highFontSize: CGFloat = 28
+    static let extraHighFontSize: CGFloat = 32
     static let cornerRadius: CGFloat = 16
     static let baseHeight: CGFloat = 56
     static let alphaBackgorundViewCategory: CGFloat = 0.12
@@ -21,6 +22,7 @@ extension CGFloat {
     static let smallPadding: CGFloat = 8
     static let mediumPadding: CGFloat = 12
     static let largePadding: CGFloat = 16
+    static let extraMediumPadding: CGFloat = 24
     static let bigPadding: CGFloat = 32
     static let extraLargePadding: CGFloat = 40
 }
