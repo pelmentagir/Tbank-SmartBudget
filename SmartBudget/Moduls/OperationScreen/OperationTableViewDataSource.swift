@@ -17,20 +17,32 @@ final class OperationTableViewDataSource: NSObject {
     func applySnapshot(with days: [DayInfo]) {
         var snapshot = NSDiffableDataSourceSnapshot<String, CategoryDetailsForDay>()
 
-        for day in days {
-            let sectionTitle = self.formatDate(day.day)
-            snapshot.appendSections([sectionTitle])
+        let reversedDays = days.reversed()
+
+        for (index, day) in reversedDays.enumerated() {
+            guard let date = day.date else {
+                continue
+            }
+
+            let sectionTitle = self.formatDate(date)
+
+            if !snapshot.sectionIdentifiers.contains(sectionTitle) {
+                snapshot.appendSections([sectionTitle])
+            }
+
             snapshot.appendItems(day.categoryDetailsForDay, toSection: sectionTitle)
         }
 
+        print("Итоговый snapshot: \(snapshot.sectionIdentifiers)")
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
 
     // MARK: Private Methods
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.doesRelativeDateFormatting = true
+        formatter.locale = Locale(identifier: LocaleIdentifier.ru.identifier)
+        formatter.dateFormat = "d MMMM"
+        print(formatter.string(from: date))
         return formatter.string(from: date)
     }
 

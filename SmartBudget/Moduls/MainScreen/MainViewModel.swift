@@ -2,14 +2,30 @@ import Foundation
 
 final class MainViewModel {
 
-    // MARK: Published Properties
-    @Published var chartItems: [CategorySpending] = [
-        .init(categoryName: "Продукты питания", spentMoney: 2500, leftMoney: 3000, percent: 40),
-        .init(categoryName: "Рестораны и кафе", spentMoney: 2500, leftMoney: 3000, percent: 30),
-        .init(categoryName: "Одежда и обувь", spentMoney: 2500, leftMoney: 3000, percent: 15),
-        .init(categoryName: "Товары для дома", spentMoney: 2500, leftMoney: 3000, percent: 15)
-    ]
+    // MARK: - Published Properties
+    @Published var chartItems: [CategorySpending] = []
+    @Published var spentIncome: Int = 0
+    @Published var leftIncome: Int = 0
 
-    @Published var spentIncome: Int = 10000
-    @Published var leftIncome: Int = 12000
+    init() {
+        fetchMainData()
+    }
+
+    // MARK: Network
+    func fetchMainData() {
+        let endpoint = GetMainDataEndpoint()
+
+        NetworkService.shared.request(endpoint, responseType: MainDataResponse.self) { [weak self] result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self?.spentIncome = response.spentIncome
+                    self?.leftIncome = response.leftIncome
+                    self?.chartItems = response.categoryDetailsDtoList
+                }
+            case .failure(let error):
+                print("Ошибка при получении данных главного экрана: \(error.localizedDescription)")
+            }
+        }
+    }
 }

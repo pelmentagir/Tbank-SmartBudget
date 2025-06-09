@@ -13,8 +13,9 @@ final class OperationTableViewDelegate: NSObject, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let dayInfo = viewModel?.getDayInfo(for: section) else { return nil }
 
+        guard let dayInfo = viewModel?.getDayInfo(for: section) else { return nil }
+        
         let headerView = OperationHeaderTableView()
         headerView.configure(day: dayInfo)
 

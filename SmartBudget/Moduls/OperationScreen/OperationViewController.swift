@@ -43,6 +43,10 @@ final class OperationViewController: UIViewController, FlowController {
         setupBindings()
         setupAction()
     }
+    
+    func requestNewRangeDate(request: SpendingRequest) {
+        viewModel.fetchSpendingData(request: request)
+    }
 
     // MARK: Private Methods
     private func setupAction() {
@@ -51,17 +55,27 @@ final class OperationViewController: UIViewController, FlowController {
 
     private func configureTableView() {
         operationTableViewDataSource = OperationTableViewDataSource(tableView: operationView.tableView)
-
         operationTableViewDelegate = OperationTableViewDelegate(viewModel: viewModel)
         operationView.tableView.delegate = operationTableViewDelegate
+        viewModel.updateTable = { [weak self] in
+            self?.operationView.tableView.reloadData()
+        }
     }
 
     private func setupBindings() {
-        viewModel.operationPublisher
+        viewModel.spendingResponsePublisher
+            .dropFirst()
             .sink { [weak self] operation in
-                self?.operationTableViewDataSource?.applySnapshot(with: operation.daysInfo)
-                self?.operationView.configure(totalAmount: operation.totalSpentMoney)
+                guard let self else { return }
+                operationTableViewDataSource?.applySnapshot(with: operation.daysInfo)
+                operationView.configure(totalAmount: operation.totalSpentMoney)
             }.store(in: &cancellables)
+
+        viewModel.progressPublisher
+            .sink { [weak self] progress in
+                self?.operationView.updateProgress(progress)
+            }
+            .store(in: &cancellables)
     }
 }
 

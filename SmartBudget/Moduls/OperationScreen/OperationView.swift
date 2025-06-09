@@ -49,7 +49,7 @@ final class OperationView: UIView {
     }()
 
     private(set) lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.rowHeight = .rowHeight
         tableView.showsVerticalScrollIndicator = false
@@ -74,6 +74,11 @@ final class OperationView: UIView {
 
     func configure(totalAmount: Double) {
         amountLabel.text = "\(totalAmount.formattedWithoutDecimalIfWhole()) ₽"
+    }
+
+    func updateProgress(_ progress: Float) {
+        print(progress)
+        progressView.progress = progress
     }
 
     // MARK: Private Methods

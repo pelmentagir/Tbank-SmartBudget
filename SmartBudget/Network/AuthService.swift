@@ -7,7 +7,7 @@ final class AuthService {
     func login(email: String, password: String, completion: @escaping (Result<AuthResponse, Error>) -> Void) {
         let request = AuthRequest(email: email, password: password)
         let endpoint = SignInEndpoint(request: request)
-        
+
         NetworkService.shared.request(endpoint, responseType: AuthResponse.self) { result in
             switch result {
             case .success(let authResponse):
@@ -32,20 +32,29 @@ final class AuthService {
 
         let endpoint = RefreshTokenEndpoint(refreshToken: refresh)
 
-        NetworkService.shared.request(endpoint, responseType: AuthResponse.self) { result in
-            switch result {
-            case .success(let authResponse):
-                if let accessToken = authResponse.accessToken {
-                    TokenStorage.shared.accessToken = accessToken
-                    if let refreshToken = authResponse.refreshToken {
-                        TokenStorage.shared.refreshToken = refreshToken
-                    }
-                }
-                completion(.success(authResponse))
-            case .failure(let error):
-                TokenStorage.shared.clearTokens()
-                completion(.failure(error))
-            }
+        guard let urlRequest = endpoint.urlRequest else {
+            completion(.failure(NetworkError.invalidRequest))
+            return
         }
+
+        NetworkService.shared.plainSession
+            .request(urlRequest)
+            .validate()
+            .responseDecodable(of: AuthResponse.self) { response in
+                switch response.result {
+                case .success(let authResponse):
+
+                    if let accessToken = authResponse.accessToken {
+                        TokenStorage.shared.accessToken = accessToken
+                    }
+                    if let newRefreshToken = authResponse.refreshToken {
+                        TokenStorage.shared.refreshToken = newRefreshToken
+                    }
+                    completion(.success(authResponse))
+                case .failure(let error):
+                    print("[REFRESH] Error: \(error)")
+                    completion(.failure(error))
+                }
+            }
     }
 }

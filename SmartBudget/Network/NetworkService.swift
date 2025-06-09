@@ -5,6 +5,13 @@ final class NetworkService {
     static let shared = NetworkService()
 
     private let session: Session
+    
+    let plainSession: Session = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 30
+        configuration.headers = .default
+        return Session(configuration: configuration)
+    }()
 
     private init() {
         let configuration = URLSessionConfiguration.default
@@ -22,6 +29,7 @@ final class NetworkService {
         responseType: T.Type,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
+
         guard let urlRequest = endpoint.urlRequest else {
             completion(.failure(NetworkError.invalidRequest))
             return

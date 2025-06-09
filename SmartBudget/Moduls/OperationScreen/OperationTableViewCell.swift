@@ -51,7 +51,7 @@ final class OperationTableViewCell: UITableViewCell {
         titleLabel.text = category.categoryName
         iconView.image = UIImage.getIconByCategory(categoryName: category.categoryName)
         backgroundIconView.backgroundColor = UIColor.getBackgroundColorByCategory(categoryName: category.categoryName).withAlphaComponent(.alphaBackgorundViewCategory)
-        spendMoneyLabel.text = "\(category.spendMoney.formattedWithoutDecimalIfWhole()) ₽"
+        spendMoneyLabel.text = "-\(category.spentMoney.formattedWithoutDecimalIfWhole()) ₽"
     }
 
     // MARK: Private Methods

@@ -36,7 +36,6 @@ final class MainViewController: UIViewController, FlowController {
     }
 
     // MARK: Private Methods
-
     private func configureCollectionView() {
         categoryCollectionViewDataSource = CategoryBudgetDataSource(tableView: mainView.tableView)
     }

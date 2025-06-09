@@ -66,7 +66,7 @@ final class RangeDatePickerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Public Methods
     func updateSelectedDates(startDate: Date?, endDate: Date?) {
         guard let start = startDate else { return }

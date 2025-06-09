@@ -9,15 +9,24 @@ final class RangeDatePickerViewController: UIViewController, FlowController {
 
     // MARK: Properties
     private let viewModel: RangeDatePickerViewModelProtocol
-    var completionHandler: ((Int) -> Void)?
-    
+    var completionHandler: ((SpendingRequest) -> Void)?
+
     private lazy var doneButtonTapped = UIAction { [weak self] _ in
         guard let self else { return }
         let (start, end) = viewModel.getSelectedRange()
         if let start = start, let end = end {
             print("Выбран диапазон: \(viewModel.selectedRangeText)")
+            let spendingRequest = viewModel.createSpendingRequest(start: start, end: end)
+       
+            if let spendingRequest {
+                completionHandler?(spendingRequest)
+            }
         } else if let start = start {
             print("Выбрана одна дата: \(viewModel.selectedRangeText)")
+            let spendingRequest = viewModel.createSpendingRequest(start: start, end: start)
+            if let spendingRequest {
+                completionHandler?(spendingRequest)
+            }
         } else {
             print("Диапазон не выбран")
         }

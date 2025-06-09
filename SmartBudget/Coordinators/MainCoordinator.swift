@@ -64,8 +64,8 @@ class MainCoordinator: NSObject, Coordinator {
 
                guard let self else { return }
                let rangeController = appContainer.resolveController(RangeDatePickerViewController.self)
-               rangeController.completionHandler = { _ in
-
+               rangeController.completionHandler = { spendingRequest in
+                   operationController.requestNewRangeDate(request: spendingRequest)
                }
                rangeController.configurePresentation()
                rangeController.transitioningDelegate = operationController

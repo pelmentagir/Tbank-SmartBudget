@@ -16,13 +16,31 @@ final class OperationHeaderTableView: UIView {
         return label
     }()
 
-    private lazy var dateFormatter: DateFormatter = {
+    private lazy var relativeDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
         formatter.dateStyle = .medium
         formatter.doesRelativeDateFormatting = true
-        formatter.locale = Locale(identifier: "ru_RU")
         return formatter
     }()
+
+    private lazy var regularDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateFormat = "d MMMM"
+        return formatter
+    }()
+
+    private func formatDate(_ date: Date) -> String {
+        let relativeString = relativeDateFormatter.string(from: date)
+
+        let relativeDates = ["Сегодня", "Вчера", "Позавчера"]
+        if relativeDates.contains(relativeString) {
+            return relativeString
+        }
+
+        return regularDateFormatter.string(from: date)
+    }
 
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -37,7 +55,7 @@ final class OperationHeaderTableView: UIView {
 
     // MARK: Public Methods
     func configure(day: DayInfo) {
-        dayLabel.text = dateFormatter.string(from: day.day)
+        dayLabel.text = formatDate(day.date ?? Date())
         spendTotalAmountForDayLabel.text = "\(day.totalSpendForDay.formattedWithoutDecimalIfWhole()) ₽"
     }
 
