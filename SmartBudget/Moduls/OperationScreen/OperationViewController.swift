@@ -11,7 +11,7 @@ final class OperationViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private var viewModel: OperationViewModel
+    private var viewModel: OperationViewModelProtocol
     private var cancellables = Set<AnyCancellable>()
     private var operationTableViewDataSource: OperationTableViewDataSource?
     private var operationTableViewDelegate: OperationTableViewDelegate?
@@ -23,7 +23,7 @@ final class OperationViewController: UIViewController, FlowController {
     }
 
     // MARK: Initialization
-    init(viewModel: OperationViewModel) {
+    init(viewModel: OperationViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -57,7 +57,7 @@ final class OperationViewController: UIViewController, FlowController {
     }
 
     private func setupBindings() {
-        viewModel.$operation
+        viewModel.operationPublisher
             .sink { [weak self] operation in
                 self?.operationTableViewDataSource?.applySnapshot(with: operation.daysInfo)
                 self?.operationView.configure(totalAmount: operation.totalSpentMoney)

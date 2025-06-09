@@ -1,6 +1,6 @@
 import Foundation
 
-final class RangeDatePickerViewModel {
+final class RangeDatePickerViewModel: RangeDatePickerViewModelProtocol {
 
     // MARK: Properties
     private(set) var startDate: Date?

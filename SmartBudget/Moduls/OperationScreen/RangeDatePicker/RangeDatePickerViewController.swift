@@ -8,7 +8,7 @@ final class RangeDatePickerViewController: UIViewController, FlowController {
     }
 
     // MARK: Properties
-    private let viewModel: RangeDatePickerViewModel
+    private let viewModel: RangeDatePickerViewModelProtocol
     var completionHandler: ((Int) -> Void)?
     
     private lazy var doneButtonTapped = UIAction { [weak self] _ in
@@ -32,7 +32,7 @@ final class RangeDatePickerViewController: UIViewController, FlowController {
         dismiss(animated: true)
     }
 
-    init(viewModel: RangeDatePickerViewModel) {
+    init(viewModel: RangeDatePickerViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

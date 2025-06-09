@@ -1,9 +1,9 @@
 import UIKit
 
 final class OperationTableViewDelegate: NSObject, UITableViewDelegate {
-    weak var viewModel: OperationViewModel?
+    weak var viewModel: OperationViewModelProtocol?
 
-    init(viewModel: OperationViewModel) {
+    init(viewModel: OperationViewModelProtocol) {
         self.viewModel = viewModel
         super.init()
     }
