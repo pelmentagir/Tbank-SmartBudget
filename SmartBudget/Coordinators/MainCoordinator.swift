@@ -60,6 +60,19 @@ class MainCoordinator: NSObject, Coordinator {
         let operationController = appContainer.resolveController(OperationViewController.self)
         operationController.tabBarItem = UITabBarItem(title: "Операции", image: UIImage.operations, selectedImage: UIImage.operations)
 
+        operationController.presentCalendar = { [weak self] in
+
+               guard let self else { return }
+               let rangeController = appContainer.resolveController(RangeDatePickerViewController.self)
+               rangeController.completionHandler = { _ in
+
+               }
+               rangeController.configurePresentation()
+               rangeController.transitioningDelegate = operationController
+               navigationController.present(rangeController, animated: true)
+
+        }
+
         let mainViewController = appContainer.resolveController(MainViewController.self)
         mainViewController.tabBarItem = UITabBarItem(title: "Главная", image: UIImage.donutСhart, selectedImage: UIImage.donutСhart)
         mainViewController.completionHandler = { [weak self] leftMoney in
@@ -74,6 +87,13 @@ class MainCoordinator: NSObject, Coordinator {
 
         let profileController = appContainer.resolveController(ProfileViewController.self)
         profileController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage.profile, selectedImage: UIImage.profile)
+
+        profileController.presentCategoryDistributionScreen = { [weak self] in
+            guard let self else { return }
+            let categoryDistributionController = appContainer.resolveController(CategoryDistributionViewController.self)
+            categoryDistributionController.hideStepTitle()
+            navigationController.pushViewController(categoryDistributionController, animated: true)
+        }
 
         savingController.presentReplenishView = { [weak self] savingGoal in
             guard let self else { return }

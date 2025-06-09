@@ -41,10 +41,11 @@ final class ProfileTableViewCell: UITableViewCell, ProfileTableViewCellProtocol 
     }
 
     // MARK: Public Methods
-    func configure(title: String, value: String, showToggle: Bool = false, toggleAction: UIAction? = nil) {
+    func configure(title: String, value: String, showToggle: Bool = false, toggleAction: UIAction? = nil, showDisclosure: Bool = false) {
         titleLabel.text = title
         valueLabel.text = value
         toggleSwitch.isHidden = !showToggle
+        accessoryType = showDisclosure ? .disclosureIndicator : .none
 
         if showToggle {
             valueLabelTrailingConstraint?.update(offset: -CGFloat.smallPadding)
