@@ -30,7 +30,7 @@ final class CategoryDistributionView: UIView {
         return view
     }()
 
-    private lazy var stepLabel: UILabel = {
+    private(set) lazy var stepLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: .defaultFontSize)
         label.text = .stepText
@@ -72,7 +72,6 @@ final class CategoryDistributionView: UIView {
     }()
 
     private lazy var continueButton: IButton = buttonFactory.createButton(type: .standard, title: .continueButtonText)
-    
 
     // MARK: Initialization
     init(buttonFactory: ButtonFactory) {

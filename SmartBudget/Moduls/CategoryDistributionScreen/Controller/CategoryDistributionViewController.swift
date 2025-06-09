@@ -42,6 +42,10 @@ final class CategoryDistributionViewController: UIViewController, FlowController
     }
 
     // MARK: Public Methods
+    func hideStepTitle() {
+        categoryDistributionView.stepLabel.isHidden = true
+    }
+    
     func addCategoryInTag(category: Category) {
         viewModel.appendCategory(category)
     }
