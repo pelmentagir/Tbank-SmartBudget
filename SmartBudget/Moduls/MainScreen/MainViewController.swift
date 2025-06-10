@@ -37,7 +37,7 @@ final class MainViewController: UIViewController, FlowController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+    
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let mockTitle = "Почти исчерпан лимит"
             let mockBody = "Вы потратили 50% бюджета на развлечение"

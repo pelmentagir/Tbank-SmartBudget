@@ -39,8 +39,9 @@ final class SavingTargetTableViewCell: UITableViewCell, SavingTargetTableViewCel
 
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage.defaultPhoto
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = .cornerRadiusImageBackgroundView
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -116,7 +117,11 @@ final class SavingTargetTableViewCell: UITableViewCell, SavingTargetTableViewCel
 
         progressView.setProgress(progress, animated: false)
         percentLabel.text = "\(Int(progress * 100))%"
-
+        if item.image != nil {
+            iconImageView.image = item.image
+        } else {
+            iconImageView.image = UIImage.defaultPhoto
+        }
         let action = UIAction { _ in
             onReplenish()
         }
@@ -149,7 +154,7 @@ final class SavingTargetTableViewCell: UITableViewCell, SavingTargetTableViewCel
         }
 
         iconImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(CGFloat.heightProgressView)
+            make.edges.equalToSuperview()
         }
 
         titleLabel.snp.makeConstraints { make in

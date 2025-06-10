@@ -20,7 +20,7 @@ final class OperationViewModel {
 
     // MARK: Initialization
     init() {
-        let request = SpendingRequest(startDate: "2025-05-05", endDate: "2025-06-10")
+        let request = SpendingRequest(startDate: "2025-06-02", endDate: "2025-06-10")
         fetchSpendingData(request: request)
     }
 

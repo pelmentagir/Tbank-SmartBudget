@@ -3,7 +3,20 @@ import Foundation
 final class ProfileViewModel {
 
     // MARK: Published Properties
-    @Published private(set) var user: User = User(name: "Олег", lastName: "Тиньков", login: "tbank@gmail.com", birthDate: Date(), averageSpending: 50000, income: 100000, dayOfSalary: 25)
+    @Published private(set) var user = User(
+        name: "Тага",
+        lastName: "Файрушин",
+        login: "fayrushintagir@gmail.com",
+        birthDate: DateComponents(
+            calendar: .current,
+            year: 2005,
+            month: 3,
+            day: 6
+        ).date!,
+        averageSpending: 80000,
+        income: 100000,
+        dayOfSalary: 25
+    )
 
     // MARK: Properties
     private(set) var sections = ["Основная информация", "Настройки"]

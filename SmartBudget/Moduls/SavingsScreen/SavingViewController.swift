@@ -33,7 +33,6 @@ final class SavingViewController: UIViewController, FlowController {
     override func loadView() {
         self.view = SavingView()
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

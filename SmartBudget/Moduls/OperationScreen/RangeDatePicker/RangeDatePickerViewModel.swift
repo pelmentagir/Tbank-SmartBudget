@@ -53,14 +53,16 @@ final class RangeDatePickerViewModel: RangeDatePickerViewModelProtocol {
         guard let start = start, let end = end else {
             return nil
         }
-
+        print(start)
+        print(end)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
 
+        let correctedStart = Calendar.current.date(byAdding: .day, value: 1, to: start)!
         let correctedEnd = Calendar.current.date(byAdding: .day, value: 1, to: end)!
 
-        let startDateString = dateFormatter.string(from: start)
+        let startDateString = dateFormatter.string(from: correctedStart)
         let endDateString = dateFormatter.string(from: correctedEnd)
 
         return SpendingRequest(startDate: startDateString, endDate: endDateString)

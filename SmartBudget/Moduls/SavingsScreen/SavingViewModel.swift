@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 final class SavingViewModel {
 
@@ -25,25 +26,38 @@ final class SavingViewModel {
         networkService.request(endpoint, responseType: FinancialGoalsResponse.self) { [weak self] result in
             switch result {
             case .success(let response):
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-
-                let goals = response.savingGoals.compactMap { goal -> SavingGoal? in
-                    return SavingGoal(
-                        id: goal.id,
-                        title: goal.name,
-                        image: nil,
-                        totalCost: goal.amount,
-                        accumulatedMoney: goal.progress,
-                        startDate: goal.startDate.date,
-                        endDate: goal.endDate.date
-                    )
+                let dispatchGroup = DispatchGroup()
+                var loadedGoals: [SavingGoal] = []
+                let syncQueue = DispatchQueue(label: "savingGoals.sync.queue") // Для безопасной записи
+                
+                for goal in response.savingGoals {
+                    dispatchGroup.enter()
+                    
+                    ImageService.downloadImage(from: goal.imageUrl) { image in
+                        
+                        let finalImage = image
+               
+                        let savingGoal = SavingGoal(
+                            id: goal.id,
+                            title: goal.name,
+                            image: finalImage,
+                            totalCost: goal.amount,
+                            accumulatedMoney: goal.progress,
+                            startDate: goal.startDate.date,
+                            endDate: goal.endDate.date
+                        )
+                        
+                        syncQueue.async {
+                            loadedGoals.append(savingGoal)
+                            dispatchGroup.leave()
+                        }
+                    }
                 }
-
-                DispatchQueue.main.async {
-                    self?.savingGoals = goals
+                
+                dispatchGroup.notify(queue: .main) {
+                    self?.savingGoals = loadedGoals
                 }
-
+                
             case .failure(let error):
                 print("Ошибка при загрузке целей: \(error)")
             }

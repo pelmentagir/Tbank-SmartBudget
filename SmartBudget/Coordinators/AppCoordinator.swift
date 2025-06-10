@@ -19,7 +19,7 @@ final class AppCoordinator: Coordinator {
     // MARK: Public Methods
     func start() {
         if AuthenticationManager.shared.isAuthenticated {
-            showMainFlow()
+            showAuthFlow()
         } else {
             showAuthFlow()
         }
