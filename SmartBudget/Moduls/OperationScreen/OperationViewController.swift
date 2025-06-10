@@ -43,7 +43,7 @@ final class OperationViewController: UIViewController, FlowController {
         setupBindings()
         setupAction()
     }
-    
+
     func requestNewRangeDate(request: SpendingRequest) {
         viewModel.fetchSpendingData(request: request)
     }

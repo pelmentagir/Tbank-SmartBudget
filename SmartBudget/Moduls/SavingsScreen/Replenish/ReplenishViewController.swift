@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class ReplenishViewController: UIViewController, FlowController, ReplenishViewControllerProtocol {
+final class ReplenishViewController: UIViewController, FlowController {
 
     private var replenishView: ReplenishView {
         self.view as! ReplenishView
@@ -46,7 +46,7 @@ final class ReplenishViewController: UIViewController, FlowController, Replenish
         setupBindings()
         setupAction()
     }
-
+    
     // MARK: Public Methods
     func configurePresentation() {
         modalPresentationStyle = .custom

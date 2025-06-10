@@ -34,7 +34,7 @@ final class OperationTableViewDataSource: NSObject {
         }
 
         print("Итоговый snapshot: \(snapshot.sectionIdentifiers)")
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
 
     // MARK: Private Methods

@@ -20,6 +20,7 @@ final class ThirdScreenAddingGoalViewController: UIViewController, FlowControlle
 
     private lazy var continueButtonOnTapped = UIAction { [weak self] _ in
         guard let self = self else { return }
+        addingGoalView.continueButton.buttonViewModel.buttonState = .loading
         completionHandler?(viewModel.selectedDay)
     }
 

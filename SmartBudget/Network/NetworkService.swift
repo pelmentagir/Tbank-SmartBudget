@@ -122,3 +122,45 @@ extension NetworkService {
             }
     }
 }
+
+extension NetworkService {
+    func uploadFinancialGoal(
+        data: FinancialGoalData,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        let url = "\(Environment.baseURL)/api/v1/financial-goals"
+
+        let headers: HTTPHeaders = [
+            "Content-Type": "multipart/form-data"
+        ]
+
+        session.upload(
+            multipartFormData: { multipart in
+                multipart.append(Data(data.name.utf8), withName: "name")
+                multipart.append(Data(String(data.amount).utf8), withName: "amount")
+                multipart.append(Data(String(data.progress).utf8), withName: "progress")
+                multipart.append(Data(data.startDate.utf8), withName: "startDate")
+                multipart.append(Data(data.endDate.utf8), withName: "endDate")
+
+                if !data.imageData.isEmpty {
+                    multipart.append(data.imageData,
+                                     withName: "image",
+                                     fileName: data.imageName,
+                                     mimeType: data.mimeType)
+                }
+            },
+            to: url,
+            method: .post,
+            headers: headers
+        )
+        .validate()
+        .response { response in
+            switch response.result {
+            case .success:
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+}
