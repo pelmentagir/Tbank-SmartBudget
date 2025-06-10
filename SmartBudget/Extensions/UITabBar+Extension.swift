@@ -2,7 +2,7 @@ import UIKit
 
 extension UITabBar {
     func setupTinkoffStyle() {
-        self.backgroundColor = .tabBar
+        self.backgroundColor = .systemGray6
         self.tintColor = .customBlue2
         self.unselectedItemTintColor = .placeholder
         self.isTranslucent = false

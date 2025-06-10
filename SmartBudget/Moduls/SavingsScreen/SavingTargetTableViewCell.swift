@@ -111,12 +111,12 @@ final class SavingTargetTableViewCell: UITableViewCell, SavingTargetTableViewCel
         titleLabel.text = item.title
         amountLabel.text = "\(item.accumulatedMoney)₽ / \(item.totalCost)₽"
         let progress = Float(item.accumulatedMoney)/Float(item.totalCost)
-        
+
         monthlyGoalLabel.text = "Цель: отложить \(monthlySaving)₽ в этом месяце"
-        
+
         progressView.setProgress(progress, animated: false)
         percentLabel.text = "\(Int(progress * 100))%"
-        
+
         let action = UIAction { _ in
             onReplenish()
         }

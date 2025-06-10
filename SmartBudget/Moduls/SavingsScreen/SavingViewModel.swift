@@ -4,14 +4,49 @@ final class SavingViewModel {
 
     // MARK: Published Properties
     @Published var savingGoals: [SavingGoal] = [
-        .init(id: 1, title: "Смартфон", image: nil, totalCost: 100000, accumulatedMoney: 56000, startDate: Date(), endDate: Date()),
-        .init(id: 2, title: "Смартфон", image: nil, totalCost: 100000, accumulatedMoney: 30000, startDate: Date(), endDate: Date())
+
     ]
+
+    private var networkService: NetworkService = .shared
+
+    init() {
+        fetchSavingGoals()
+    }
 
     // MARK: Public Methods
     func replenishCartainSavingGoal(_ savingGoal: SavingGoal) {
         if let index = savingGoals.firstIndex(where: {$0.id == savingGoal.id}) {
             savingGoals[index] = savingGoal
+        }
+    }
+
+    func fetchSavingGoals() {
+        let endpoint = GetFinancialGoalsEndpoint()
+        networkService.request(endpoint, responseType: FinancialGoalsResponse.self) { [weak self] result in
+            switch result {
+            case .success(let response):
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+
+                let goals = response.savingGoals.compactMap { goal -> SavingGoal? in
+                    return SavingGoal(
+                        id: goal.id,
+                        title: goal.name,
+                        image: nil,
+                        totalCost: goal.amount,
+                        accumulatedMoney: goal.progress,
+                        startDate: goal.startDate.date,
+                        endDate: goal.endDate.date
+                    )
+                }
+
+                DispatchQueue.main.async {
+                    self?.savingGoals = goals
+                }
+
+            case .failure(let error):
+                print("Ошибка при загрузке целей: \(error)")
+            }
         }
     }
 

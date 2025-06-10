@@ -1,4 +1,5 @@
 import Foundation
+import UserNotifications
 
 final class MainViewModel {
 
@@ -6,6 +7,8 @@ final class MainViewModel {
     @Published var chartItems: [CategorySpending] = []
     @Published var spentIncome: Int = 0
     @Published var leftIncome: Int = 0
+
+    private let notificationCenter = PushNotificationCenter()
 
     init() {
         fetchMainData()
@@ -26,6 +29,22 @@ final class MainViewModel {
             case .failure(let error):
                 print("Ошибка при получении данных главного экрана: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func mockPush(request: UNNotificationRequest) {
+        Task {
+                let granted = try! await notificationCenter.registerForNotification()
+                if granted {
+                    notificationCenter.showNotification(for: request) { result in
+                        switch result {
+                        case .failure(let error):
+                            print("Fatal error")
+                        default:
+                            break
+                        }
+                    }
+                }
         }
     }
 }

@@ -3,7 +3,7 @@ import Foundation
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
-    case delete = "PATCH"
+    case patch = "PATCH"
 }
 
 protocol Endpoint {

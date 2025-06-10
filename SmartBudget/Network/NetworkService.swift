@@ -5,7 +5,7 @@ final class NetworkService {
     static let shared = NetworkService()
 
     private let session: Session
-    
+
     let plainSession: Session = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30

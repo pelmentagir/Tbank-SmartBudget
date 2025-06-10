@@ -10,6 +10,8 @@ final class ReplenishViewModel: NSObject {
     @Published private(set) var savingGoal: SavingGoal
     @Published private(set) var amount: [Int] = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000]
 
+    private let networkService: NetworkService = .shared
+
     // MARK: Initialization
     init(savingGoal: SavingGoal) {
         self.savingGoal = savingGoal
@@ -46,5 +48,26 @@ final class ReplenishViewModel: NSObject {
 
     func applyReplenishmentAmountOnSavingGoal() {
         savingGoal.accumulatedMoney += replenishmentAmount
+    }
+    
+    func updateGoalProgress(completion: @escaping (Result<Void, Error>) -> Void) {
+        let updateData = FinancialGoalProgressUpdate(
+            cost: Double(replenishmentAmount),
+            goalId: savingGoal.id
+        )
+
+        let endpoint = UpdateFinancialGoalProgressEndpoint(requestData: updateData)
+
+        networkService.requestWithEmptyResponse(endpoint) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.applyReplenishmentAmountOnSavingGoal()
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

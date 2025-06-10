@@ -19,7 +19,16 @@ final class ReplenishViewController: UIViewController, FlowController {
 
     private lazy var replenishButtonOnTapped = UIAction { [weak self] _ in
         guard let self else { return }
+        viewModel.updateGoalProgress { result in
+            switch result {
+            case .success:
+                print("Успешно отправлено")
+            case .failure(let error):
+                print("Ошибка при обновлении цели: \(error.localizedDescription)")
+            }
+        }
         viewModel.applyReplenishmentAmountOnSavingGoal()
+        
     }
 
     // MARK: Initialization
