@@ -1,4 +1,5 @@
 import Combine
+import UserNotifications
 
 protocol MainViewModelProtocol: AnyObject {
     // MARK: Published Properties
@@ -9,6 +10,8 @@ protocol MainViewModelProtocol: AnyObject {
     var chartItemsPublisher: Published<[CategorySpending]>.Publisher { get }
     var spentIncomePublisher: Published<Int>.Publisher { get }
     var leftIncomePublisher: Published<Int>.Publisher { get }
+    
+    func mockPush(request: UNNotificationRequest)
 }
 
 extension MainViewModel: MainViewModelProtocol {

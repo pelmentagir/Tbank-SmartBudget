@@ -65,7 +65,7 @@ final class CustomHeightPresentationController: UIPresentationController {
     @objc private func handleBackgroundTap() {
         presentedViewController.dismiss(animated: true)
     }
-    
+
     private func setup() {
         setupSubviews()
         setupLayout()

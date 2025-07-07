@@ -1,7 +1,7 @@
 import UIKit
 
 final class CategoryBudgetDataSource: NSObject {
-    
+
     // MARK: Properties
     private var dataSource: UITableViewDiffableDataSource<Int, CategorySpending>?
     private let tableView: UITableView
@@ -12,7 +12,7 @@ final class CategoryBudgetDataSource: NSObject {
         super.init()
         setupDataSource()
     }
-    
+
     // MARK: Public Methods
     func applySnapshot(categories: [CategorySpending], animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CategorySpending>()

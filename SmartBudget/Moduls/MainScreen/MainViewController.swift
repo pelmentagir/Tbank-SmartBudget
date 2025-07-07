@@ -34,9 +34,29 @@ final class MainViewController: UIViewController, FlowController {
         setupBindings()
         completionHandler?(viewModel.leftIncome)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            let mockTitle = "Почти исчерпан лимит"
+            let mockBody = "Вы потратили 50% бюджета на развлечение"
+            let notification = UNMutableNotificationContent()
+            notification.title = mockTitle
+            notification.body = mockBody
+            notification.sound = .defaultRingtone
+
+            let notificationRequest = UNNotificationRequest(
+                identifier: "string",
+                content: notification,
+                trigger: nil
+            )
+
+            self.viewModel.mockPush(request: notificationRequest)
+        }
+    }
 
     // MARK: Private Methods
-
     private func configureCollectionView() {
         categoryCollectionViewDataSource = CategoryBudgetDataSource(tableView: mainView.tableView)
     }

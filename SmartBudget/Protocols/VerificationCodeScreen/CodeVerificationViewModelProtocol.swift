@@ -4,9 +4,11 @@ protocol CodeVerificationViewModelProtocol: AnyObject {
     // MARK: Published Properties
     var timerText: String { get set }
     var email: String { get set }
+    var success: Bool { get set }
 
     var timerTextPublisher: Published<String>.Publisher { get }
     var emailPublisher: Published<String>.Publisher { get }
+    var successPublisher: Published<Bool>.Publisher { get }
 
     // MARK: Methods
     func updateCode(at index: Int, with value: String)
@@ -17,4 +19,5 @@ protocol CodeVerificationViewModelProtocol: AnyObject {
 extension CodeVerificationViewModel: CodeVerificationViewModelProtocol {
     var timerTextPublisher: Published<String>.Publisher { $timerText }
     var emailPublisher: Published<String>.Publisher { $email }
+    var successPublisher: Published<Bool>.Publisher { $success }
 }

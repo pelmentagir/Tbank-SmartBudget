@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 
 protocol ReplenishViewModelProtocol: AnyObject, AmountCollectionViewProtocol {
 
@@ -18,6 +19,7 @@ protocol ReplenishViewModelProtocol: AnyObject, AmountCollectionViewProtocol {
     // MARK: Methods
     func getCurrentReplenishmentAmount() -> String
     func applyReplenishmentAmountOnSavingGoal()
+    func updateGoalProgress(completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 extension ReplenishViewModel: ReplenishViewModelProtocol {

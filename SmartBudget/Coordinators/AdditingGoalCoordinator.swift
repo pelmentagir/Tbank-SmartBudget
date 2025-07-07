@@ -5,14 +5,20 @@ final class AdditingGoalCoordinator: Coordinator {
     // MARK: Properties
     private var savingGoal = SavingGoalRequest()
     private let appContainer: AppContainer
+    private let financialGoalService: FinancialGoalServiceProtocol
     var navigationController: UINavigationController
     var imagePickerCoordinator: ImagePickerCoordinator?
     var flowCompletionHandler: (() -> Void)?
 
     // MARK: Initialization
-    init(navigationController: UINavigationController, appContainer: AppContainer) {
+    init(
+        navigationController: UINavigationController,
+        appContainer: AppContainer,
+        financialGoalService: FinancialGoalServiceProtocol
+    ) {
         self.navigationController = navigationController
         self.appContainer = appContainer
+        self.financialGoalService = financialGoalService
     }
 
     // MARK: Public Methods
@@ -60,8 +66,20 @@ final class AdditingGoalCoordinator: Coordinator {
 
         controller.completionHandler = { [weak self] endDate in
             guard let self else { return }
+
             savingGoal.endDate = endDate
-            flowCompletionHandler?()
+
+            financialGoalService.createGoal(from: savingGoal) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        print("Цель успешно отправлена")
+                        self?.flowCompletionHandler?()
+                    case .failure(let error):
+                        print("Ошибка при отправке цели: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
 
         navigationController.pushViewController(controller, animated: true)

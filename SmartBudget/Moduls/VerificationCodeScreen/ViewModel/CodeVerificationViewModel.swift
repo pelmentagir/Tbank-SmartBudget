@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 private extension Int {
     static let initialTimerSeconds: Int = 59
@@ -13,16 +14,52 @@ final class CodeVerificationViewModel {
 
     // MARK: Published Properties
     @Published var timerText: String = ""
-    @Published var email: String = "example@gmail.com"
+    @Published var email: String
+    @Published var isLoading: Bool = false
+    @Published var error: String?
+    @Published var success = false
 
     // MARK: Private Properties
     private var codeFields: [String] = Array(repeating: "", count: .codeLength)
     private var timer: Timer?
     private var secondRemaining: Int = .initialTimerSeconds
+    private var cancellables = Set<AnyCancellable>()
 
+    init(email: String) {
+        self.email = email
+    }
+    
     // MARK: Public Methods
     func updateCode(at index: Int, with value: String) {
         codeFields[index] = value
+
+        if index == .codeLength - 1 && !value.isEmpty {
+            verifyCode()
+        }
+    }
+
+    func verifyCode() {
+        let code = codeFields.joined()
+        guard code.count == .codeLength else { return }
+
+        isLoading = true
+        error = nil
+
+        let endpoint = CodeVerifyEndpoint(code: code)
+        NetworkService.shared.requestWithEmptyResponse(endpoint) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+
+                switch result {
+                case .success:
+                    print("Verification successful")
+                    self?.success = true
+                case .failure(let error):
+                    print(error)
+                    self?.error = error.localizedDescription
+                }
+            }
+        }
     }
 
     func startTimer() {

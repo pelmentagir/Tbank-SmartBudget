@@ -3,7 +3,7 @@ import UIKit
 final class SearchTableViewDataSource: NSObject {
 
     // MARK: Properties
-    private var dataSource: UITableViewDiffableDataSource<ViewSection, Category>?
+    private var dataSource: UITableViewDiffableDataSource<ViewSection, CategoryItem>?
     private let tableView: UITableView
 
     // MARK: Initialization
@@ -14,8 +14,8 @@ final class SearchTableViewDataSource: NSObject {
     }
 
     // MARK: Public Methods
-    func applySnapshot(categories: [Category], animated: Bool) {
-        var snapshot = NSDiffableDataSourceSnapshot<ViewSection, Category>()
+    func applySnapshot(categories: [CategoryItem], animated: Bool) {
+        var snapshot = NSDiffableDataSourceSnapshot<ViewSection, CategoryItem>()
         snapshot.appendSections([.main])
         snapshot.appendItems(categories)
         dataSource?.apply(snapshot, animatingDifferences: animated)

@@ -6,6 +6,7 @@ final class ProfileEditCell: UITableViewCell, ProfileEditCellProtocol {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: .defaultFontSize)
+        label.textColor = .label
         return label
     }()
 
@@ -14,12 +15,14 @@ final class ProfileEditCell: UITableViewCell, ProfileEditCellProtocol {
         textField.font = .systemFont(ofSize: .defaultFontSize)
         textField.textAlignment = .right
         textField.keyboardType = .default
+        textField.textColor = .secondaryLabel
         return textField
     }()
 
     // MARK: Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .systemBackground
         setupUI()
     }
 

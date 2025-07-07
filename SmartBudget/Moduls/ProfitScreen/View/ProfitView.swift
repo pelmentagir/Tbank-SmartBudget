@@ -6,6 +6,7 @@ private extension String {
     static let defaultProfit = "0"
     static let defaultFinalAmountValue = "0 ₽"
     static let finalAmountLabelText = "Итоговая сумма: "
+    static let dayOfSalaryLabelText = "Укажите день зарплаты"
 }
 
 private extension CGFloat {
@@ -22,6 +23,7 @@ final class ProfitView: UIView, ProfitViewProtocol {
     // MARK: Properties
     private var textFieldFactory: ITextFieldFactory
     private var buttonFactory: IButtonFactory
+    private var salaryDayDelegate: SalaryDayTextFieldDelegate?
 
     // MARK: UI Elements
     private lazy var stepLabel: UILabel = {
@@ -66,7 +68,15 @@ final class ProfitView: UIView, ProfitViewProtocol {
         collectionView.register(AmountCollectionViewCell.self, forCellWithReuseIdentifier: AmountCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
-
+    
+    private lazy var dayOfSalaryLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: .mediumFontSize)
+        label.text = .dayOfSalaryLabelText
+        return label
+    }()
+    
+    
     private lazy var finalAmountLabel: UILabel = {
         let label = UILabel()
         label.text = .finalAmountLabelText
@@ -77,7 +87,7 @@ final class ProfitView: UIView, ProfitViewProtocol {
     private lazy var finalAmountValueLabel: UILabel = {
         let label = UILabel()
         label.text = .defaultFinalAmountValue
-        label.font = .boldSystemFont(ofSize: .normalFontSize)
+        label.font = .boldSystemFont(ofSize: .mediumFontSize)
         return label
     }()
 
@@ -87,6 +97,14 @@ final class ProfitView: UIView, ProfitViewProtocol {
         state: .disabled,
         font: .systemFont(ofSize: .defaultFontSize),
         height: .baseHeight)
+
+    private(set) lazy var salaryDayTextField: TextFieldView = {
+        let textField = textFieldFactory.createTextFieldView(type: .default, placeholder: "Выберите день", rightButton: nil)
+        textField.snp.makeConstraints { make in
+            make.height.equalTo(CGFloat.authScaledHeight)
+        }
+        return textField
+    }()
 
     // MARK: Initialization
     init(textFieldFactory: ITextFieldFactory, buttonFactory: IButtonFactory) {
@@ -126,9 +144,11 @@ final class ProfitView: UIView, ProfitViewProtocol {
         addSubview(titleLabel)
         addSubview(profitTextField)
         addSubview(amountCollectionView)
+        addSubview(dayOfSalaryLabel)
         addSubview(finalAmountLabel)
         addSubview(finalAmountValueLabel)
         addSubview(continueButton)
+        addSubview(salaryDayTextField)
     }
 
     private func setupLayout() {
@@ -155,6 +175,11 @@ final class ProfitView: UIView, ProfitViewProtocol {
             make.height.equalTo(CGFloat.collectionViewHeight)
         }
 
+        dayOfSalaryLabel.snp.makeConstraints { make in
+            make.top.equalTo(amountCollectionView.snp.bottom).offset(CGFloat.titleTopSpacing)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
+        }
+
         finalAmountLabel.snp.makeConstraints { make in
             make.bottom.equalTo(continueButton.snp.top).offset(-CGFloat.amountLabelBottomSpacing)
             make.leading.equalToSuperview().offset(CGFloat.amountLabelBottomSpacing)
@@ -169,6 +194,12 @@ final class ProfitView: UIView, ProfitViewProtocol {
         continueButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(CGFloat.authScaledBottomInset)
             make.leading.trailing.equalToSuperview().inset(CGFloat.largePadding)
+        }
+
+        salaryDayTextField.snp.makeConstraints { make in
+            make.top.equalTo(dayOfSalaryLabel.snp.bottom).offset(CGFloat.titleTopSpacing)
+            make.leading.equalToSuperview().offset(CGFloat.largePadding)
+            make.trailing.equalToSuperview().offset(-CGFloat.largePadding)
         }
     }
 }

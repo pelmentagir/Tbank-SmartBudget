@@ -1,17 +1,66 @@
 import Foundation
+import UIKit
 
 final class SavingViewModel {
 
     // MARK: Published Properties
     @Published var savingGoals: [SavingGoal] = [
-        .init(id: 1, title: "Смартфон", image: nil, totalCost: 100000, accumulatedMoney: 56000, startDate: Date(), endDate: Date()),
-        .init(id: 2, title: "Смартфон", image: nil, totalCost: 100000, accumulatedMoney: 30000, startDate: Date(), endDate: Date())
+
     ]
+
+    private var networkService: NetworkService = .shared
+
+    init() {
+        fetchSavingGoals()
+    }
 
     // MARK: Public Methods
     func replenishCartainSavingGoal(_ savingGoal: SavingGoal) {
         if let index = savingGoals.firstIndex(where: {$0.id == savingGoal.id}) {
             savingGoals[index] = savingGoal
+        }
+    }
+
+    func fetchSavingGoals() {
+        let endpoint = GetFinancialGoalsEndpoint()
+        networkService.request(endpoint, responseType: FinancialGoalsResponse.self) { [weak self] result in
+            switch result {
+            case .success(let response):
+                let dispatchGroup = DispatchGroup()
+                var loadedGoals: [SavingGoal] = []
+                let syncQueue = DispatchQueue(label: "savingGoals.sync.queue") // Для безопасной записи
+                
+                for goal in response.savingGoals {
+                    dispatchGroup.enter()
+                    
+                    ImageService.downloadImage(from: goal.imageUrl) { image in
+                        
+                        let finalImage = image
+               
+                        let savingGoal = SavingGoal(
+                            id: goal.id,
+                            title: goal.name,
+                            image: finalImage,
+                            totalCost: goal.amount,
+                            accumulatedMoney: goal.progress,
+                            startDate: goal.startDate.date,
+                            endDate: goal.endDate.date
+                        )
+                        
+                        syncQueue.async {
+                            loadedGoals.append(savingGoal)
+                            dispatchGroup.leave()
+                        }
+                    }
+                }
+                
+                dispatchGroup.notify(queue: .main) {
+                    self?.savingGoals = loadedGoals
+                }
+                
+            case .failure(let error):
+                print("Ошибка при загрузке целей: \(error)")
+            }
         }
     }
 

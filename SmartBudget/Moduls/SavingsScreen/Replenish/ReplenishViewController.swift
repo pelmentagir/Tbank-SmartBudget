@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class ReplenishViewController: UIViewController, FlowController, ReplenishViewControllerProtocol {
+final class ReplenishViewController: UIViewController, FlowController {
 
     private var replenishView: ReplenishView {
         self.view as! ReplenishView
@@ -19,7 +19,16 @@ final class ReplenishViewController: UIViewController, FlowController, Replenish
 
     private lazy var replenishButtonOnTapped = UIAction { [weak self] _ in
         guard let self else { return }
+        viewModel.updateGoalProgress { result in
+            switch result {
+            case .success:
+                print("Успешно отправлено")
+            case .failure(let error):
+                print("Ошибка при обновлении цели: \(error.localizedDescription)")
+            }
+        }
         viewModel.applyReplenishmentAmountOnSavingGoal()
+        
     }
 
     // MARK: Initialization
@@ -46,7 +55,7 @@ final class ReplenishViewController: UIViewController, FlowController, Replenish
         setupBindings()
         setupAction()
     }
-
+    
     // MARK: Public Methods
     func configurePresentation() {
         modalPresentationStyle = .custom

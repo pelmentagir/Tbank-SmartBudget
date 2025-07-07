@@ -76,7 +76,13 @@ final class BudgetPlanningViewController: UIViewController, FlowController {
         searchBarDelegate?.viewModel = viewModel
         searchController.searchBar.delegate = searchBarDelegate
         navigationItem.searchController = searchController
-        searchResultsViewController.onCategorySelected = { [weak self] category in
+        searchResultsViewController.onCategorySelected = { [weak self] categoryItem in
+            let category = Category(id: categoryItem.categoryId,
+                                    icon: UIImage.getIconByCategory(
+                                    categoryName: categoryItem.categoryName),
+                                    name: categoryItem.categoryName,
+                                    discription: "",
+                                    backgroundColor: UIColor.getBackgroundColorByCategory(categoryName: categoryItem.categoryName))
             self?.viewModel.setCategory(category)
         }
     }

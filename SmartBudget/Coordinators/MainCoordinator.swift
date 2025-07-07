@@ -17,7 +17,7 @@ class MainCoordinator: NSObject, Coordinator {
     // MARK: Actions
     private lazy var showAddingCoordinator = UIAction { [weak self] _ in
         guard let self else { return }
-        let coordinator = AdditingGoalCoordinator(navigationController: navigationController, appContainer: appContainer)
+        let coordinator = AdditingGoalCoordinator(navigationController: navigationController, appContainer: appContainer, financialGoalService: FinancialGoalService(networkService: .shared))
         coordinator.imagePickerCoordinator = ImagePickerCoordinator(navigationController: navigationController, appContainer: appContainer, type: .photo)
         coordinator.start()
         coordinator.flowCompletionHandler = { [weak self] in
@@ -64,8 +64,8 @@ class MainCoordinator: NSObject, Coordinator {
 
                guard let self else { return }
                let rangeController = appContainer.resolveController(RangeDatePickerViewController.self)
-               rangeController.completionHandler = { _ in
-
+               rangeController.completionHandler = { spendingRequest in
+                   operationController.requestNewRangeDate(request: spendingRequest)
                }
                rangeController.configurePresentation()
                rangeController.transitioningDelegate = operationController

@@ -88,7 +88,7 @@ final class IncomeDistributionView: UIView, IncomeDistributionViewProtocol{
     }
 
     func toogleStateDistribution(_ state: Bool) {
-        print(state)
+     
         tableView.isHidden = state
         let icon = state ? AppIcon.squareFill.image : AppIcon.checkmarkSquareFill.image
         let config = UIImage.SymbolConfiguration(pointSize: .pointSizeIconButton, weight: .medium)
