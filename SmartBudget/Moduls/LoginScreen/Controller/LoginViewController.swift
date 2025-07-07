@@ -105,4 +105,9 @@ final class LoginViewController: UIViewController, FlowController {
         loginView.loginButton.addAction(loginButtonTapped, for: .touchUpInside)
         loginView.registrationButton.addAction(registrationButtonTapped, for: .touchUpInside)
     }
+
+    private func handleLogin() {
+        guard let login = loginView.loginTextField.textField.text, let password = loginView.passwordTextField.textField.text else { return }
+        viewModel.authenticateUser(login: login, password: password)
+    }
 }
